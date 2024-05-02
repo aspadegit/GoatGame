@@ -1,0 +1,6 @@
+[gd_resource type="FontVariation" load_steps=2 format=3 uid="uid://duxmoidk742yj"]
+
+[ext_resource type="FontFile" uid="uid://b40px0i27n7ll" path="res://Assets/Fonts/NicoClean-Regular.ttf" id="1_hseys"]
+
+[resource]
+base_font = ExtResource("1_hseys")

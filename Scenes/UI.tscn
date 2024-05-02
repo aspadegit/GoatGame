@@ -1,0 +1,60 @@
+[gd_scene load_steps=4 format=3 uid="uid://hfsc17wxuyoa"]
+
+[ext_resource type="Script" path="res://Assets/Scripts/TextBox.cs" id="1_a6qce"]
+[ext_resource type="Theme" uid="uid://cvjlrwyqj6u1w" path="res://Assets/PanelTheme.tres" id="1_g5nia"]
+[ext_resource type="FontFile" uid="uid://b40px0i27n7ll" path="res://Assets/Fonts/NicoClean-Regular.ttf" id="3_410cq"]
+
+[node name="UI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="TextBox" type="MarginContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -182.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_left = 75
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 75
+theme_override_constants/margin_bottom = 25
+script = ExtResource("1_a6qce")
+
+[node name="Panel" type="Panel" parent="TextBox"]
+layout_mode = 2
+theme = ExtResource("1_g5nia")
+
+[node name="TextBoxForText" type="MarginContainer" parent="TextBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="Panel" type="Panel" parent="TextBox/TextBoxForText"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+
+[node name="Text" type="Label" parent="TextBox/TextBoxForText/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_410cq")
+theme_override_font_sizes/font_size = 24
+text = "Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World Hello World "
+autowrap_mode = 3
+justification_flags = 131
+clip_text = true

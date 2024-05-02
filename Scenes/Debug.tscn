@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://b53c8cu27kawi"]
+
+[ext_resource type="PackedScene" uid="uid://brdp0nqi6pf4v" path="res://Scenes/Entities/player.tscn" id="1_a6xr6"]
+[ext_resource type="PackedScene" uid="uid://dy3p45kla1ji2" path="res://Scenes/Entities/Npc.tscn" id="2_6lhj0"]
+
+[node name="Debug" type="Node2D"]
+
+[node name="NPC" parent="." instance=ExtResource("2_6lhj0")]
+position = Vector2(538, 139)
+
+[node name="Player" parent="." instance=ExtResource("1_a6xr6")]
+position = Vector2(208, 83)

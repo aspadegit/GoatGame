@@ -1,0 +1,6 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://drw4sbap8erve"]
+
+[ext_resource type="Shader" path="res://Assets/Shaders/pixel_shader.gdshader" id="1_p34me"]
+
+[resource]
+shader = ExtResource("1_p34me")

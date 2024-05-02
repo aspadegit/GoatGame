@@ -1,0 +1,46 @@
+[gd_scene load_steps=8 format=3 uid="uid://dy3p45kla1ji2"]
+
+[ext_resource type="Script" path="res://Assets/Scripts/Npc.cs" id="1_48wfc"]
+[ext_resource type="Texture2D" uid="uid://bmva6mfxl6y4i" path="res://Assets/temp1.png" id="2_dxkxa"]
+[ext_resource type="Material" uid="uid://drw4sbap8erve" path="res://Assets/Shaders/pixel_shader.tres" id="2_v3vap"]
+[ext_resource type="Texture2D" uid="uid://daw53y2puensl" path="res://Assets/temp2.png" id="3_erfcd"]
+[ext_resource type="Texture2D" uid="uid://bdca4in6lrf8t" path="res://Assets/temp4.png" id="4_5fxhm"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4drxh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_dxkxa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_erfcd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_5fxhm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_erfcd")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_l5l6e"]
+radius = 8.0
+height = 20.0
+
+[node name="NPC" type="Area2D" node_paths=PackedStringArray("ThisCollider")]
+scale = Vector2(2, 2)
+script = ExtResource("1_48wfc")
+ThisCollider = NodePath(".")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 2
+material = ExtResource("2_v3vap")
+sprite_frames = SubResource("SpriteFrames_4drxh")
+animation = &"walk"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_l5l6e")
