@@ -1,0 +1,150 @@
+[gd_scene load_steps=2 format=3 uid="uid://dt63vw62ebwc6"]
+
+[ext_resource type="FontFile" uid="uid://b40px0i27n7ll" path="res://Assets/Fonts/NicoClean-Regular.ttf" id="1_adfpp"]
+
+[node name="GoatSelectMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MainContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 50
+
+[node name="MainVBoxContainer" type="VBoxContainer" parent="MainContainer"]
+layout_mode = 2
+
+[node name="TopMenu" type="HBoxContainer" parent="MainContainer/MainVBoxContainer"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+
+[node name="Cancel" type="Panel" parent="MainContainer/MainVBoxContainer/TopMenu"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+
+[node name="CancelButton" type="TextureButton" parent="MainContainer/MainVBoxContainer/TopMenu/Cancel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MenuTitle" type="Panel" parent="MainContainer/MainVBoxContainer/TopMenu"]
+custom_minimum_size = Vector2(800, 0)
+layout_mode = 2
+
+[node name="MenuTitleMargin" type="MarginContainer" parent="MainContainer/MainVBoxContainer/TopMenu/MenuTitle"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_bottom = 10
+
+[node name="MenuTitleLabel" type="Label" parent="MainContainer/MainVBoxContainer/TopMenu/MenuTitle/MenuTitleMargin"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("1_adfpp")
+theme_override_font_sizes/font_size = 40
+text = "ASSIGN GOATS"
+
+[node name="TimeIndicator" type="Panel" parent="MainContainer/MainVBoxContainer/TopMenu"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+
+[node name="GoatListMargin" type="MarginContainer" parent="MainContainer/MainVBoxContainer"]
+custom_minimum_size = Vector2(500, 500)
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="GoatListContainer" type="VBoxContainer" parent="MainContainer/MainVBoxContainer/GoatListMargin"]
+layout_mode = 2
+
+[node name="TempPanel" type="Panel" parent="MainContainer/MainVBoxContainer/GoatListMargin"]
+visible = false
+layout_mode = 2
+
+[node name="PageButtonMargin" type="MarginContainer" parent="MainContainer/MainVBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="PageButtonHbox" type="HBoxContainer" parent="MainContainer/MainVBoxContainer/PageButtonMargin"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="BackButtonMargin" type="MarginContainer" parent="MainContainer/MainVBoxContainer/PageButtonMargin/PageButtonHbox"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 30
+
+[node name="BackButton" type="TextureButton" parent="MainContainer/MainVBoxContainer/PageButtonMargin/PageButtonHbox/BackButtonMargin"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="MainContainer/MainVBoxContainer/PageButtonMargin/PageButtonHbox/BackButtonMargin/BackButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ForwardButtonMargin" type="MarginContainer" parent="MainContainer/MainVBoxContainer/PageButtonMargin/PageButtonHbox"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_right = 10
+
+[node name="ForwardButton" type="TextureButton" parent="MainContainer/MainVBoxContainer/PageButtonMargin/PageButtonHbox/ForwardButtonMargin"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="MainContainer/MainVBoxContainer/PageButtonMargin/PageButtonHbox/ForwardButtonMargin/ForwardButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DaysRemainingMargin" type="MarginContainer" parent="MainContainer/MainVBoxContainer"]
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 15
+
+[node name="Panel" type="Panel" parent="MainContainer/MainVBoxContainer/DaysRemainingMargin"]
+layout_mode = 2
+
+[node name="DaysRemainingLabel" type="Label" parent="MainContainer/MainVBoxContainer/DaysRemainingMargin"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("1_adfpp")
+theme_override_font_sizes/font_size = 32
+text = "DAYS REMAINING: X"
+
+[node name="Panel" type="Panel" parent="MainContainer"]
+layout_mode = 2
