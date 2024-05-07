@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using Dictionary = Godot.Collections.Dictionary;
 
 public partial class TextBox : MarginContainer
 {
@@ -12,8 +13,9 @@ public partial class TextBox : MarginContainer
 	Control parent;
 	int keyPress = 0;
 	int pagePosition = 0;
-	int pageTotal = 3;
-	string[] tempText = {"text part 2", "text part 3"};	//TODO: delete me
+	int pageTotal = 1;
+	string[] text;
+	bool canProgress = true;
 
 	public override void _Ready()
 	{
@@ -34,7 +36,7 @@ public partial class TextBox : MarginContainer
 		}
 
 		//avoiding race condition of getting the click to open & close at the same time... (sets keyPress to 2, forcing ProgressText() to wait 1 loop cycle...)
-		if(IsVisibleInTree() && Input.IsActionJustPressed("left_click") || Input.IsActionJustPressed("interact"))
+		if(canProgress && IsVisibleInTree() && (Input.IsActionJustPressed("left_click") || Input.IsActionJustPressed("interact")))
 			keyPress++;
 
 		//avoiding race conditions where showing with LMB and hiding with interact would increment keypress when hidden
@@ -44,7 +46,7 @@ public partial class TextBox : MarginContainer
 
 	private void ProgressText()
 	{
-		if (Input.IsActionJustPressed("left_click") || Input.IsActionJustPressed("interact"))
+		if (canProgress && (Input.IsActionJustPressed("left_click") || Input.IsActionJustPressed("interact")))
 		{
 			//show next line of text, or close
 			pagePosition++;
@@ -65,20 +67,56 @@ public partial class TextBox : MarginContainer
 
 	private void NextPage()
 	{
-		//TODO: THE PAGEPOSITION INDEX HERE IS TEMPORARY!!!
-		textLabel.Text = tempText[pagePosition-1];
+		if(text[pagePosition] == "<choice>")
+		{
+			//EMIT YES NO
+			SignalHandler.Instance.EmitSignal(SignalHandler.SignalName.ShowYesNo);
+			canProgress = false;
+		}
+		else
+		{
+			textLabel.Text = text[pagePosition];
+		}
 	}
 
-	private void OnTextboxShow(string text)
+	private void OnTextboxShow(string dialoguePath)
 	{
 		//only show if it's not already shown
 		if(!IsVisibleInTree())
 		{
-			textLabel.Text = text;
+			loadDialogue(dialoguePath);
 			parent.MouseFilter = MouseFilterEnum.Stop;	//prevent clicks anywhere else
 			Show();
 			keyPress++;
+			canProgress = true;
 		}
+	}
+
+	private void loadDialogue(string dialoguePath)
+	{
+		//TODO: ERROR HANDLING
+
+		//end of dialogue path set in inspector
+		FileAccess file = FileAccess.Open("res://Assets/Dialogue/" + dialoguePath, FileAccess.ModeFlags.Read);
+
+		string fileText = file.GetAsText();
+		file.Close();
+
+		Json jsonFile = new Json();
+		jsonFile.Parse(fileText);
+		Dictionary jsonDictionary = (Dictionary)jsonFile.Data;
+
+		parseDialogue(jsonDictionary);
+		textLabel.Text = text[0];
+
+
+	}
+	private void parseDialogue(Dictionary dialogue)
+	{
+		string name = (string)dialogue["Name"];
+		text = (string[]) dialogue["Text"];
+		pageTotal = text.Length;
+		
 	}
 
 }

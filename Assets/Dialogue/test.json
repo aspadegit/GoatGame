@@ -1,0 +1,10 @@
+{
+    "Name": "Helpful NPC",
+    "Text": ["Hello there! I'm Helpful NPC!",
+            "Would you like to open the Goat Menu?",
+            "<choice>"
+    ],
+    "SignalName": "ShowYesNo",
+    "SignalParam": ["<emit>ShowGoatMenu</emit>", "Alright, then."]
+
+}

@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://hfsc17wxuyoa"]
+[gd_scene load_steps=5 format=3 uid="uid://hfsc17wxuyoa"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/TextBox.cs" id="1_a6qce"]
 [ext_resource type="Theme" uid="uid://cvjlrwyqj6u1w" path="res://Assets/PanelTheme.tres" id="1_g5nia"]
 [ext_resource type="FontFile" uid="uid://b40px0i27n7ll" path="res://Assets/Fonts/NicoClean-Regular.ttf" id="3_410cq"]
+[ext_resource type="Script" path="res://Assets/Scripts/YesNoButton.cs" id="4_yemnx"]
 
 [node name="UI" type="Control"]
 layout_mode = 3
@@ -59,17 +60,53 @@ autowrap_mode = 3
 justification_flags = 131
 clip_text = true
 
-[node name="Panel" type="Panel" parent="."]
+[node name="ButtonMargin" type="MarginContainer" parent="."]
 visible = false
 layout_mode = 1
-offset_right = 144.0
-offset_bottom = 38.0
-
-[node name="Label" type="Label" parent="Panel"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -637.0
+offset_top = -352.0
+offset_right = 639.0
+offset_bottom = 352.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "Goats: "
+theme_override_constants/margin_left = 400
+theme_override_constants/margin_top = 200
+theme_override_constants/margin_right = 400
+theme_override_constants/margin_bottom = 200
+script = ExtResource("4_yemnx")
+
+[node name="ButtonVBox" type="VBoxContainer" parent="ButtonMargin"]
+layout_mode = 2
+
+[node name="YesButtonMargin" type="MarginContainer" parent="ButtonMargin/ButtonVBox"]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 20
+
+[node name="Panel" type="Panel" parent="ButtonMargin/ButtonVBox/YesButtonMargin"]
+layout_mode = 2
+
+[node name="YesButton" type="TextureButton" parent="ButtonMargin/ButtonVBox/YesButtonMargin"]
+layout_mode = 2
+
+[node name="NoButtonMargin" type="MarginContainer" parent="ButtonMargin/ButtonVBox"]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 20
+
+[node name="Panel" type="Panel" parent="ButtonMargin/ButtonVBox/NoButtonMargin"]
+layout_mode = 2
+
+[node name="NoButton" type="TextureButton" parent="ButtonMargin/ButtonVBox/NoButtonMargin"]
+layout_mode = 2

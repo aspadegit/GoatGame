@@ -1,11 +1,16 @@
 using Godot;
 using System;
 
+
 public partial class Npc : Area2D
 {
 
 	[Export] 
 	CollisionObject2D ThisCollider;
+
+	[Export]
+	public string dialoguePath {get; set;} = "";
+
 	public override void _Ready() {
 
 		ThisCollider.InputEvent += Clicked;
@@ -17,14 +22,13 @@ public partial class Npc : Area2D
 
 			EmitInteract();
 			
-
 		}
 
 	}
 
 	public void EmitInteract()
 	{
-		SignalHandler.Instance.EmitSignal(SignalHandler.SignalName.ShowTextbox, "testing new text");
+		SignalHandler.Instance.EmitSignal(SignalHandler.SignalName.ShowTextbox, dialoguePath);
 
 	}
 
@@ -32,6 +36,7 @@ public partial class Npc : Area2D
 	public override void _Process(double delta)
 	{
 	}
+
 
 
 }
