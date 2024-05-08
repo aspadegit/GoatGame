@@ -11,6 +11,8 @@ public partial class TextBox : MarginContainer
 	// Called when the node enters the scene tree for the first time.
 	Label textLabel;
 	Control parent;
+	Dictionary jsonDictionary;
+	string jsonStartingPath = "res://Assets/Dialogue/";
 	int keyPress = 0;
 	int pagePosition = 0;
 	int pageTotal = 1;
@@ -20,6 +22,8 @@ public partial class TextBox : MarginContainer
 	public override void _Ready()
 	{
 		SignalHandler.Instance.Connect(SignalHandler.SignalName.ShowTextbox, Callable.From((string text)=> OnTextboxShow(text)), (uint)ConnectFlags.Deferred);
+		SignalHandler.Instance.Connect(SignalHandler.SignalName.ContinueTextbox, Callable.From((string[] text)=> OnTextboxContinue(text)), (uint)ConnectFlags.Deferred);
+		
 		textLabel = GetNode<Label>("TextBoxForText/Panel/Text");
 		parent = GetParent<Control>();
 		
@@ -59,6 +63,7 @@ public partial class TextBox : MarginContainer
 
 	private void HideAndReset()
 	{
+		//TODO: emit allow player mvmt
 		parent.MouseFilter = MouseFilterEnum.Pass;	//allow clicks anywhere else
 		Hide();
 		keyPress = 0;
@@ -67,10 +72,11 @@ public partial class TextBox : MarginContainer
 
 	private void NextPage()
 	{
+		//TODO: may change this if more types of choices are available...
 		if(text[pagePosition] == "<choice>")
 		{
 			//EMIT YES NO
-			SignalHandler.Instance.EmitSignal(SignalHandler.SignalName.ShowYesNo);
+			SignalHandler.Instance.EmitSignal(SignalHandler.SignalName.ShowYesNo, jsonDictionary["SignalParam"]);
 			canProgress = false;
 		}
 		else
@@ -79,44 +85,88 @@ public partial class TextBox : MarginContainer
 		}
 	}
 
-	private void OnTextboxShow(string dialoguePath)
+	//sets up the textbox. returns success
+	private bool OnTextboxShow(string dialoguePath)
 	{
+		if(dialoguePath == null || dialoguePath.Length < 1)
+		{
+			HideAndReset();
+			return false;
+		}
 		//only show if it's not already shown
 		if(!IsVisibleInTree())
 		{
+			//TODO: emit pause player
 			loadDialogue(dialoguePath);
 			parent.MouseFilter = MouseFilterEnum.Stop;	//prevent clicks anywhere else
 			Show();
 			keyPress++;
 			canProgress = true;
+			return true;
 		}
+
+		return false;
+	}
+
+	private bool OnTextboxContinue(string[] newText)
+	{
+		if(newText == null || newText.Length < 1)
+		{
+			GD.PrintErr("Emitted text via ContinueTextbox that was was empty or null!");
+			HideAndReset();
+			return false;
+		}
+		text = newText;
+		canProgress = true;
+		ResetPageVars();
+		return true;
 	}
 
 	private void loadDialogue(string dialoguePath)
 	{
-		//TODO: ERROR HANDLING
+		if(dialoguePath == null || dialoguePath.Length < 1)
+			HideAndReset();
 
 		//end of dialogue path set in inspector
-		FileAccess file = FileAccess.Open("res://Assets/Dialogue/" + dialoguePath, FileAccess.ModeFlags.Read);
-
+		//reads in the file
+		FileAccess file = FileAccess.Open(jsonStartingPath + dialoguePath, FileAccess.ModeFlags.Read);
 		string fileText = file.GetAsText();
 		file.Close();
 
+		//converts the file to json, then to a dictionary
 		Json jsonFile = new Json();
-		jsonFile.Parse(fileText);
-		Dictionary jsonDictionary = (Dictionary)jsonFile.Data;
+		Error errorResult = jsonFile.Parse(fileText);
 
-		parseDialogue(jsonDictionary);
-		textLabel.Text = text[0];
+		if(errorResult == Error.Ok)
+		{
+			jsonDictionary = (Dictionary)jsonFile.Data;
 
+			//examine the json
+			parseDialogue();
+		}
+		else
+		{
+			GD.PrintErr("Unable to parse JSON file at " + jsonStartingPath + dialoguePath);
+			HideAndReset();
+		}
 
 	}
-	private void parseDialogue(Dictionary dialogue)
+
+
+	//get values from the json
+	private void parseDialogue()
 	{
-		string name = (string)dialogue["Name"];
-		text = (string[]) dialogue["Text"];
+		string name = (string)jsonDictionary["Name"];
+		text = (string[]) jsonDictionary["Text"];
+
+		ResetPageVars();		
+	}
+
+	private void ResetPageVars()
+	{
+		pagePosition = 0;
 		pageTotal = text.Length;
-		
+		textLabel.Text = text[0];
 	}
 
 }
