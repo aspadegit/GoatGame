@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://hfsc17wxuyoa"]
 
-[ext_resource type="Script" path="res://Assets/Scripts/TextBox.cs" id="1_a6qce"]
+[ext_resource type="Script" path="res://Assets/Scripts/UI/TextBox.cs" id="1_a6qce"]
 [ext_resource type="Theme" uid="uid://cvjlrwyqj6u1w" path="res://Assets/PanelTheme.tres" id="1_g5nia"]
 [ext_resource type="FontFile" uid="uid://b40px0i27n7ll" path="res://Assets/Fonts/NicoClean-Regular.ttf" id="3_410cq"]
-[ext_resource type="Script" path="res://Assets/Scripts/YesNoButton.cs" id="4_yemnx"]
+[ext_resource type="Script" path="res://Assets/Scripts/UI/YesNoButton.cs" id="4_yemnx"]
 
 [node name="UI" type="Control"]
 layout_mode = 3
