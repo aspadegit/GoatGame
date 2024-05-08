@@ -6,9 +6,11 @@
 
 [node name="root" type="Node"]
 
-[node name="UI" parent="." instance=ExtResource("1_xrs2k")]
-
-[node name="GoatSelectMenu" parent="." instance=ExtResource("2_ru6af")]
-visible = false
-
 [node name="Debug" parent="." instance=ExtResource("2_x716l")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="UI" parent="CanvasLayer" instance=ExtResource("1_xrs2k")]
+
+[node name="GoatSelectMenu" parent="CanvasLayer" instance=ExtResource("2_ru6af")]
+visible = false

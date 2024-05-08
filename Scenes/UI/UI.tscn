@@ -1,9 +1,79 @@
-[gd_scene load_steps=5 format=3 uid="uid://hfsc17wxuyoa"]
+[gd_scene load_steps=12 format=3 uid="uid://hfsc17wxuyoa"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/UI/TextBox.cs" id="1_a6qce"]
-[ext_resource type="Theme" uid="uid://cvjlrwyqj6u1w" path="res://Assets/PanelTheme.tres" id="1_g5nia"]
+[ext_resource type="Theme" uid="uid://cvjlrwyqj6u1w" path="res://Assets/Themes/PanelTheme.tres" id="2_x4mp0"]
 [ext_resource type="FontFile" uid="uid://b40px0i27n7ll" path="res://Assets/Fonts/NicoClean-Regular.ttf" id="3_410cq"]
 [ext_resource type="Script" path="res://Assets/Scripts/UI/YesNoButton.cs" id="4_yemnx"]
+[ext_resource type="Texture2D" uid="uid://dpmsr41t5737i" path="res://Assets/Sprites/UIpackSheet_transparent.png" id="5_a2aqn"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o52ok"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.1, 0.1, 0.1, 0.3)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5jxyx"]
+texture = ExtResource("5_a2aqn")
+region_rect = Rect2(18, 144, 16, 16)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_famxn"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.225, 0.225, 0.225, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0ph1a"]
+texture = ExtResource("5_a2aqn")
+region_rect = Rect2(18, 198, 16, 16)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_awaex"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0, 0, 0.6)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="Theme" id="Theme_u6qbs"]
+Button/colors/font_color = Color(0, 0, 0, 1)
+Button/colors/font_disabled_color = Color(0.875, 0.875, 0.875, 0.5)
+Button/colors/font_focus_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_color = Color(0.95, 0.95, 0.95, 1)
+Button/colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+Button/colors/font_outline_color = Color(1, 1, 1, 1)
+Button/colors/font_pressed_color = Color(1, 1, 1, 1)
+Button/colors/icon_disabled_color = Color(1, 1, 1, 0.4)
+Button/colors/icon_focus_color = Color(1, 1, 1, 1)
+Button/colors/icon_hover_color = Color(1, 1, 1, 1)
+Button/colors/icon_hover_pressed_color = Color(1, 1, 1, 1)
+Button/colors/icon_normal_color = Color(1, 1, 1, 1)
+Button/colors/icon_pressed_color = Color(1, 1, 1, 1)
+Button/constants/h_separation = 4
+Button/constants/icon_max_width = 0
+Button/constants/outline_size = 0
+Button/font_sizes/font_size = 27
+Button/fonts/font = ExtResource("3_410cq")
+Button/styles/disabled = SubResource("StyleBoxFlat_o52ok")
+Button/styles/focus = SubResource("StyleBoxTexture_5jxyx")
+Button/styles/hover = SubResource("StyleBoxFlat_famxn")
+Button/styles/normal = SubResource("StyleBoxTexture_0ph1a")
+Button/styles/pressed = SubResource("StyleBoxFlat_awaex")
 
 [node name="UI" type="Control"]
 layout_mode = 3
@@ -32,7 +102,7 @@ script = ExtResource("1_a6qce")
 
 [node name="Panel" type="Panel" parent="TextBox"]
 layout_mode = 2
-theme = ExtResource("1_g5nia")
+theme = ExtResource("2_x4mp0")
 
 [node name="TextBoxForText" type="MarginContainer" parent="TextBox"]
 layout_mode = 2
@@ -94,8 +164,10 @@ theme_override_constants/margin_bottom = 20
 [node name="Panel" type="Panel" parent="ButtonMargin/ButtonVBox/YesButtonMargin"]
 layout_mode = 2
 
-[node name="YesButton" type="TextureButton" parent="ButtonMargin/ButtonVBox/YesButtonMargin"]
+[node name="YesButton" type="Button" parent="ButtonMargin/ButtonVBox/YesButtonMargin"]
 layout_mode = 2
+theme = SubResource("Theme_u6qbs")
+text = "Yes"
 
 [node name="NoButtonMargin" type="MarginContainer" parent="ButtonMargin/ButtonVBox"]
 custom_minimum_size = Vector2(0, 150)
@@ -108,5 +180,7 @@ theme_override_constants/margin_bottom = 20
 [node name="Panel" type="Panel" parent="ButtonMargin/ButtonVBox/NoButtonMargin"]
 layout_mode = 2
 
-[node name="NoButton" type="TextureButton" parent="ButtonMargin/ButtonVBox/NoButtonMargin"]
+[node name="NoButton" type="Button" parent="ButtonMargin/ButtonVBox/NoButtonMargin"]
 layout_mode = 2
+theme = SubResource("Theme_u6qbs")
+text = "No"

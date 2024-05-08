@@ -9,14 +9,14 @@ public partial class YesNoButton : MarginContainer
 		//indicate it somehow, otherwise its just a string for a final thing to do
 
 	// Called when the node enters the scene tree for the first time.
-	TextureButton yesButton;
-	TextureButton noButton;
+	Button yesButton;
+	Button noButton;
 	string[] param;
 	public override void _Ready()
 	{
 		SignalHandler.Instance.Connect(SignalHandler.SignalName.ShowYesNo, Callable.From((string[] sentParam)=> OnYesNoShow(sentParam)), (uint)ConnectFlags.Deferred);
-		yesButton = GetNode<TextureButton>("ButtonVBox/YesButtonMargin/YesButton");
-		noButton = GetNode<TextureButton>("ButtonVBox/NoButtonMargin/NoButton");
+		yesButton = GetNode<Button>("ButtonVBox/YesButtonMargin/YesButton");
+		noButton = GetNode<Button>("ButtonVBox/NoButtonMargin/NoButton");
 
 		yesButton.Pressed += yesButtonPressed;
 		noButton.Pressed += noButtonPressed;
