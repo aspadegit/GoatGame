@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public partial class GlobalVars : Node
 {
 	//TODO: thoughts: json stores the goat ideas, THIS stores which ones you have
-	List<Goat> goats;
+	public static List<Goat> goats;
 	public override void _Ready()
 	{
 		goats = new List<Goat>();
