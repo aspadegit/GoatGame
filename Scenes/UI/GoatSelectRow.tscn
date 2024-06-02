@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://cerkm83bthnsv"]
+[gd_scene load_steps=6 format=3 uid="uid://cerkm83bthnsv"]
 
 [ext_resource type="FontFile" uid="uid://b40px0i27n7ll" path="res://Assets/Fonts/NicoClean-Regular.ttf" id="1_5kctf"]
+[ext_resource type="Script" path="res://Assets/Scripts/UI/GoatSelectRow.cs" id="1_xv1qw"]
 [ext_resource type="Texture2D" uid="uid://dpmsr41t5737i" path="res://Assets/Sprites/UIpackSheet_transparent.png" id="2_bdrl1"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_b6dk4"]
@@ -18,6 +19,7 @@ anchor_right = 1.0
 grow_horizontal = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+script = ExtResource("1_xv1qw")
 
 [node name="GoatSelectMargin" type="MarginContainer" parent="."]
 custom_minimum_size = Vector2(0, 100)
