@@ -12,8 +12,8 @@ public partial class GoatSelectMenu : Control
 	public override void _Ready()
 	{
 		SignalHandler.Instance.Connect(SignalHandler.SignalName.ShowGoatMenu, Callable.From(()=> OnShowGoatMenu()), (uint)ConnectFlags.Deferred);
-		cancelButton = GetNode<Button>("MainContainer/MainVBoxContainer/TopMenu/CancelButton");
-		goatListContainer = GetNode<VBoxContainer>("MainContainer/MainVBoxContainer/GoatListMargin/GoatListContainer");
+		cancelButton = GetNode<Button>("MainContainer/MainVBoxContainer/ButtonHBox/CancelButton");
+		goatListContainer = GetNode<VBoxContainer>("MainContainer/MainVBoxContainer/MainHBox/GoatListMargin/GoatListContainer");
 		cancelButton.Pressed += HideAndReset;
 
 	}
@@ -46,6 +46,7 @@ public partial class GoatSelectMenu : Control
 		foreach(Goat goat in GlobalVars.goats)
 		{
 			Node row = goatSelectRow.Instantiate();
+			row.Name = goat.Name;
 			SetRowInformation(goat, row);
 			goatListContainer.AddChild(row);
 		}

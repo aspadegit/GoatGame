@@ -10,6 +10,7 @@ public partial class GlobalVars : Node
 	{
 		goats = new List<Goat>();
 		goats.Add(new Goat("Chell", "Test Class", 100, 1, 0));
+		goats.Add(new Goat("Wheat", "Test Class", 100, 1, 0));
 		GD.Print(goats[0].Name);
 	}
 

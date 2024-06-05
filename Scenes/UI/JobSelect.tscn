@@ -25,6 +25,7 @@ theme_override_constants/margin_bottom = 20
 
 [node name="Panel" type="Panel" parent="MarginContainer"]
 layout_mode = 2
+theme = ExtResource("1_5aj21")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2

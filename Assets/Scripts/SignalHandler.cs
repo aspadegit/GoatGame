@@ -20,6 +20,7 @@ public partial class SignalHandler : Node
 	//shows the goat menu
 	[Signal]
 	public delegate void ShowGoatMenuEventHandler();
+
 	public override void _Ready() {
 		Instance = this;
 	}

@@ -45,12 +45,16 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 50.0
+offset_top = 20.0
+offset_right = -42.0
+offset_bottom = -23.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 25
-theme_override_constants/margin_top = 50
-theme_override_constants/margin_right = 25
-theme_override_constants/margin_bottom = 50
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
 
 [node name="MainVBoxContainer" type="VBoxContainer" parent="MainContainer"]
 layout_mode = 2
@@ -60,11 +64,6 @@ custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 0
-
-[node name="CancelButton" type="Button" parent="MainContainer/MainVBoxContainer/TopMenu"]
-custom_minimum_size = Vector2(50, 0)
-layout_mode = 2
-theme = ExtResource("2_x821g")
 
 [node name="MenuTitle" type="Panel" parent="MainContainer/MainVBoxContainer/TopMenu"]
 custom_minimum_size = Vector2(800, 0)
@@ -86,74 +85,80 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("1_adfpp")
 theme_override_font_sizes/font_size = 40
-text = "ASSIGN GOATS"
+text = "DAYS REMAINING: X"
 
 [node name="TimeIndicator" type="Panel" parent="MainContainer/MainVBoxContainer/TopMenu"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 
-[node name="GoatListMargin" type="MarginContainer" parent="MainContainer/MainVBoxContainer"]
-custom_minimum_size = Vector2(500, 500)
+[node name="MainHBox" type="HBoxContainer" parent="MainContainer/MainVBoxContainer"]
+custom_minimum_size = Vector2(0, 550)
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="BackButtonMargin" type="MarginContainer" parent="MainContainer/MainVBoxContainer/MainHBox"]
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="BackButton" type="Button" parent="MainContainer/MainVBoxContainer/MainHBox/BackButtonMargin"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme = SubResource("Theme_83vot")
+
+[node name="GoatListMargin" type="MarginContainer" parent="MainContainer/MainVBoxContainer/MainHBox"]
+custom_minimum_size = Vector2(1100, 500)
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="GoatListContainer" type="VBoxContainer" parent="MainContainer/MainVBoxContainer/GoatListMargin"]
+[node name="GoatListContainer" type="VBoxContainer" parent="MainContainer/MainVBoxContainer/MainHBox/GoatListMargin"]
 layout_mode = 2
 
-[node name="TempPanel" type="Panel" parent="MainContainer/MainVBoxContainer/GoatListMargin"]
+[node name="TempPanel" type="Panel" parent="MainContainer/MainVBoxContainer/MainHBox/GoatListMargin"]
 visible = false
 layout_mode = 2
 
-[node name="PageButtonMargin" type="MarginContainer" parent="MainContainer/MainVBoxContainer"]
-custom_minimum_size = Vector2(0, 50)
-layout_mode = 2
-
-[node name="PageButtonHbox" type="HBoxContainer" parent="MainContainer/MainVBoxContainer/PageButtonMargin"]
+[node name="ForwardButtonMargin" type="MarginContainer" parent="MainContainer/MainVBoxContainer/MainHBox"]
+custom_minimum_size = Vector2(50, 59)
 layout_mode = 2
 size_flags_horizontal = 4
-
-[node name="BackButtonMargin" type="MarginContainer" parent="MainContainer/MainVBoxContainer/PageButtonMargin/PageButtonHbox"]
-custom_minimum_size = Vector2(50, 0)
-layout_mode = 2
+size_flags_vertical = 4
 theme_override_constants/margin_left = 10
-theme_override_constants/margin_right = 30
-
-[node name="BackButton" type="Button" parent="MainContainer/MainVBoxContainer/PageButtonMargin/PageButtonHbox/BackButtonMargin"]
-custom_minimum_size = Vector2(50, 0)
-layout_mode = 2
-theme = SubResource("Theme_83vot")
-
-[node name="ForwardButtonMargin" type="MarginContainer" parent="MainContainer/MainVBoxContainer/PageButtonMargin/PageButtonHbox"]
-custom_minimum_size = Vector2(50, 0)
-layout_mode = 2
-theme_override_constants/margin_left = 30
 theme_override_constants/margin_right = 10
 
-[node name="ForwardButton" type="Button" parent="MainContainer/MainVBoxContainer/PageButtonMargin/PageButtonHbox/ForwardButtonMargin"]
+[node name="ForwardButton" type="Button" parent="MainContainer/MainVBoxContainer/MainHBox/ForwardButtonMargin"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme = SubResource("Theme_10f2m")
 
-[node name="DaysRemainingMargin" type="MarginContainer" parent="MainContainer/MainVBoxContainer"]
-custom_minimum_size = Vector2(0, 80)
-layout_mode = 2
-theme_override_constants/margin_left = 100
-theme_override_constants/margin_top = 15
-theme_override_constants/margin_right = 100
-theme_override_constants/margin_bottom = 15
-
-[node name="Panel" type="Panel" parent="MainContainer/MainVBoxContainer/DaysRemainingMargin"]
-layout_mode = 2
-
-[node name="DaysRemainingLabel" type="Label" parent="MainContainer/MainVBoxContainer/DaysRemainingMargin"]
+[node name="ButtonHBox" type="HBoxContainer" parent="MainContainer/MainVBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_fonts/font = ExtResource("1_adfpp")
-theme_override_font_sizes/font_size = 32
-text = "DAYS REMAINING: X"
+size_flags_vertical = 8
+
+[node name="CancelButton" type="Button" parent="MainContainer/MainVBoxContainer/ButtonHBox"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+theme = ExtResource("2_x821g")
+
+[node name="Panel" type="Panel" parent="MainContainer/MainVBoxContainer/ButtonHBox"]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="ConfirmButton" type="Button" parent="MainContainer/MainVBoxContainer/ButtonHBox"]
+custom_minimum_size = Vector2(50, 59)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme = ExtResource("2_x821g")
 
 [node name="Panel" type="Panel" parent="MainContainer"]
 show_behind_parent = true
