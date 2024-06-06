@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Godot;
 public class Goat
 {
@@ -7,6 +8,7 @@ public class Goat
     public float Stamina {get; private set;}
     public int Level {get; private set;}
     public int Exp { get; private set;}
+    public Job AssignedJob { get; set; }
 
     public Goat()
     {
@@ -16,14 +18,24 @@ public class Goat
         Stamina = -1;
         Level = -1;
         Exp = -1;
+
+        //TODO: make this work with whatever GlobalVars becomes
+        AssignedJob = null;  
     }
-    public Goat(string Name, string Class, float Stamina, int Level, int Exp)
+    public Goat(string Name, int ID, string Class, float Stamina, int Level, int Exp)
     {
         this.Name = Name;
+        this.ID = ID; 
         this.Class = Class;
         this.Stamina = Stamina;
         this.Level = Level;
         this.Exp = Exp;
-        this.ID = 1; //TODO: change
+
+        AssignedJob = null;
+    }
+
+    public override string ToString()
+    {
+        return "GOAT PRINT\nName: " + Name + "\nID: " + ID + "\nClass: " + Class + "\nStamina: " + Stamina + "\nLevel: " + Level + "\nExp: " + Exp + "\nJob: " + AssignedJob;
     }
 }   

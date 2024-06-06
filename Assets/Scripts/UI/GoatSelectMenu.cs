@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 //TODO: sorting goat menu
 public partial class GoatSelectMenu : Control
@@ -43,11 +44,17 @@ public partial class GoatSelectMenu : Control
 		}
 
 		//spawn in new goat buttons
-		foreach(Goat goat in GlobalVars.goats)
+		foreach(KeyValuePair<int, Goat> goatEntry in GlobalVars.goats)
 		{
+			//free the goat from the pair!
+			Goat curGoat = goatEntry.Value;
+
+			//update the goat
+			curGoat.AssignedJob = GlobalVars.jobs[0];
+
+			//create the goat in the world (he is born)
 			Node row = goatSelectRow.Instantiate();
-			row.Name = goat.Name;
-			SetRowInformation(goat, row);
+			SetRowInformation(curGoat, row);
 			goatListContainer.AddChild(row);
 		}
 	}
@@ -58,6 +65,7 @@ public partial class GoatSelectMenu : Control
 		Label classLevelLabel = row.GetNode<Label>("GoatSelectMargin/GoatSelectHBox/StaminaClassMargin/StaminaClassVBox/ClassLevelLabel");
 		nameLabel.Text = goat.Name;
 		classLevelLabel.Text = goat.Class + " LV. " + goat.Level;
+		row.Name = goat.ID.ToString();
 
 	}
 
