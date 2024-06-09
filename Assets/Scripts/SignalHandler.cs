@@ -21,6 +21,10 @@ public partial class SignalHandler : Node
 	[Signal]
 	public delegate void ShowGoatMenuEventHandler();
 
+	//shows the list of jobs as they are being completed menu
+	[Signal]
+	public delegate void ShowPerformJobsEventHandler();
+
 	public override void _Ready() {
 		Instance = this;
 	}

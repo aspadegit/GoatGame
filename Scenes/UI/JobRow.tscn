@@ -1,0 +1,101 @@
+[gd_scene load_steps=3 format=3 uid="uid://b6x1sp03i20e5"]
+
+[ext_resource type="FontFile" uid="uid://b40px0i27n7ll" path="res://Assets/Fonts/NicoClean-Regular.ttf" id="1_xne2c"]
+[ext_resource type="Theme" uid="uid://cvjlrwyqj6u1w" path="res://Assets/Themes/PanelTheme.tres" id="2_scr31"]
+
+[node name="JobRow" type="Control"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="JobMargin" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 120.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Panel" type="Panel" parent="JobMargin"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="JobHBox" type="HBoxContainer" parent="JobMargin"]
+custom_minimum_size = Vector2(400, 100)
+layout_mode = 2
+
+[node name="JobNameMargin" type="MarginContainer" parent="JobMargin/JobHBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+
+[node name="JobVBox" type="VBoxContainer" parent="JobMargin/JobHBox/JobNameMargin"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="ImageMargin" type="MarginContainer" parent="JobMargin/JobHBox/JobNameMargin/JobVBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 0
+
+[node name="ImagePanel" type="Panel" parent="JobMargin/JobHBox/JobNameMargin/JobVBox/ImageMargin"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="JobMargin/JobHBox/JobNameMargin/JobVBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("1_xne2c")
+text = "JOB NAME"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GoatMargin" type="MarginContainer" parent="JobMargin/JobHBox"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme_override_constants/margin_left = 25
+
+[node name="GoatHBox" type="HBoxContainer" parent="JobMargin/JobHBox/GoatMargin"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="GoatsLabel" type="Label" parent="JobMargin/JobHBox/GoatMargin/GoatHBox"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_fonts/font = ExtResource("1_xne2c")
+text = "GOATS: "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Panel" type="Panel" parent="JobMargin/JobHBox/GoatMargin/GoatHBox"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme = ExtResource("2_scr31")
+
+[node name="ResultsMargin" type="MarginContainer" parent="JobMargin/JobHBox"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="ResultsHBox" type="HBoxContainer" parent="JobMargin/JobHBox/ResultsMargin"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="ResultsLabel" type="Label" parent="JobMargin/JobHBox/ResultsMargin/ResultsHBox"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_fonts/font = ExtResource("1_xne2c")
+text = "RESULTS:"
+horizontal_alignment = 1
+vertical_alignment = 1

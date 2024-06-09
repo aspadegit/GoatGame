@@ -9,6 +9,9 @@ public partial class GlobalVars : Node
 	public static Dictionary<int, Goat> goats; // ID, Goat
 	public static List<Material> materials;
 	public static List<Job> jobs;
+
+	public static int currentDay = 0;
+	public static int timeLimit = 5;
 	public override void _Ready()
 	{
 		//TODO: UPDATE THIS

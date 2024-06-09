@@ -7,15 +7,27 @@ public partial class GoatSelectMenu : Control
 {
 	// Called when the node enters the scene tree for the first time.
 	Button cancelButton;
+	TextureButton confirmButton;
 	PackedScene goatSelectRow = GD.Load<PackedScene>("res://Scenes/UI/GoatSelectRow.tscn");
 	VBoxContainer goatListContainer;
+	Label daysRemaining;
 	bool hasChanged = true;
 	public override void _Ready()
 	{
 		SignalHandler.Instance.Connect(SignalHandler.SignalName.ShowGoatMenu, Callable.From(()=> OnShowGoatMenu()), (uint)ConnectFlags.Deferred);
+
+		//set up buttons
 		cancelButton = GetNode<Button>("MainContainer/MainVBoxContainer/ButtonHBox/CancelButton");
-		goatListContainer = GetNode<VBoxContainer>("MainContainer/MainVBoxContainer/MainHBox/GoatListMargin/GoatListContainer");
+		confirmButton = GetNode<TextureButton>("MainContainer/MainVBoxContainer/ButtonHBox/ConfirmButton");
 		cancelButton.Pressed += HideAndReset;
+		confirmButton.Pressed += Confirm;
+
+		//set the time limit
+		daysRemaining = GetNode<Label>("MainContainer/MainVBoxContainer/TopMenu/MenuTitle/MenuTitleMargin/MenuTitleLabel");
+		SetDaysRemaining();
+
+		goatListContainer = GetNode<VBoxContainer>("MainContainer/MainVBoxContainer/MainHBox/GoatListMargin/GoatListContainer");
+
 
 	}
 
@@ -32,6 +44,24 @@ public partial class GoatSelectMenu : Control
 	private void HideAndReset()
 	{
 		Hide();
+		//TODO: track changes. revert the changes on cancel
+		//TODO: add "save and close" but not confirm button
+	}
+
+	private void Confirm()
+	{
+		GlobalVars.currentDay++;
+		SetDaysRemaining();
+
+		//goats collect materials
+		SignalHandler.Instance.EmitSignal(SignalHandler.SignalName.ShowPerformJobs);
+		Hide();
+	}
+
+	private void SetDaysRemaining()
+	{
+		daysRemaining.Text = "DAYS REMAINING: " +(GlobalVars.timeLimit - GlobalVars.currentDay).ToString();
+
 	}
 
 	private void InstantiateChildren()

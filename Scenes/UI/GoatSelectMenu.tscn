@@ -1,35 +1,39 @@
-[gd_scene load_steps=11 format=3 uid="uid://dt63vw62ebwc6"]
+[gd_scene load_steps=12 format=3 uid="uid://dt63vw62ebwc6"]
 
 [ext_resource type="FontFile" uid="uid://b40px0i27n7ll" path="res://Assets/Fonts/NicoClean-Regular.ttf" id="1_adfpp"]
 [ext_resource type="Script" path="res://Assets/Scripts/UI/GoatSelectMenu.cs" id="1_uihof"]
 [ext_resource type="Theme" uid="uid://cvjlrwyqj6u1w" path="res://Assets/Themes/PanelTheme.tres" id="2_x821g"]
 [ext_resource type="Texture2D" uid="uid://dpmsr41t5737i" path="res://Assets/Sprites/UIpackSheet_transparent.png" id="4_gahid"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jdbev"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_2g3d5"]
 texture = ExtResource("4_gahid")
 region_rect = Rect2(364, 434, 8, 12)
 modulate_color = Color(0.796377, 0.679962, 0.667052, 1)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dsvra"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ou1p0"]
 texture = ExtResource("4_gahid")
 region_rect = Rect2(364, 434, 8, 12)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_80mk4"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xlc0d"]
 texture = ExtResource("4_gahid")
 region_rect = Rect2(364, 434, 8, 12)
 modulate_color = Color(0.708249, 0.49204, 0.437971, 1)
 
 [sub_resource type="Theme" id="Theme_83vot"]
-Button/styles/hover = SubResource("StyleBoxTexture_jdbev")
-Button/styles/normal = SubResource("StyleBoxTexture_dsvra")
-Button/styles/pressed = SubResource("StyleBoxTexture_80mk4")
+Button/styles/hover = SubResource("StyleBoxTexture_2g3d5")
+Button/styles/normal = SubResource("StyleBoxTexture_ou1p0")
+Button/styles/pressed = SubResource("StyleBoxTexture_xlc0d")
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5mc1y"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ci1nw"]
 texture = ExtResource("4_gahid")
 region_rect = Rect2(382, 434, 8, 12)
 
 [sub_resource type="Theme" id="Theme_10f2m"]
-Button/styles/normal = SubResource("StyleBoxTexture_5mc1y")
+Button/styles/normal = SubResource("StyleBoxTexture_ci1nw")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_66ruq"]
+atlas = ExtResource("4_gahid")
+region = Rect2(198, 450, 15, 15)
 
 [node name="GoatSelectMenu" type="Control"]
 layout_mode = 3
@@ -153,12 +157,12 @@ modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 
-[node name="ConfirmButton" type="Button" parent="MainContainer/MainVBoxContainer/ButtonHBox"]
-custom_minimum_size = Vector2(50, 59)
+[node name="ConfirmButton" type="TextureButton" parent="MainContainer/MainVBoxContainer/ButtonHBox"]
+custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 8
-theme = ExtResource("2_x821g")
+texture_normal = SubResource("AtlasTexture_66ruq")
+ignore_texture_size = true
+stretch_mode = 0
 
 [node name="Panel" type="Panel" parent="MainContainer"]
 show_behind_parent = true
