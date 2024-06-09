@@ -66,7 +66,7 @@ public partial class GoatSelectMenu : Control
 
 	private void InstantiateChildren()
 	{
-		//remove all of the old goat instances
+		//remove all of the old goat instances (TODO: not always do this)
 		foreach(Node child in goatListContainer.GetChildren())
 		{
 			goatListContainer.RemoveChild(child);
@@ -79,7 +79,7 @@ public partial class GoatSelectMenu : Control
 			//free the goat from the pair!
 			Goat curGoat = goatEntry.Value;
 
-			//update the goat
+			//update the goat (resting job)
 			curGoat.AssignedJob = GlobalVars.jobs[0];
 
 			//create the goat in the world (he is born)

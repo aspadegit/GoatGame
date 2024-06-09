@@ -7,7 +7,7 @@
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_24gnn"]
 atlas = ExtResource("2_8ayg5")
-region = Rect2(198, 450, 15, 15)
+region = Rect2(55, 109, 14, 14)
 
 [node name="PerformJobs" type="Control"]
 layout_mode = 3
@@ -84,8 +84,15 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="JobListContainer" type="VBoxContainer" parent="MainContainer/MainVBoxContainer/MainHBox/JobListMargin"]
+[node name="ScrollContainer" type="ScrollContainer" parent="MainContainer/MainVBoxContainer/MainHBox/JobListMargin"]
 layout_mode = 2
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
+
+[node name="JobListContainer" type="VBoxContainer" parent="MainContainer/MainVBoxContainer/MainHBox/JobListMargin/ScrollContainer"]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 2
+alignment = 1
 
 [node name="TempPanel" type="Panel" parent="MainContainer/MainVBoxContainer/MainHBox/JobListMargin"]
 visible = false
@@ -97,7 +104,7 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
 
-[node name="ConfirmButton" type="TextureButton" parent="MainContainer/MainVBoxContainer/ButtonHBox"]
+[node name="CloseButton" type="TextureButton" parent="MainContainer/MainVBoxContainer/ButtonHBox"]
 visible = false
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
@@ -110,3 +117,7 @@ show_behind_parent = true
 layout_mode = 2
 mouse_filter = 2
 theme = ExtResource("3_tsmlg")
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="OnTimerTimeout"]

@@ -34,6 +34,13 @@ public class Goat
         AssignedJob = null;
     }
 
+    //TODO: refine
+    public void DoJob(int strain, int exp)
+    {
+        Stamina -= strain;
+        Exp += exp;
+    }
+
     public override string ToString()
     {
         return "GOAT PRINT\nName: " + Name + "\nID: " + ID + "\nClass: " + Class + "\nStamina: " + Stamina + "\nLevel: " + Level + "\nExp: " + Exp + "\nJob: " + AssignedJob;

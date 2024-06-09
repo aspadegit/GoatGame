@@ -10,6 +10,10 @@ public partial class GlobalVars : Node
 	public static List<Material> materials;
 	public static List<Job> jobs;
 
+	public static Dictionary<Material, int> materialsObtained = new Dictionary<Material, int>();
+
+	public static readonly int restingJobID = 0;
+
 	public static int currentDay = 0;
 	public static int timeLimit = 5;
 	public override void _Ready()
@@ -21,8 +25,9 @@ public partial class GlobalVars : Node
 
 		//TODO: UPDATE THIS
 		materials = new List<Material>();
-		Material logs = new Material("Logs", 1, "Wood");
+		Material logs = new Material("Logs", 0, "Wood");
 		materials.Add(logs);
+		materials.Add(new Material("Rocks", 1, "Stone"));
 
 		//TODO: EDIT ME
 		jobs = new List<Job>();
@@ -37,9 +42,13 @@ public partial class GlobalVars : Node
 		jobs.Add(new Job("Logging", 2, d));
 		d = new Dictionary<Material, int>();
 		d.Add(logs, 1);
+		d.Add(materials[1], 1);
 		jobs.Add(new Job("Research", 3, d));
 		jobs.Add(new Job("Farming", 4, d));
 
+	
+
 	}
+
 
 }
