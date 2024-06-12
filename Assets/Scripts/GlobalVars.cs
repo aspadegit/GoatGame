@@ -8,7 +8,7 @@ public partial class GlobalVars : Node
 	//TODO: thoughts: json stores the goat ideas, THIS stores which ones you have
 	public static Dictionary<int, Goat> goats; // ID, Goat
 	public static List<Material> materials;
-	public static List<Job> jobs;
+	public static Dictionary<int, Job> jobs = new Dictionary<int, Job>(); //ID, Job
 
 	public static Dictionary<Material, int> materialsObtained = new Dictionary<Material, int>();
 
@@ -30,21 +30,19 @@ public partial class GlobalVars : Node
 		materials.Add(new Material("Rocks", 1, "Stone"));
 
 		//TODO: EDIT ME
-		jobs = new List<Job>();
-
 		Dictionary<Material,int> d = new Dictionary<Material, int>();
 
 		//TODO: UPDATE THIS
-		jobs.Add(new Job("Rest", 0, d));
+		jobs.Add(0, new Job("Rest", 0, d));
 		d = new Dictionary<Material, int>();
 		d.Add(logs, 5);
-		jobs.Add(new Job("Mining", 1, d));
-		jobs.Add(new Job("Logging", 2, d));
+		jobs.Add(1, new Job("Mining", 1, d));
+		jobs.Add(2, new Job("Logging", 2, d));
 		d = new Dictionary<Material, int>();
 		d.Add(logs, 1);
 		d.Add(materials[1], 1);
-		jobs.Add(new Job("Research", 3, d));
-		jobs.Add(new Job("Farming", 4, d));
+		jobs.Add(3, new Job("Research", 3, d));
+		jobs.Add(4, new Job("Farming", 4, d));
 
 	
 

@@ -149,8 +149,9 @@ public partial class PerformJobs : Control
 		}
 
 		//spawn in new jobs
-		foreach(Job job in GlobalVars.jobs)
+		foreach(KeyValuePair<int, Job> jobPair in GlobalVars.jobs)
 		{
+			Job job = jobPair.Value;
 			//spawn the job row
 			Node row = jobRow.Instantiate();
 			SetRowInformation(job, row);
