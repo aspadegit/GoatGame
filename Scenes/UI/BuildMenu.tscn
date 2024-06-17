@@ -62,7 +62,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="StatsMargin" type="MarginContainer" parent="MenuMargin/MainVBox/MainHBox"]
-custom_minimum_size = Vector2(200, 0)
+custom_minimum_size = Vector2(350, 0)
 layout_mode = 2
 
 [node name="Panel" type="Panel" parent="MenuMargin/MainVBox/MainHBox/StatsMargin"]
@@ -78,13 +78,16 @@ layout_mode = 2
 text = "STATS"
 
 [node name="StatsLabel" type="Label" parent="MenuMargin/MainVBox/MainHBox/StatsMargin/StatsVBox"]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 text = "Type:
 Level:
 Damage:
 Description:"
+autowrap_mode = 2
 
 [node name="MaterialsMargin" type="MarginContainer" parent="MenuMargin/MainVBox/MainHBox"]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 
 [node name="Panel" type="Panel" parent="MenuMargin/MainVBox/MainHBox/MaterialsMargin"]
@@ -92,7 +95,6 @@ custom_minimum_size = Vector2(0, 400)
 layout_mode = 2
 
 [node name="MaterialsVBox" type="VBoxContainer" parent="MenuMargin/MainVBox/MainHBox/MaterialsMargin"]
-custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 

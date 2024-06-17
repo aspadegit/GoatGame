@@ -36,4 +36,10 @@ public class Machine
         return "MACHINE PRINT\nName: " + Name + "\nLevel: " + Level + "\nDamage: " + Damage;
     }
 
+    public string GetStatString()
+    {
+        return "Type: " + Type + "\nLevel: " + Level + "\nDamage: " + Damage + "\nDescription: " + Description;
+    }
+
+
 }   

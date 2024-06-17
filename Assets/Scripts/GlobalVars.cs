@@ -12,7 +12,7 @@ public partial class GlobalVars : Node
 	public static Dictionary<int, Machine> machines = new Dictionary<int, Machine>(); //ID, Machine
 	public static Dictionary<int, Recipe> recipes = new Dictionary<int, Recipe>();
 
-	public static Dictionary<Material, int> materialsObtained = new Dictionary<Material, int>();
+	public static Dictionary<int, int> materialsObtained = new Dictionary<int, int>(); //materialID, amountOfThatMaterial
 	public static Dictionary<int, int> machineInventory = new Dictionary<int, int>(); //machineID, amountOfThatMachine
 
 	public static readonly int restingJobID = 0;
