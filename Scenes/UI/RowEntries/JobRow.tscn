@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://b6x1sp03i20e5"]
 
-[ext_resource type="FontFile" uid="uid://b40px0i27n7ll" path="res://Assets/Fonts/NicoClean-Regular.ttf" id="1_xne2c"]
-[ext_resource type="Theme" uid="uid://cvjlrwyqj6u1w" path="res://Assets/Themes/PanelTheme.tres" id="2_scr31"]
+[ext_resource type="FontFile" uid="uid://b40px0i27n7ll" path="res://Assets/Fonts/NicoClean-Regular.ttf" id="1_2h1jq"]
+[ext_resource type="Theme" uid="uid://cvjlrwyqj6u1w" path="res://Assets/Themes/PanelTheme.tres" id="2_0pc8a"]
 
 [node name="JobRow" type="Control"]
 custom_minimum_size = Vector2(0, 100)
@@ -56,7 +56,7 @@ layout_mode = 2
 [node name="NameLabel" type="Label" parent="JobMargin/JobHBox/JobNameMargin/JobVBox"]
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_fonts/font = ExtResource("1_xne2c")
+theme_override_fonts/font = ExtResource("1_2h1jq")
 text = "JOB NAME"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -74,7 +74,7 @@ layout_mode = 2
 [node name="GoatsLabel" type="Label" parent="JobMargin/JobHBox/GoatMargin/GoatHBox"]
 layout_mode = 2
 size_flags_horizontal = 0
-theme_override_fonts/font = ExtResource("1_xne2c")
+theme_override_fonts/font = ExtResource("1_2h1jq")
 text = "GOATS: "
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -82,7 +82,7 @@ vertical_alignment = 1
 [node name="Panel" type="Panel" parent="JobMargin/JobHBox/GoatMargin/GoatHBox"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
-theme = ExtResource("2_scr31")
+theme = ExtResource("2_0pc8a")
 
 [node name="ResultsMargin" type="MarginContainer" parent="JobMargin/JobHBox"]
 layout_mode = 2
@@ -95,7 +95,7 @@ layout_mode = 2
 [node name="ResultsLabel" type="Label" parent="JobMargin/JobHBox/ResultsMargin/ResultsHBox"]
 layout_mode = 2
 size_flags_horizontal = 0
-theme_override_fonts/font = ExtResource("1_xne2c")
+theme_override_fonts/font = ExtResource("1_2h1jq")
 text = "RESULTS:"
 horizontal_alignment = 1
 vertical_alignment = 1

@@ -1,0 +1,125 @@
+[gd_scene load_steps=5 format=3 uid="uid://bjjqhdqqi3en8"]
+
+[ext_resource type="FontFile" uid="uid://b40px0i27n7ll" path="res://Assets/Fonts/NicoClean-Regular.ttf" id="1_ttmmw"]
+[ext_resource type="Texture2D" uid="uid://dpmsr41t5737i" path="res://Assets/Sprites/UIpackSheet_transparent.png" id="2_kk8a2"]
+[ext_resource type="Theme" uid="uid://cvjlrwyqj6u1w" path="res://Assets/Themes/PanelTheme.tres" id="3_adhik"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g8jyq"]
+atlas = ExtResource("2_kk8a2")
+region = Rect2(198, 450, 15, 15)
+
+[node name="BuildMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MenuMargin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Panel" type="Panel" parent="MenuMargin"]
+layout_mode = 2
+
+[node name="MainVBox" type="VBoxContainer" parent="MenuMargin"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="MenuTitle" type="Label" parent="MenuMargin/MainVBox"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_ttmmw")
+theme_override_font_sizes/font_size = 46
+text = "BUILD STUFF"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MainHBox" type="HBoxContainer" parent="MenuMargin/MainVBox"]
+custom_minimum_size = Vector2(0, 400)
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MenuMargin/MainVBox/MainHBox"]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+
+[node name="OptionsVBox" type="VBoxContainer" parent="MenuMargin/MainVBox/MainHBox/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="StatsMargin" type="MarginContainer" parent="MenuMargin/MainVBox/MainHBox"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="MenuMargin/MainVBox/MainHBox/StatsMargin"]
+custom_minimum_size = Vector2(0, 400)
+layout_mode = 2
+
+[node name="StatsVBox" type="VBoxContainer" parent="MenuMargin/MainVBox/MainHBox/StatsMargin"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="StatsTitle" type="Label" parent="MenuMargin/MainVBox/MainHBox/StatsMargin/StatsVBox"]
+layout_mode = 2
+text = "STATS"
+
+[node name="StatsLabel" type="Label" parent="MenuMargin/MainVBox/MainHBox/StatsMargin/StatsVBox"]
+layout_mode = 2
+text = "Type:
+Level:
+Damage:
+Description:"
+
+[node name="MaterialsMargin" type="MarginContainer" parent="MenuMargin/MainVBox/MainHBox"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="MenuMargin/MainVBox/MainHBox/MaterialsMargin"]
+custom_minimum_size = Vector2(0, 400)
+layout_mode = 2
+
+[node name="MaterialsVBox" type="VBoxContainer" parent="MenuMargin/MainVBox/MainHBox/MaterialsMargin"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MaterialsTitle" type="Label" parent="MenuMargin/MainVBox/MainHBox/MaterialsMargin/MaterialsVBox"]
+layout_mode = 2
+text = "MATERIALS NEEDED"
+
+[node name="MaterialsLabel" type="Label" parent="MenuMargin/MainVBox/MainHBox/MaterialsMargin/MaterialsVBox"]
+layout_mode = 2
+text = "Name: Have/Need"
+
+[node name="ButtonHBox" type="HBoxContainer" parent="MenuMargin/MainVBox"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+
+[node name="CancelButton" type="Button" parent="MenuMargin/MainVBox/ButtonHBox"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+theme = ExtResource("3_adhik")
+
+[node name="Panel" type="Panel" parent="MenuMargin/MainVBox/ButtonHBox"]
+modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="ConfirmButton" type="TextureButton" parent="MenuMargin/MainVBox/ButtonHBox"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_g8jyq")
+ignore_texture_size = true
+stretch_mode = 0

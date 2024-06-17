@@ -1,11 +1,11 @@
 [gd_scene load_steps=7 format=3 uid="uid://cerkm83bthnsv"]
 
-[ext_resource type="FontFile" uid="uid://b40px0i27n7ll" path="res://Assets/Fonts/NicoClean-Regular.ttf" id="1_5kctf"]
-[ext_resource type="Script" path="res://Assets/Scripts/UI/GoatSelectRow.cs" id="1_xv1qw"]
-[ext_resource type="Texture2D" uid="uid://dpmsr41t5737i" path="res://Assets/Sprites/UIpackSheet_transparent.png" id="2_bdrl1"]
+[ext_resource type="Script" path="res://Assets/Scripts/UI/GoatSelectRow.cs" id="1_dy7u8"]
+[ext_resource type="FontFile" uid="uid://b40px0i27n7ll" path="res://Assets/Fonts/NicoClean-Regular.ttf" id="2_hk8tq"]
+[ext_resource type="Texture2D" uid="uid://dpmsr41t5737i" path="res://Assets/Sprites/UIpackSheet_transparent.png" id="3_j4cng"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_luelj"]
-texture = ExtResource("2_bdrl1")
+texture = ExtResource("3_j4cng")
 region_rect = Rect2(55, 127, 14, 14)
 
 [sub_resource type="Theme" id="Theme_i3bbx"]
@@ -13,7 +13,7 @@ Button/styles/normal = SubResource("StyleBoxTexture_luelj")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p1bvy"]
 resource_local_to_scene = true
-atlas = ExtResource("2_bdrl1")
+atlas = ExtResource("3_j4cng")
 region = Rect2(55, 127, 14, 14)
 
 [node name="GoatSelectRow" type="Control"]
@@ -23,7 +23,7 @@ anchors_preset = 10
 anchor_right = 1.0
 grow_horizontal = 2
 size_flags_vertical = 4
-script = ExtResource("1_xv1qw")
+script = ExtResource("1_dy7u8")
 
 [node name="GoatSelectMargin" type="MarginContainer" parent="."]
 custom_minimum_size = Vector2(0, 100)
@@ -69,7 +69,7 @@ layout_mode = 2
 [node name="NameLabel" type="Label" parent="GoatSelectMargin/GoatSelectHBox/GoatMargin/GoatVBox"]
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_fonts/font = ExtResource("1_5kctf")
+theme_override_fonts/font = ExtResource("2_hk8tq")
 text = "GOAT NAME"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -88,7 +88,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 size_flags_horizontal = 0
-theme_override_fonts/font = ExtResource("1_5kctf")
+theme_override_fonts/font = ExtResource("2_hk8tq")
 text = "CLASS NAME LV. ##"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -100,7 +100,7 @@ layout_mode = 2
 [node name="StaminaLabel" type="Label" parent="GoatSelectMargin/GoatSelectHBox/StaminaClassMargin/StaminaClassVBox/StaminaHBox"]
 layout_mode = 2
 size_flags_horizontal = 0
-theme_override_fonts/font = ExtResource("1_5kctf")
+theme_override_fonts/font = ExtResource("2_hk8tq")
 text = "STAMINA:"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -136,7 +136,7 @@ layout_mode = 2
 [node name="ExpLabel" type="Label" parent="GoatSelectMargin/GoatSelectHBox/ExpMargin/VBoxContainer/ExpHBox"]
 layout_mode = 2
 size_flags_horizontal = 0
-theme_override_fonts/font = ExtResource("1_5kctf")
+theme_override_fonts/font = ExtResource("2_hk8tq")
 text = "EXP:"
 horizontal_alignment = 1
 vertical_alignment = 1

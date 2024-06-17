@@ -25,6 +25,9 @@ public partial class SignalHandler : Node
 	[Signal]
 	public delegate void ShowPerformJobsEventHandler();
 
+	[Signal]
+	public delegate void ShowBuildMenuEventHandler();
+
 	public override void _Ready() {
 		Instance = this;
 	}

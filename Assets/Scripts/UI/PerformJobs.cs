@@ -4,9 +4,8 @@ using System.Collections.Generic;
 
 public partial class PerformJobs : Control
 {
-	//potential TODO: create a Dictionary<Job, Goat[]> to avoid looping too many times
 	VBoxContainer jobListContainer;
-	PackedScene jobRow = GD.Load<PackedScene>("res://Scenes/UI/JobRow.tscn");
+	PackedScene jobRow = GD.Load<PackedScene>("res://Scenes/UI/RowEntries/JobRow.tscn");
 	Dictionary<int, Node> rows; // (jobID, row)
 	Dictionary<int, Dictionary<Material, int>> currentSessionResults; // JobID, (material, amount)
 	Timer timer;

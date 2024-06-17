@@ -11,3 +11,7 @@ dialoguePath = "test.json"
 
 [node name="Player" parent="." instance=ExtResource("1_a6xr6")]
 position = Vector2(208, 83)
+
+[node name="BuildNPC" parent="." instance=ExtResource("2_6lhj0")]
+position = Vector2(713, 138)
+dialoguePath = "buildNPC.json"

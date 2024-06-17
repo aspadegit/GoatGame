@@ -8,7 +8,7 @@ public partial class GoatSelectMenu : Control
 	// Called when the node enters the scene tree for the first time.
 	Button cancelButton;
 	TextureButton confirmButton;
-	PackedScene goatSelectRow = GD.Load<PackedScene>("res://Scenes/UI/GoatSelectRow.tscn");
+	PackedScene goatSelectRow = GD.Load<PackedScene>("res://Scenes/UI/RowEntries/GoatSelectRow.tscn");
 	VBoxContainer goatListContainer;
 	Label daysRemaining;
 	bool hasChanged = true;
