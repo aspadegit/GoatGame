@@ -1,5 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://bjjqhdqqi3en8"]
+[gd_scene load_steps=6 format=3 uid="uid://bjjqhdqqi3en8"]
 
+[ext_resource type="Script" path="res://Assets/Scripts/UI/BuildMenu.cs" id="1_o8lku"]
 [ext_resource type="FontFile" uid="uid://b40px0i27n7ll" path="res://Assets/Fonts/NicoClean-Regular.ttf" id="1_ttmmw"]
 [ext_resource type="Texture2D" uid="uid://dpmsr41t5737i" path="res://Assets/Sprites/UIpackSheet_transparent.png" id="2_kk8a2"]
 [ext_resource type="Theme" uid="uid://cvjlrwyqj6u1w" path="res://Assets/Themes/PanelTheme.tres" id="3_adhik"]
@@ -15,6 +16,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_o8lku")
 
 [node name="MenuMargin" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -30,6 +32,7 @@ theme_override_constants/margin_bottom = 20
 
 [node name="Panel" type="Panel" parent="MenuMargin"]
 layout_mode = 2
+theme = ExtResource("3_adhik")
 
 [node name="MainVBox" type="VBoxContainer" parent="MenuMargin"]
 layout_mode = 2
@@ -38,6 +41,7 @@ theme_override_constants/separation = 20
 [node name="MenuTitle" type="Label" parent="MenuMargin/MainVBox"]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_ttmmw")
 theme_override_font_sizes/font_size = 46
 text = "BUILD STUFF"

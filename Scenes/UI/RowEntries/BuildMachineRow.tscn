@@ -59,7 +59,7 @@ size_flags_vertical = 4
 
 [node name="StockLabel" type="Label" parent="RowMargin/RowHBox/AmountVBox"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.466181, 0.466181, 0.466181, 1)
+theme_override_colors/font_color = Color(0.2484, 0.2484, 0.2484, 1)
 text = "(0 in stock)"
 horizontal_alignment = 1
 
