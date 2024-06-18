@@ -1,0 +1,23 @@
+{
+    "machines": [
+        {
+            "id": 0,
+            "name": "Arrow Tower",
+            "type": "Ranged",
+            "level": 1,
+            "damage": 50,
+            "description": "A simple wooden tower that shoots arrows in a cone.",
+            "recipe": "ArrowTowerRecipe"
+        },
+        {
+            "id": 1,
+            "name": "Cannon Tower",
+            "type": "Ranged",
+            "level": 1,
+            "damage": 80,
+            "description": "A simple cannon tower that shoots a cannonball at a target.",
+            "recipe": "CannonTowerRecipe" 
+        }
+    ]
+
+}

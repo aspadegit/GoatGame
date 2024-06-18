@@ -127,14 +127,14 @@ public partial class BuildMenu : Control
 
 			string matStr = "";
 			// produces "Name: currentAmount/neededAmount\n"
-			foreach(KeyValuePair<int,int> materialPair in machine.CraftingRecipe.RequiredItems)
+			foreach(KeyValuePair<string,int> materialPair in machine.CraftingRecipe.RequiredItems)
 			{
 				Material mat = GlobalVars.materials[materialPair.Key];
 				matStr += mat.Name;
 				matStr += ": ";
 
 				//0 if key doesn't exist, otherwise the amount we have
-				int currentAmt = GlobalVars.materialsObtained.ContainsKey(mat.ID) ? GlobalVars.materialsObtained[mat.ID] : 0;
+				int currentAmt = GlobalVars.materialsObtained.ContainsKey(mat.Name) ? GlobalVars.materialsObtained[mat.Name] : 0;
 				matStr += currentAmt;
 				matStr += "/";
 				matStr += materialPair.Value;

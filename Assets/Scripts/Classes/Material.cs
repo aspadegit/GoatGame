@@ -1,9 +1,10 @@
 using Godot;
 public class Material
 {
-    public string Name {get; private set;}
-    public int ID {get; private set;}
-    public string Type {get; private set;}
+    public string Name {get; set;}
+    public int ID {get; set;}
+    public string Description {get; set;}
+    public string Type {get; set;}
     
     public Material()
     {
@@ -11,10 +12,11 @@ public class Material
        ID = -1;
     }
 
-    public Material(string Name, int ID, string Type)
+    public Material(string Name, int ID, string Description, string Type)
     {
         this.Name = Name;
         this.ID = ID;
+        this.Description = Description;
         this.Type = Type;
     }
 

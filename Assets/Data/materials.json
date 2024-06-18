@@ -1,0 +1,23 @@
+{
+    "materials": [
+        {
+            "id": 0,
+            "name": "Logs",
+            "description": "Standard set of logs harvested from trees",
+            "type": "Wood"
+        },
+        {
+            "id": 1,
+            "name": "Rocks",
+            "description": "Standard set of rocks mined from quarries",
+            "type": "Stone"  
+        },
+        {
+            "id": 2,
+            "name": "Wheat",
+            "description": "Grains harvested from the fields.",
+            "type": "Food"
+        }
+    ]
+
+}

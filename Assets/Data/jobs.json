@@ -1,0 +1,47 @@
+{
+    "jobs": [
+        {
+            "id": 0,
+            "name": "Rest",
+            "result": [
+            ]
+        },
+        {
+            "id": 1,
+            "name": "Mining",
+            "result": [
+                {
+                    "name": "Rocks",
+                    "amount": 5
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "name": "Logging",
+            "result": [
+                {
+                    "name": "Logs",
+                    "amount": 5
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "name": "Research",
+            "result": [
+            ]
+        },
+        {
+            "id": 4,
+            "name": "Farming",
+            "result": [
+                {
+                    "name": "Wheat",
+                    "amount": 5
+                }
+            ]
+        }
+    ]
+
+}

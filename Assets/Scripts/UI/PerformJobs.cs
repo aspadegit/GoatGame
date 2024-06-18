@@ -64,15 +64,15 @@ public partial class PerformJobs : Control
 			
 			//TODO: move the globalvars to update at the end of it all
 			//already has the key, just update the value
-			if(GlobalVars.materialsObtained.ContainsKey(mat.ID))
+			if(GlobalVars.materialsObtained.ContainsKey(mat.Name))
 			{
-				GlobalVars.materialsObtained[mat.ID] += actualAmount; 	//overall
+				GlobalVars.materialsObtained[mat.Name] += actualAmount; 	//overall
 
 			}
 			//does not have the key, add it
 			else
 			{
-				GlobalVars.materialsObtained.Add(mat.ID, actualAmount);	//overall
+				GlobalVars.materialsObtained.Add(mat.Name, actualAmount);	//overall
 			}
 
 			//same as above, but ties it to a job

@@ -1,0 +1,29 @@
+{
+    "recipes": [
+        {
+            "id": 0,
+            "name": "ArrowTowerRecipe",
+            "required_items": [
+                {
+                    "name": "Logs",
+                    "amount": 5
+                }
+            ]
+        },
+        {
+            "id": 1,
+            "name": "CannonTowerRecipe",
+            "required_items": [
+                {
+                    "name": "Logs",
+                    "amount": 2
+                },
+                {
+                    "name": "Rocks",
+                    "amount": 3
+                }
+            ]
+        }
+    ]
+
+}
