@@ -59,10 +59,20 @@ public partial class BuildMenu : Control
 	{
 		foreach(KeyValuePair<int,int> machinePair in machinesToMake)
 		{
+			int machineID = machinePair.Key;
+			int machineAmt = machinePair.Value;
+
 			//try add fails --> key already exists
-			if(!GlobalVars.machineInventory.TryAdd(machinePair.Key, machinePair.Value))
+			if(!GlobalVars.machineInventory.TryAdd(machineID, machineAmt))
 			{
-				GlobalVars.machineInventory[machinePair.Key] += machinePair.Value;
+				GlobalVars.machineInventory[machineID] += machineAmt;
+			}
+
+			//decrease global inventory
+			foreach(KeyValuePair<string,int> item in GlobalVars.machines[machineID].CraftingRecipe.RequiredItems)
+			{
+				//key for the materials globally SHOULD EXIST BY THIS POINT
+				GlobalVars.materialsObtained[item.Key] -= item.Value * machineAmt;
 			}
 		}
 		Hide();
