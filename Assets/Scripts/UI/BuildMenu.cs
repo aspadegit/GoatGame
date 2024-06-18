@@ -13,6 +13,8 @@ public partial class BuildMenu : Control
 	PackedScene machineRow = GD.Load<PackedScene>("res://Scenes/UI/RowEntries/BuildMachineRow.tscn");
 	VBoxContainer machineContainer;
 	Machine currentInfoShowing = null;
+	Dictionary<int, int> machinesToMake;
+	Dictionary<string, int> totalMaterialCost;
 	bool hasChanged = true;
 	public override void _Ready()
 	{
@@ -37,7 +39,11 @@ public partial class BuildMenu : Control
 
 		//TODO: hasChanged always true
 		if(hasChanged)
+		{
+			machinesToMake = new Dictionary<int, int>();
+			totalMaterialCost = new Dictionary<string, int>();
 			InstantiateChildren();
+		}
 		cancelButton.CallDeferred("grab_focus");
 	}
 
@@ -114,8 +120,102 @@ public partial class BuildMenu : Control
 		downButton.FocusEntered += showInfo;
 		downButton.MouseEntered += showInfo;
 		
-		//TODO: BUTTONS WHEN .PRESSED
+		//when pressed, increase or decrease the amount of the machine youre making
+		Action increaseAmt = new Action(() => {ChangeMachineAmount(machine, 1, row);});
+		Action decreaseAmt = new Action(() => {ChangeMachineAmount(machine, -1, row);});
 
+		upButton.Pressed += increaseAmt;
+		downButton.Pressed += decreaseAmt;
+	}
+
+	private void ChangeMachineAmount(Machine machine, int amount, Node row)
+	{
+		//TODO: disable up button when not enough
+
+		//check for materials
+		if(amount > 0 && !CheckRecipeMaterialCost(machine.CraftingRecipe))
+			return;
+
+		//decreasing, but either we haven't added the machine yet (functionally 0) or it has been set to 0 
+			//aka, you can't decrease below 0, so return here
+		if(amount < 0 && (!machinesToMake.ContainsKey(machine.ID) || machinesToMake[machine.ID] == 0))
+			return;
+
+		AcquireReleaseResources(machine, amount);
+
+		//add it if it doesnt exist
+		if(!machinesToMake.ContainsKey(machine.ID))
+			machinesToMake.Add(machine.ID, 0);
+		
+		//we're making more/less of that machine
+		machinesToMake[machine.ID] += amount;
+
+		//set it back to 0 if it goes below (shouldn't happen, but for safety)
+		if(machinesToMake[machine.ID] < 0)
+			machinesToMake[machine.ID] = 0;
+
+		//update visuals
+		UpdateMachineAmount(machine, row);
+	}
+
+	private void UpdateMachineAmount(Machine machine, Node row)
+	{
+		Label currentlyMaking = row.GetNode<Label>("RowMargin/RowHBox/AmountVBox/AmountToMake");
+		currentlyMaking.Text = "x" + machinesToMake[machine.ID];
+		UpdateMaterialsInformation(machine);
+	}
+
+	private void AcquireReleaseResources(Machine machine, int amount)
+	{
+		foreach(KeyValuePair<string,int> item in machine.CraftingRecipe.RequiredItems)
+		{
+			string materialName = item.Key;
+			int cost = item.Value;
+
+			//add the key if it doesn't exist
+			if(!totalMaterialCost.ContainsKey(materialName))
+				totalMaterialCost.Add(materialName, 0);
+
+			//acquire resources
+			if(amount > 0)
+				totalMaterialCost[materialName] += cost;
+			//release resources
+			else
+				totalMaterialCost[materialName] -= cost;
+
+			//clamp to 0 if below, shouldn't happen but you never know...
+			if(totalMaterialCost[materialName] < 0)
+				totalMaterialCost[materialName] = 0;
+		}
+
+	}
+	private bool CheckRecipeMaterialCost(Recipe recipe)
+	{
+		//loop through recipe's requirements
+		foreach(KeyValuePair<string, int> item in recipe.RequiredItems)
+		{
+			//one of the recipe's requirements fails
+			if(!CheckMaterialCost(item.Key, item.Value))
+				return false;
+		}
+		return true;
+	}
+	private bool CheckMaterialCost(string materialName, int cost)
+	{
+		// we don't have the material at all
+		if(!GlobalVars.materialsObtained.ContainsKey(materialName))
+			return false;
+
+		//get the amount we're currently using in the build menu
+		int currentlyUsing = 0;
+		if(totalMaterialCost.ContainsKey(materialName))
+			currentlyUsing = totalMaterialCost[materialName];
+
+		//we have enough leftover materials to make it
+		if(GlobalVars.materialsObtained[materialName] - currentlyUsing >= cost)
+			return true;
+
+		return false;
 	}
 
 	private void ShowMachineInformation(Machine machine)
@@ -124,26 +224,37 @@ public partial class BuildMenu : Control
 		if(currentInfoShowing == null || machine != currentInfoShowing)
 		{
 			statsLabel.Text = machine.GetStatString();
-
-			string matStr = "";
-			// produces "Name: currentAmount/neededAmount\n"
-			foreach(KeyValuePair<string,int> materialPair in machine.CraftingRecipe.RequiredItems)
-			{
-				Material mat = GlobalVars.materials[materialPair.Key];
-				matStr += mat.Name;
-				matStr += ": ";
-
-				//0 if key doesn't exist, otherwise the amount we have
-				int currentAmt = GlobalVars.materialsObtained.ContainsKey(mat.Name) ? GlobalVars.materialsObtained[mat.Name] : 0;
-				matStr += currentAmt;
-				matStr += "/";
-				matStr += materialPair.Value;
-				matStr += "\n";
-			}
-
-			materialsLabel.Text = matStr;
+			UpdateMaterialsInformation(machine);
 
 		}
+	}
+
+	private void UpdateMaterialsInformation(Machine machine)
+	{
+		string matStr = "";
+		// produces "Name: currentAmount/neededAmount\n"
+		foreach(KeyValuePair<string,int> materialPair in machine.CraftingRecipe.RequiredItems)
+		{
+			Material mat = GlobalVars.materials[materialPair.Key];
+			matStr += mat.Name;
+			matStr += ": ";
+
+			//0 if key doesn't exist, otherwise the amount we have
+			int globalAmt = 0;
+			if(GlobalVars.materialsObtained.ContainsKey(mat.Name))
+				globalAmt = GlobalVars.materialsObtained[mat.Name];
+			
+			int localAmt = 0;
+			if(totalMaterialCost.ContainsKey(mat.Name))
+				localAmt = totalMaterialCost[mat.Name];
+			
+			matStr += globalAmt - localAmt;
+			matStr += "/";
+			matStr += materialPair.Value;
+			matStr += "\n";
+		}
+
+		materialsLabel.Text = matStr;
 	}
 
 	private void SetMachineInfoToFirst()
