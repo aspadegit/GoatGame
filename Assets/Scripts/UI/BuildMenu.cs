@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 //TODO: sorting goat menu
 public partial class BuildMenu : Control
@@ -56,7 +57,14 @@ public partial class BuildMenu : Control
 
 	private void Confirm()
 	{
-		//TODO: make the machines
+		foreach(KeyValuePair<int,int> machinePair in machinesToMake)
+		{
+			//try add fails --> key already exists
+			if(!GlobalVars.machineInventory.TryAdd(machinePair.Key, machinePair.Value))
+			{
+				GlobalVars.machineInventory[machinePair.Key] += machinePair.Value;
+			}
+		}
 		Hide();
 	}
 
