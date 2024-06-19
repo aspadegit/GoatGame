@@ -1,9 +1,13 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public partial class GoatSelectRow : Control
 {
 	TextureButton selectButton;
+	VBoxContainer bigHitbox;
+	MarginContainer popUpMargin;
+	HBoxContainer materialHBox;
 	int currentJobNum = 0;
 	int jobTotal = 4;
 	int goatID = -1;
@@ -14,8 +18,17 @@ public partial class GoatSelectRow : Control
 	public override void _Ready()
 	{
 		try{
-			selectButton = GetNode<TextureButton>("GoatSelectMargin/GoatSelectHBox/SelectMargin/SelectButton");
+			popUpMargin = GetNode<MarginContainer>("VBoxContainer/PopUpMargin");
+			bigHitbox = GetNode<VBoxContainer>("VBoxContainer");
+			selectButton = GetNode<TextureButton>("VBoxContainer/GoatSelectMargin/GoatSelectHBox/SelectMargin/SelectButton");
+			materialHBox = GetNode<HBoxContainer>("VBoxContainer/PopUpMargin/PopUpHBox/PopUpPanel/MaterialMargin/MaterialHBox");
+
 			selectButton.Pressed += SelectGoat;
+			selectButton.FocusEntered += Hover;
+			selectButton.FocusExited += LeaveHover;
+
+			selectButton.Connect("mouse_entered", Callable.From(Hover));
+			selectButton.Connect("mouse_exited", Callable.From(LeaveHover));
 		}
 		catch(InvalidCastException e)
 		{
@@ -38,8 +51,8 @@ public partial class GoatSelectRow : Control
 		{
 			currentJobNum = 0;
 		}
-		ChangeTexture();
 		UpdateGoat();
+		ChangeTexture();
 	}
 
 	private void ChangeTexture()
@@ -47,6 +60,27 @@ public partial class GoatSelectRow : Control
 		AtlasTexture tex = (AtlasTexture)selectButton.TextureNormal;
 		Rect2 newTex = new Rect2(textureOffsetX[currentJobNum], tex.Region.Position.Y, tex.Region.Size);
 		tex.Region = newTex;
+
+		//TODO: replace this with changing textures via atlas map (possibly store coords in Material obj)
+		Job job = GlobalVars.goats[goatID].AssignedJob;
+		if(job.Name != "Rest")
+		{
+			foreach(KeyValuePair<Material, int> pair in job.Result)
+			{
+				string matName = pair.Key.Name;
+				materialHBox.GetNode<TextureRect>(matName).Show();
+				materialHBox.GetNode<TextureRect>("Rest").Hide();
+
+			}
+		}
+		else
+		{
+			foreach(Node child in materialHBox.GetChildren())
+			{
+				((TextureRect)child).Hide();
+			}
+			materialHBox.GetNode<TextureRect>("Rest").Show();
+		}
 	}
 
 	private void UpdateGoat()
@@ -62,8 +96,16 @@ public partial class GoatSelectRow : Control
 		goat.AssignedJob = GlobalVars.jobs[currentJobNum];
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
+	
+	private void Hover()
 	{
+		popUpMargin.Modulate = new Color(1,1,1,1);
+	}
+
+	private void LeaveHover()
+	{
+
+		popUpMargin.Modulate = new Color(1,1,1,0);
+		
 	}
 }

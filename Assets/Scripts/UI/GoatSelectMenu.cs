@@ -91,12 +91,14 @@ public partial class GoatSelectMenu : Control
 
 	private void SetRowInformation(Goat goat, Node row)
 	{
-		Label nameLabel = row.GetNode<Label>("GoatSelectMargin/GoatSelectHBox/GoatMargin/GoatVBox/NameLabel");
-		Label classLevelLabel = row.GetNode<Label>("GoatSelectMargin/GoatSelectHBox/StaminaClassMargin/StaminaClassVBox/ClassLevelLabel");
+
+		Label nameLabel = row.GetNode<Label>("VBoxContainer/GoatSelectMargin/GoatSelectHBox/GoatMargin/GoatVBox/NameLabel");
+		Label classLevelLabel = row.GetNode<Label>("VBoxContainer/GoatSelectMargin/GoatSelectHBox/StaminaClassMargin/StaminaClassVBox/ClassLevelLabel");
 		nameLabel.Text = goat.Name;
 		classLevelLabel.Text = goat.Class + " LV. " + goat.Level;
 		row.Name = goat.ID.ToString();
 
 	}
+
 
 }
