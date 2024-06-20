@@ -36,7 +36,7 @@ public partial class TowerScript : Node2D
 		Vector2 rightPoint = new Vector2(oppositeSide, coneLength);
 		
 		Vector2[] points = {Vector2.Zero, leftPoint, rightPoint};
-		coneOfAttack.Polygon = points;
+		coneOfAttack.SetDeferred(CollisionPolygon2D.PropertyName.Polygon, points);
 	}
 
 	// use this and not process to update the polygon if ever necessary
