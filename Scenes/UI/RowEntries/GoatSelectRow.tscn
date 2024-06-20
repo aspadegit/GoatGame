@@ -30,6 +30,7 @@ region = Rect2(55, 127, 14, 14)
 [node name="GoatSelectRow" type="Control"]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 3
+anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 179.0
 grow_horizontal = 2
