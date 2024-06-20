@@ -1,6 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://14nrv6ny78df"]
+[gd_scene load_steps=12 format=3 uid="uid://14nrv6ny78df"]
 
 [ext_resource type="Material" uid="uid://drw4sbap8erve" path="res://Assets/Shaders/pixel_shader.tres" id="1_afl43"]
+[ext_resource type="Script" path="res://Assets/Scripts/TowerDefense/Enemy.cs" id="1_ftv3n"]
 [ext_resource type="Texture2D" uid="uid://dal4kup5nubfw" path="res://Assets/Sprites/blue_slime.png" id="2_r6gwx"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_q7gqw"]
@@ -66,7 +67,8 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ag8en"]
 
 [node name="Enemy" type="Node2D"]
-scale = Vector2(2, 2)
+scale = Vector2(1.5, 1.5)
+script = ExtResource("1_ftv3n")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1

@@ -11,12 +11,21 @@ public partial class TileScript : Node2D
 	[Export]
 	public int hoverLayer = 3;
 
+	[Export]
+	public PackedScene enemyScene;
+	[Export]
+	public PackedScene enemyPathFollow;
+
 	const int selectTileSourceNum = 3;
 	Vector2I prevSelection = Vector2I.Zero;
 	TileMap tileMap;
 	Sprite2D pointer;
-
+	Enemy enemy;
+	Node2D enemies;
+	Path2D pathParent;
 	Godot.Collections.Array<Vector2I> placeableTiles = new Godot.Collections.Array<Vector2I>();
+	Timer enemySpawnTimer;
+	int enemyNum = 0;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -24,9 +33,13 @@ public partial class TileScript : Node2D
 
 		tileMap = GetNode<TileMap>("TileMap");
 		pointer = GetNode<Sprite2D>("Pointer");
-		DisplayServer.MouseSetMode(DisplayServer.MouseMode.Hidden);	//hide the mouse
+		enemySpawnTimer = GetNode<Timer>("EnemySpawnTimer");
+		enemies = GetNode<Node2D>("Enemies");
+		pathParent = GetNode<Path2D>("EnemyPath");
 
 		placeableTiles = tileMap.GetUsedCells(placementLayer);
+		enemySpawnTimer.Start();
+		enemyNum = 0;
 
 	}
 	
@@ -34,6 +47,7 @@ public partial class TileScript : Node2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+		//enemy.SetPosition();
 
 		//adjust the hover tile
 		Vector2I tile = tileMap.LocalToMap(pointer.Position);
@@ -54,6 +68,17 @@ public partial class TileScript : Node2D
 
 	}
 
-	
+	public void OnEnemySpawnTimeout()
+	{
+		PathFollow2D pathFollow = enemyPathFollow.Instantiate<PathFollow2D>();
+		pathParent.AddChild(pathFollow);
+
+		Enemy enemy = enemyScene.Instantiate<Enemy>();
+		enemyNum++;
+		enemy.Setup(pathFollow);
+		enemies.AddChild(enemy);
+		
+
+	}
 
 }

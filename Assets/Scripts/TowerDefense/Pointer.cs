@@ -19,6 +19,7 @@ public partial class Pointer : Sprite2D
 		AtlasTexture pointerTex = (AtlasTexture)Texture;
 		pointerSize =  pointerTex.Region.Size;
 		ScreenSize = GetViewportRect().Size;
+		DisplayServer.MouseSetMode(DisplayServer.MouseMode.Hidden);	//hide the mouse
 
 	}
 

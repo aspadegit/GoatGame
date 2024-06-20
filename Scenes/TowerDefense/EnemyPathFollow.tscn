@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://bo5mtila0no7d"]
+
+[node name="EnemyPathFollow" type="PathFollow2D"]
+rotation = 0.061777
+rotates = false
+loop = false
+
+[node name="_Timer_65819" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
