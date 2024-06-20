@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://cu4yjwmkly6ed"]
+[gd_scene load_steps=19 format=3 uid="uid://cu4yjwmkly6ed"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/TowerDefense/TileScript.cs" id="1_mxc1x"]
 [ext_resource type="PackedScene" uid="uid://14nrv6ny78df" path="res://Scenes/TowerDefense/Enemy.tscn" id="2_4p6k1"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://5fm486o1wv26" path="res://Assets/Sprites/Tiles/Select.png" id="5_0nar4"]
 [ext_resource type="Material" uid="uid://drw4sbap8erve" path="res://Assets/Shaders/pixel_shader.tres" id="6_r066s"]
 [ext_resource type="Texture2D" uid="uid://dsk2ybhhw5dwp" path="res://Assets/Sprites/UI/RPG_Pixel_EDSlashEm.png" id="7_jvxpw"]
+[ext_resource type="PackedScene" uid="uid://1v8f8ln10xjh" path="res://Scenes/TowerDefense/MachineTower.tscn" id="8_axupb"]
 [ext_resource type="Script" path="res://Assets/Scripts/TowerDefense/Pointer.cs" id="8_q6he4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5hvav"]
@@ -1199,6 +1200,7 @@ point_count = 14
 script = ExtResource("1_mxc1x")
 enemyScene = ExtResource("2_4p6k1")
 enemyPathFollow = ExtResource("3_bc6hp")
+towerScene = ExtResource("8_axupb")
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_o57f8")
@@ -1215,6 +1217,8 @@ layer_3/name = "Hover Layer"
 layer_3/tile_data = PackedInt32Array()
 
 [node name="Enemies" type="Node2D" parent="."]
+
+[node name="Towers" type="Node2D" parent="."]
 
 [node name="Pointer" type="Sprite2D" parent="." node_paths=PackedStringArray("camera")]
 z_index = 4
