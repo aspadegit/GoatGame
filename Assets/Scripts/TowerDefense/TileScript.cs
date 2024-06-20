@@ -25,6 +25,8 @@ public partial class TileScript : Node2D
 
 	bool usingMouse = true;
 
+	Godot.Collections.Array<Vector2I> placeableTiles = new Godot.Collections.Array<Vector2I>();
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -32,12 +34,13 @@ public partial class TileScript : Node2D
 		tileMap = GetNode<TileMap>("TileMap");
 		pointer = GetNode<Sprite2D>("Pointer");
 		camera = GetNode<Camera2D>("Camera2D");
-		//GD.Print(tileMap.GetUsedCells(placementLayer));
 		DisplayServer.MouseSetMode(DisplayServer.MouseMode.Hidden);	//hide the mouse
 		ScreenSize = GetViewportRect().Size;
 
 		AtlasTexture pointerTex = (AtlasTexture)pointer.Texture;
 		pointerSize =  pointerTex.Region.Size;
+
+		placeableTiles = tileMap.GetUsedCells(placementLayer);
 
 	}
 	
@@ -52,14 +55,19 @@ public partial class TileScript : Node2D
 		Vector2I tile = tileMap.LocalToMap(pointer.Position);
 		tileMap.EraseCell(hoverLayer, prevSelection);
 		tileMap.SetCell(hoverLayer, tile, selectTileSourceNum, Vector2I.Zero, 0);
-		//SetCell(hoverLayer, tile, 0, new Vector2I(0, 41), 0);
 		prevSelection = tile;
 
+		if(Input.IsActionJustPressed("left_click"))
+			PlaceTower(tile);
+	}
 
-		if (Input.IsActionJustPressed("left_click"))
-		{
-			
-		}
+	private void PlaceTower(Vector2I curTile)
+	{	
+		//TODO: instantiate scene of tower instead
+		//only set the tile if it is on top of a placeable tile
+		if(placeableTiles.Contains(curTile))
+			tileMap.SetCell(towerLayer, curTile, 0, new Vector2I(0, 41), 0);
+
 	}
 
 	//if we detect mouse movement in the game then we're back to using the mouse
