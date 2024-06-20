@@ -64,7 +64,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ag8en"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_x52o7"]
 
 [node name="Enemy" type="Node2D"]
 scale = Vector2(1.5, 1.5)
@@ -79,7 +79,9 @@ animation = &"walk_side"
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("RectangleShape2D_ag8en")
+shape = SubResource("CircleShape2D_x52o7")
 debug_color = Color(0, 0.6, 0.701961, 0.133333)
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="OnVisibleOnScreenNotifier2DScreenExited"]

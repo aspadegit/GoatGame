@@ -1234,6 +1234,6 @@ anchor_mode = 0
 zoom = Vector2(2, 2)
 
 [node name="EnemySpawnTimer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 5.0
 
 [connection signal="timeout" from="EnemySpawnTimer" to="." method="OnEnemySpawnTimeout"]

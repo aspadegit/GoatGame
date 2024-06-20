@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://1v8f8ln10xjh"]
+[gd_scene load_steps=5 format=3 uid="uid://1v8f8ln10xjh"]
 
 [ext_resource type="Texture2D" uid="uid://brh80auhux7xw" path="res://Assets/Sprites/ts_constructions.png" id="1_hxli5"]
+[ext_resource type="Script" path="res://Assets/Scripts/TowerDefense/TowerScript.cs" id="1_iuiwv"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iyadu"]
 atlas = ExtResource("1_hxli5")
@@ -10,12 +11,22 @@ region = Rect2(0, 661, 32, 59)
 size = Vector2(32, 60)
 
 [node name="MachineTower" type="Node2D"]
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = SubResource("AtlasTexture_iyadu")
+script = ExtResource("1_iuiwv")
 
 [node name="Area2D" type="Area2D" parent="."]
 
+[node name="Sprite2D" type="Sprite2D" parent="Area2D"]
+texture = SubResource("AtlasTexture_iyadu")
+offset = Vector2(0, -16)
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -16)
 shape = SubResource("RectangleShape2D_gsh6c")
 debug_color = Color(0, 0.6, 0.701961, 0.160784)
+
+[node name="AttackArea" type="Area2D" parent="."]
+collision_layer = 2
+
+[node name="Cone" type="CollisionPolygon2D" parent="AttackArea"]
+build_mode = 1
+polygon = PackedVector2Array(0, 0, -27, 49, 27, 49)

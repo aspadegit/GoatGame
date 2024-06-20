@@ -75,7 +75,7 @@ public partial class TileScript : Node2D
 
 		Enemy enemy = enemyScene.Instantiate<Enemy>();
 		enemyNum++;
-		enemy.Setup(pathFollow);
+		enemy.Setup(pathFollow, enemyNum);
 		enemies.AddChild(enemy);
 		
 

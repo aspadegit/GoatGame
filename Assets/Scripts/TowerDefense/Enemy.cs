@@ -13,12 +13,18 @@ public partial class Enemy : Node2D
 		animation = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 	}
 
-	public void Setup(PathFollow2D pathFollow)
+	public void Setup(PathFollow2D enemyPathFollow, int enemyNum)
 	{
-		this.pathFollow = pathFollow;
-		this.pathFollow.ProgressRatio = 0;
-		Position = this.pathFollow.Position;
+		//set up variables
+		pathFollow = enemyPathFollow;
+		pathFollow.ProgressRatio = 0;
+		Position = pathFollow.Position;
 		prevPosition = Position; 
+
+		//set names
+		Name = Name + "_" + enemyNum;
+		pathFollow.Name = pathFollow.Name + "_" + enemyNum;
+
 		shouldStart = true;
 	}
 
@@ -78,5 +84,18 @@ public partial class Enemy : Node2D
 			}
 		}
 	}
-	
+
+	//deletes itself and its path
+	private void Destroy()
+	{
+		pathFollow.QueueFree();
+		QueueFree();
+
+	}
+
+	//destroy when no longer visible
+	private void OnVisibleOnScreenNotifier2DScreenExited()
+	{
+		Destroy();
+	}
 }
