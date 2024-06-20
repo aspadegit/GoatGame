@@ -1,0 +1,83 @@
+[gd_scene load_steps=11 format=3 uid="uid://14nrv6ny78df"]
+
+[ext_resource type="Material" uid="uid://drw4sbap8erve" path="res://Assets/Shaders/pixel_shader.tres" id="1_afl43"]
+[ext_resource type="Texture2D" uid="uid://dal4kup5nubfw" path="res://Assets/Sprites/blue_slime.png" id="2_r6gwx"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q7gqw"]
+atlas = ExtResource("2_r6gwx")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0gfq6"]
+atlas = ExtResource("2_r6gwx")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jre0r"]
+atlas = ExtResource("2_r6gwx")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7jlvb"]
+atlas = ExtResource("2_r6gwx")
+region = Rect2(16, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oi216"]
+atlas = ExtResource("2_r6gwx")
+region = Rect2(0, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mel16"]
+atlas = ExtResource("2_r6gwx")
+region = Rect2(16, 48, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wpawy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q7gqw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0gfq6")
+}],
+"loop": true,
+"name": &"walk_down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jre0r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7jlvb")
+}],
+"loop": true,
+"name": &"walk_side",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oi216")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mel16")
+}],
+"loop": true,
+"name": &"walk_up",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ag8en"]
+
+[node name="Enemy" type="Node2D"]
+scale = Vector2(2, 2)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+material = ExtResource("1_afl43")
+sprite_frames = SubResource("SpriteFrames_wpawy")
+animation = &"walk_side"
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_ag8en")
+debug_color = Color(0, 0.6, 0.701961, 0.133333)
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]

@@ -1,15 +1,17 @@
-[gd_scene load_steps=14 format=3 uid="uid://cu4yjwmkly6ed"]
+[gd_scene load_steps=17 format=3 uid="uid://cu4yjwmkly6ed"]
 
-[ext_resource type="Texture2D" uid="uid://brh80auhux7xw" path="res://Assets/Sprites/ts_constructions.png" id="1_8iqtc"]
-[ext_resource type="Texture2D" uid="uid://cd5kvosqswd2" path="res://Assets/Sprites/autoTile_nature.png" id="1_y6d4u"]
-[ext_resource type="Script" path="res://Assets/Scripts/TowerDefense/TileScript.cs" id="2_1760r"]
-[ext_resource type="Texture2D" uid="uid://cu1vx1xuuqnc5" path="res://Assets/Sprites/Tiles/Empty.png" id="2_aelcu"]
-[ext_resource type="Texture2D" uid="uid://5fm486o1wv26" path="res://Assets/Sprites/Tiles/Select.png" id="4_o3bvb"]
-[ext_resource type="Texture2D" uid="uid://dsk2ybhhw5dwp" path="res://Assets/Sprites/UI/RPG_Pixel_EDSlashEm.png" id="6_53dbi"]
-[ext_resource type="Material" uid="uid://drw4sbap8erve" path="res://Assets/Shaders/pixel_shader.tres" id="6_bsyi6"]
+[ext_resource type="Script" path="res://Assets/Scripts/TowerDefense/TileScript.cs" id="1_mxc1x"]
+[ext_resource type="Texture2D" uid="uid://brh80auhux7xw" path="res://Assets/Sprites/ts_constructions.png" id="2_m32yi"]
+[ext_resource type="Texture2D" uid="uid://cd5kvosqswd2" path="res://Assets/Sprites/autoTile_nature.png" id="3_5eqa4"]
+[ext_resource type="Texture2D" uid="uid://cu1vx1xuuqnc5" path="res://Assets/Sprites/Tiles/Empty.png" id="4_fy7no"]
+[ext_resource type="Texture2D" uid="uid://5fm486o1wv26" path="res://Assets/Sprites/Tiles/Select.png" id="5_0nar4"]
+[ext_resource type="Material" uid="uid://drw4sbap8erve" path="res://Assets/Shaders/pixel_shader.tres" id="6_r066s"]
+[ext_resource type="Texture2D" uid="uid://dsk2ybhhw5dwp" path="res://Assets/Sprites/UI/RPG_Pixel_EDSlashEm.png" id="7_jvxpw"]
+[ext_resource type="PackedScene" uid="uid://1v8f8ln10xjh" path="res://Scenes/TowerDefense/MachineTower.tscn" id="8_axupb"]
+[ext_resource type="Script" path="res://Assets/Scripts/TowerDefense/Pointer.cs" id="8_q6he4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5hvav"]
-texture = ExtResource("1_8iqtc")
+texture = ExtResource("2_m32yi")
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
@@ -297,7 +299,7 @@ texture = ExtResource("1_8iqtc")
 6:44/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_m8v4r"]
-texture = ExtResource("1_y6d4u")
+texture = ExtResource("3_5eqa4")
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 1
@@ -1164,11 +1166,11 @@ texture = ExtResource("1_y6d4u")
 11:31/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_x54x6"]
-texture = ExtResource("2_aelcu")
+texture = ExtResource("4_fy7no")
 0:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jomhu"]
-texture = ExtResource("4_o3bvb")
+texture = ExtResource("5_0nar4")
 0:0/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_o57f8"]
@@ -1183,11 +1185,17 @@ sources/0 = SubResource("TileSetAtlasSource_5hvav")
 sources/3 = SubResource("TileSetAtlasSource_jomhu")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ulocn"]
-atlas = ExtResource("6_53dbi")
+atlas = ExtResource("7_jvxpw")
 region = Rect2(624, 72, 64, 64)
 
+[sub_resource type="Curve2D" id="Curve2D_ub7u2"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 139, 168, 0, 0, 0, 0, 236, 174, 0, 0, 0, 0, 271, 192, 0, 0, 0, 0, 305, 201, 0, 0, 0, 0, 355, 205, 0, 0, 0, 0, 467, 205, 0, 0, 0, 0, 526, 217, 0, 0, 0, 0, 567, 259, 0, 0, 0, 0, 577, 285, 0, 0, 0, 0, 575, 312, 0, 0, 0, 0, 546, 340, 0, 0, 0, 0, 507, 359, 0, 0, 0, 0, 414, 377, 0, 0, 0, 0, 339, 391)
+}
+point_count = 14
+
 [node name="TowerTest" type="Node2D"]
-script = ExtResource("2_1760r")
+script = ExtResource("1_mxc1x")
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource("TileSet_o57f8")
@@ -1207,10 +1215,23 @@ layer_3/tile_data = PackedInt32Array()
 anchor_mode = 0
 zoom = Vector2(2, 2)
 
-[node name="Pointer" type="Sprite2D" parent="."]
+[node name="Pointer" type="Sprite2D" parent="." node_paths=PackedStringArray("camera")]
 z_index = 4
-material = ExtResource("6_bsyi6")
+material = ExtResource("6_r066s")
 position = Vector2(310, 168)
 scale = Vector2(0.5, 0.5)
 texture = SubResource("AtlasTexture_ulocn")
 centered = false
+script = ExtResource("8_q6he4")
+camera = NodePath("../Camera2D")
+
+[node name="MachineTower" parent="." instance=ExtResource("8_axupb")]
+
+[node name="EnemyPath" type="Path2D" parent="."]
+curve = SubResource("Curve2D_ub7u2")
+
+[node name="StartPoint" type="PathFollow2D" parent="EnemyPath"]
+position = Vector2(139, 168)
+rotation = 0.061777
+rotates = false
+loop = false
