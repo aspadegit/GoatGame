@@ -1,13 +1,21 @@
-[gd_scene load_steps=4 format=3 uid="uid://p8awrnaglo0q"]
+[gd_scene load_steps=5 format=3 uid="uid://p8awrnaglo0q"]
 
 [ext_resource type="Texture2D" uid="uid://5fm486o1wv26" path="res://Assets/Sprites/Tiles/Select.png" id="1_ae6fr"]
+[ext_resource type="Script" path="res://Assets/Scripts/TowerDefense/UI/TowerSelectRow.cs" id="1_r1aig"]
 [ext_resource type="Texture2D" uid="uid://dhl4osfa8k8cw" path="res://icon.svg" id="2_hnfg8"]
 [ext_resource type="FontFile" uid="uid://b40px0i27n7ll" path="res://Assets/Fonts/NicoClean-Regular.ttf" id="3_g28u1"]
 
-[node name="TowerSelectRow" type="MarginContainer"]
+[node name="TowerSelectRow" type="MarginContainer" node_paths=PackedStringArray("labels", "images")]
 custom_minimum_size = Vector2(0, 50)
 size_flags_horizontal = 3
 mouse_filter = 2
+script = ExtResource("1_r1aig")
+tempSelector = ExtResource("2_hnfg8")
+labels = [NodePath("TowerRow/MainHBox/TowerName")]
+images = [NodePath("TowerRow/MainHBox/TowerImage")]
+buttons = {
+"RowButton": NodePath("RowButton")
+}
 
 [node name="RowPanel" type="Panel" parent="."]
 self_modulate = Color(1, 1, 1, 0.505882)

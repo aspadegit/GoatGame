@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://7a13alpcisww"]
+[gd_scene load_steps=6 format=3 uid="uid://7a13alpcisww"]
 
 [ext_resource type="Texture2D" uid="uid://dsk2ybhhw5dwp" path="res://Assets/Sprites/UI/RPG_Pixel_EDSlashEm.png" id="1_b8151"]
 [ext_resource type="Theme" uid="uid://cvjlrwyqj6u1w" path="res://Assets/Themes/PanelTheme.tres" id="1_mxqm8"]
 [ext_resource type="FontFile" uid="uid://b40px0i27n7ll" path="res://Assets/Fonts/NicoClean-Regular.ttf" id="2_en1qb"]
+[ext_resource type="PackedScene" uid="uid://p8awrnaglo0q" path="res://Scenes/TowerDefense/UI/TowerSelectRow.tscn" id="3_rqe1s"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ad8qi"]
 atlas = ExtResource("1_b8151")
@@ -78,6 +79,9 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+
+[node name="TowerSelectRow" parent="TowerMargin/TowerVBox/ScrollMargin/ScrollContainer/ScrollVBox" instance=ExtResource("3_rqe1s")]
+layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
