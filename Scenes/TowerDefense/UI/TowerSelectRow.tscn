@@ -10,8 +10,7 @@ custom_minimum_size = Vector2(0, 50)
 size_flags_horizontal = 3
 mouse_filter = 2
 script = ExtResource("1_r1aig")
-tempSelector = ExtResource("2_hnfg8")
-labels = [NodePath("TowerRow/MainHBox/TowerName")]
+labels = [NodePath("TowerRow/MainHBox/TowerName"), NodePath("TowerRow/MainHBox/DamageVBox/Number"), NodePath("TowerRow/MainHBox/AmountVBox/Number")]
 images = [NodePath("TowerRow/MainHBox/TowerImage")]
 buttons = {
 "RowButton": NodePath("RowButton")

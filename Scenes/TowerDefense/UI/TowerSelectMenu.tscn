@@ -1,21 +1,27 @@
-[gd_scene load_steps=6 format=3 uid="uid://7a13alpcisww"]
+[gd_scene load_steps=8 format=3 uid="uid://7a13alpcisww"]
 
 [ext_resource type="Texture2D" uid="uid://dsk2ybhhw5dwp" path="res://Assets/Sprites/UI/RPG_Pixel_EDSlashEm.png" id="1_b8151"]
 [ext_resource type="Theme" uid="uid://cvjlrwyqj6u1w" path="res://Assets/Themes/PanelTheme.tres" id="1_mxqm8"]
+[ext_resource type="Script" path="res://Assets/Scripts/TowerDefense/UI/TowerSelectMenu.cs" id="1_y3kw7"]
 [ext_resource type="FontFile" uid="uid://b40px0i27n7ll" path="res://Assets/Fonts/NicoClean-Regular.ttf" id="2_en1qb"]
+[ext_resource type="Texture2D" uid="uid://dhl4osfa8k8cw" path="res://icon.svg" id="3_qc2y4"]
 [ext_resource type="PackedScene" uid="uid://p8awrnaglo0q" path="res://Scenes/TowerDefense/UI/TowerSelectRow.tscn" id="3_rqe1s"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ad8qi"]
 atlas = ExtResource("1_b8151")
 region = Rect2(496, 8, 48, 56)
 
-[node name="TowerSelectMenu" type="Control"]
+[node name="TowerSelectMenu" type="Control" node_paths=PackedStringArray("scrollVBox")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_y3kw7")
+scrollVBox = NodePath("TowerMargin/TowerVBox/ScrollMargin/ScrollContainer/ScrollVBox")
+selectRow = ExtResource("3_rqe1s")
+tempTex = ExtResource("3_qc2y4")
 
 [node name="TowerMargin" type="MarginContainer" parent="."]
 custom_minimum_size = Vector2(300, 500)
@@ -79,9 +85,6 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-
-[node name="TowerSelectRow" parent="TowerMargin/TowerVBox/ScrollMargin/ScrollContainer/ScrollVBox" instance=ExtResource("3_rqe1s")]
-layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1

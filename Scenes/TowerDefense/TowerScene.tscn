@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://bhwgiemcefhed"]
+
+[ext_resource type="Script" path="res://Assets/Scripts/TowerDefense/TowerUIConnector.cs" id="1_54o1s"]
+[ext_resource type="PackedScene" uid="uid://cu4yjwmkly6ed" path="res://Scenes/TowerDefense/TowerTest.tscn" id="1_cmywu"]
+[ext_resource type="PackedScene" uid="uid://7a13alpcisww" path="res://Scenes/TowerDefense/UI/TowerSelectMenu.tscn" id="2_o2b12"]
+[ext_resource type="PackedScene" uid="uid://bv8p4nmmbluor" path="res://Scenes/Pointer.tscn" id="4_3ino2"]
+
+[node name="TowerScene" type="Node"]
+script = ExtResource("1_54o1s")
+
+[node name="TowerTest" parent="." node_paths=PackedStringArray("pointer") instance=ExtResource("1_cmywu")]
+pointer = NodePath("../CanvasLayer/Pointer")
+
+[node name="Camera2D" type="Camera2D" parent="TowerTest"]
+anchor_mode = 0
+zoom = Vector2(2, 2)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Pointer" parent="CanvasLayer" instance=ExtResource("4_3ino2")]
+scale = Vector2(1, 1)
+
+[node name="TowerSelectMenu" parent="CanvasLayer" instance=ExtResource("2_o2b12")]

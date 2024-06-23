@@ -19,10 +19,13 @@ public partial class TileScript : Node2D
 	[Export]
 	public PackedScene towerScene;
 
+	[Export]
+	public Pointer pointer;
+
+
 	const int selectTileSourceNum = 3;
 	Vector2I prevSelection = Vector2I.Zero;
 	TileMap tileMap;
-	Sprite2D pointer;
 	Enemy enemy;
 	Node2D enemies;
 	Path2D pathParent;
@@ -37,7 +40,6 @@ public partial class TileScript : Node2D
 	{
 
 		tileMap = GetNode<TileMap>("TileMap");
-		pointer = GetNode<Sprite2D>("Pointer");
 		enemySpawnTimer = GetNode<Timer>("EnemySpawnTimer");
 		enemies = GetNode<Node2D>("Enemies");
 		pathParent = GetNode<Path2D>("EnemyPath");
@@ -54,9 +56,8 @@ public partial class TileScript : Node2D
 	public override void _Process(double delta)
 	{
 		//enemy.SetPosition();
-
 		//adjust the hover tile
-		Vector2I tile = tileMap.LocalToMap(pointer.Position);
+		Vector2I tile = tileMap.LocalToMap(ToLocal(pointer.positionWithCamera));
 		tileMap.EraseCell(hoverLayer, prevSelection);
 		tileMap.SetCell(hoverLayer, tile, selectTileSourceNum, Vector2I.Zero, 0);
 		prevSelection = tile;

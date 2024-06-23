@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://bv8p4nmmbluor"]
+
+[ext_resource type="Material" uid="uid://drw4sbap8erve" path="res://Assets/Shaders/pixel_shader.tres" id="1_jeabo"]
+[ext_resource type="Texture2D" uid="uid://dsk2ybhhw5dwp" path="res://Assets/Sprites/UI/RPG_Pixel_EDSlashEm.png" id="2_e3qbu"]
+[ext_resource type="Script" path="res://Assets/Scripts/TowerDefense/Pointer.cs" id="3_7nbj5"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ulocn"]
+atlas = ExtResource("2_e3qbu")
+region = Rect2(624, 72, 64, 64)
+
+[node name="Pointer" type="Sprite2D" node_paths=PackedStringArray("camera")]
+z_index = 4
+material = ExtResource("1_jeabo")
+position = Vector2(310, 168)
+scale = Vector2(0.5, 0.5)
+texture = SubResource("AtlasTexture_ulocn")
+centered = false
+script = ExtResource("3_7nbj5")
+camera = NodePath("")

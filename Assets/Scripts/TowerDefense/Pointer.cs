@@ -3,6 +3,7 @@ using System;
 
 public partial class Pointer : Sprite2D
 {
+	public Vector2 positionWithCamera;
 	Vector2 pointerSize;
 	private Vector2 velocity;
 	private Vector2 ScreenSize;
@@ -10,25 +11,22 @@ public partial class Pointer : Sprite2D
 	[Export]
 	public int pointerSpeed = 300;
 
-	[Export]
-	Camera2D camera {get; set;}
-
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		AtlasTexture pointerTex = (AtlasTexture)Texture;
 		pointerSize =  pointerTex.Region.Size;
-		ScreenSize = GetViewportRect().Size;
 		DisplayServer.MouseSetMode(DisplayServer.MouseMode.Hidden);	//hide the mouse
-
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+		ScreenSize = GetViewportRect().Size;
+
 		//move the pointer around
 		SetCursorPosition(delta, GetGlobalMousePosition());
-
+		positionWithCamera = Position/2;
 	}
 
 	//if we detect mouse movement in the game then we're back to using the mouse
@@ -78,8 +76,8 @@ public partial class Pointer : Sprite2D
 		}
 
 		//clamp the movement
-		float endScreenX = (ScreenSize.X/camera.Zoom.X)-(pointerSize.X/camera.Zoom.X);
-		float endScreenY = (ScreenSize.Y/camera.Zoom.Y)-(pointerSize.Y/camera.Zoom.Y);
+		float endScreenX = ScreenSize.X-pointerSize.X;
+		float endScreenY = ScreenSize.Y-pointerSize.Y;
 
 		Position = new Vector2(
 			x: Mathf.Clamp(Position.X, 0, endScreenX),
