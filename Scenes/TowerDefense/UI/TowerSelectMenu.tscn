@@ -1,0 +1,108 @@
+[gd_scene load_steps=5 format=3 uid="uid://7a13alpcisww"]
+
+[ext_resource type="Texture2D" uid="uid://dsk2ybhhw5dwp" path="res://Assets/Sprites/UI/RPG_Pixel_EDSlashEm.png" id="1_b8151"]
+[ext_resource type="Theme" uid="uid://cvjlrwyqj6u1w" path="res://Assets/Themes/PanelTheme.tres" id="1_mxqm8"]
+[ext_resource type="FontFile" uid="uid://b40px0i27n7ll" path="res://Assets/Fonts/NicoClean-Regular.ttf" id="2_en1qb"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ad8qi"]
+atlas = ExtResource("1_b8151")
+region = Rect2(496, 8, 48, 56)
+
+[node name="TowerSelectMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TowerMargin" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(300, 500)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+
+[node name="Panel" type="Panel" parent="TowerMargin"]
+layout_mode = 2
+mouse_filter = 2
+theme = ExtResource("1_mxqm8")
+
+[node name="TowerVBox" type="VBoxContainer" parent="TowerMargin"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="UpperPanel" type="Panel" parent="TowerMargin/TowerVBox"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+mouse_filter = 2
+theme = ExtResource("1_mxqm8")
+
+[node name="Panel" type="Panel" parent="TowerMargin/TowerVBox/UpperPanel"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+
+[node name="TowerLabel" type="Label" parent="TowerMargin/TowerVBox/UpperPanel/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_en1qb")
+text = "TOWERS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScrollMargin" type="MarginContainer" parent="TowerMargin/TowerVBox"]
+custom_minimum_size = Vector2(0, 450)
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="ScrollContainer" type="ScrollContainer" parent="TowerMargin/TowerVBox/ScrollMargin"]
+layout_mode = 2
+
+[node name="ScrollVBox" type="VBoxContainer" parent="TowerMargin/TowerVBox/ScrollMargin/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -50.0
+offset_bottom = 50.0
+grow_horizontal = 0
+
+[node name="Panel" type="Panel" parent="MarginContainer"]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(50, 50)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="TextureButton" type="TextureButton" parent="MarginContainer/Panel"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -48.0
+grow_horizontal = 0
+grow_vertical = 2
+texture_normal = SubResource("AtlasTexture_ad8qi")
+ignore_texture_size = true
+stretch_mode = 5
