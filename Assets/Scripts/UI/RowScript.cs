@@ -19,6 +19,8 @@ public partial class RowScript : Node
 	// Dictionary<string[], Action> : string[0] = name of button, string[1] = function to change, Action = what function that is
 	protected Dictionary<string[], Action> buttonActions = new Dictionary<string[], Action>();
 
+	public virtual void Setup<T>(T value){}
+
 	public virtual void Setup(string[] labelTexts, Texture2D[] textures)
 	{
 		//check equal length

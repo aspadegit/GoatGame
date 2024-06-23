@@ -76,8 +76,8 @@ public partial class Pointer : Sprite2D
 		}
 
 		//clamp the movement
-		float endScreenX = ScreenSize.X-pointerSize.X;
-		float endScreenY = ScreenSize.Y-pointerSize.Y;
+		float endScreenX = ScreenSize.X-pointerSize.X/2;
+		float endScreenY = ScreenSize.Y-pointerSize.Y/2;
 
 		Position = new Vector2(
 			x: Mathf.Clamp(Position.X, 0, endScreenX),

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 public partial class TowerSelectMenu : Control
 {
+
 	[Export]
 	VBoxContainer scrollVBox;
 
@@ -10,29 +11,29 @@ public partial class TowerSelectMenu : Control
 	PackedScene selectRow;
 
 	[Export]
-	Texture2D tempTex; //TODO: DELETE ME
+	MarginContainer menu;
 
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
-		InstantiateChildren();
-	}
+	[Signal]
+	public delegate void TowerSelectedEventHandler();
+	bool menuShowing = false;
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
-	private void InstantiateChildren()
+    public override void _Ready()
+    {
+		SignalHandler.Instance.Connect(SignalHandler.SignalName.TowerSelect, Callable.From((int param)=> HideMainMenu()), (uint)ConnectFlags.Deferred);
+
+    }
+
+    private void InstantiateChildren()
 	{
 		
-		//remove all of the old goat instances (TODO: not always do this)
+		//remove all of the old instances (TODO: not always do this)
 		foreach(Node child in scrollVBox.GetChildren())
 		{
 			scrollVBox.RemoveChild(child);
 			child.QueueFree();
 		}
 
-		//spawn in new goat buttons
+		//spawn in new entries
 		foreach(KeyValuePair<int, int> machineEntry in GlobalVars.machineInventory)
 		{
 			//Get the machine
@@ -40,9 +41,32 @@ public partial class TowerSelectMenu : Control
 
 			//instantiate
 			TowerSelectRow row = selectRow.Instantiate<TowerSelectRow>();
-			row.Setup(new string[]{machine.Name, machine.Damage.ToString(), machineEntry.Value.ToString()}, new Texture2D[]{tempTex});
+			row.Setup(machine);
 			row.Name = machineEntry.Key.ToString();
 			scrollVBox.AddChild(row);
 		}
 	}
+
+	private void ToggleMenu()
+	{
+		if(!menuShowing)
+			ShowMainMenu();
+		else
+			HideMainMenu();
+	}
+
+	//TODO: (potentially), make it so that instantiating children happens once. and that numbers for
+		// the reduced counts of placing machines on the tiles are updated via signal
+	private void ShowMainMenu()
+	{
+		menuShowing = true;
+		InstantiateChildren();
+		menu.Show();
+	}
+	private void HideMainMenu()
+	{
+		menuShowing = false;
+		menu.Hide();
+	}
+
 }

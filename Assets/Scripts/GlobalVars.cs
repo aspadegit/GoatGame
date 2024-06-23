@@ -31,6 +31,7 @@ public partial class GlobalVars : Node
 		loadJSON("machines.json", "machines", parseMachines);
 
 		machineInventory.Add(0, 5); //TODO: DELETE ME
+		machineInventory.Add(1, 5); //TODO: DELETE ME
 		//TODO: UPDATE THIS
 		goats = new Dictionary<int, Goat>();
 		goats.Add(0, new Goat("Chell", 0, "Test Class", 100, 1, 0));

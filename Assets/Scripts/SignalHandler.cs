@@ -28,6 +28,10 @@ public partial class SignalHandler : Node
 	[Signal]
 	public delegate void ShowBuildMenuEventHandler();
 
+	//a tower select row sends a signal to the tower scene on what machine ID has been clicked
+	[Signal]
+	public delegate void TowerSelectEventHandler(int param);
+
 	public override void _Ready() {
 		Instance = this;
 	}

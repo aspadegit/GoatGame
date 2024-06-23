@@ -35,9 +35,13 @@ public partial class TileScript : Node2D
 	Timer enemySpawnTimer;
 	int enemyNum = 0;
 
+
+	private Machine currentMachine;
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		SignalHandler.Instance.Connect(SignalHandler.SignalName.TowerSelect, Callable.From((int param)=> SetTower(param)), (uint)ConnectFlags.Deferred);
 
 		tileMap = GetNode<TileMap>("TileMap");
 		enemySpawnTimer = GetNode<Timer>("EnemySpawnTimer");
@@ -68,10 +72,14 @@ public partial class TileScript : Node2D
 
 	private void PlaceTower(Vector2I curTile)
 	{	
-		//only set the tile if it is on top of a placeable tile
-		if(placeableTiles.Contains(curTile))
+		//only set the tile if it is on top of a placeable tile, if the currentMachine exists, and if we have enough of that machine
+		if(placeableTiles.Contains(curTile) && currentMachine != null && GlobalVars.machineInventory[currentMachine.ID] > 0)
 		{
 			//TODO: set tower scene details
+			GD.Print("placed " + currentMachine.Name);
+
+			//decrease global inventory
+			GlobalVars.machineInventory[currentMachine.ID]--;
 
 			//create the tower
 			TowerScript tower = towerScene.Instantiate<TowerScript>();
@@ -98,6 +106,12 @@ public partial class TileScript : Node2D
 		enemy.Setup(pathFollow, enemyNum);
 		enemies.AddChild(enemy);
 		
+
+	}
+
+	private void SetTower(int machineID)
+	{
+		currentMachine = GlobalVars.machines[machineID];
 
 	}
 
