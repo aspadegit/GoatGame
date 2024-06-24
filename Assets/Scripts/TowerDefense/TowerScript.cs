@@ -21,7 +21,7 @@ public partial class TowerScript : Node2D
 	{
 
 		/*
-		    |\   <-- angle from here
+			|\   <-- angle from here
 			|  \
 			|    \
 			|______\
@@ -40,13 +40,13 @@ public partial class TowerScript : Node2D
 	}
 
 	// use this and not process to update the polygon if ever necessary
-    public override void _PhysicsProcess(double delta)
-    {
-        base._PhysicsProcess(delta);
-    }
+	public override void _PhysicsProcess(double delta)
+	{
+		base._PhysicsProcess(delta);
+	}
 
-    // Called every frame. 'delta' is the elapsed time since the previous frame.
-    public override void _Process(double delta)
+	// Called every frame. 'delta' is the elapsed time since the previous frame.
+	public override void _Process(double delta)
 	{
 	}
 }
