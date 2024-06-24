@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://1v8f8ln10xjh"]
+[gd_scene load_steps=6 format=3 uid="uid://1v8f8ln10xjh"]
 
 [ext_resource type="Texture2D" uid="uid://brh80auhux7xw" path="res://Assets/Sprites/ts_constructions.png" id="1_hxli5"]
 [ext_resource type="Script" path="res://Assets/Scripts/TowerDefense/TowerScript.cs" id="1_iuiwv"]
@@ -9,6 +9,10 @@ region = Rect2(0, 661, 32, 59)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gsh6c"]
 size = Vector2(32, 60)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_q41rt"]
+radius = 30.0
+height = 60.0
 
 [node name="MachineTower" type="Node2D"]
 script = ExtResource("1_iuiwv")
@@ -28,5 +32,11 @@ debug_color = Color(0, 0.6, 0.701961, 0.160784)
 collision_layer = 2
 
 [node name="Cone" type="CollisionPolygon2D" parent="AttackArea"]
+visible = false
 build_mode = 1
 polygon = PackedVector2Array(0, 0, -27, 49, 27, 49)
+
+[node name="Circle" type="CollisionShape2D" parent="AttackArea"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_q41rt")
+debug_color = Color(0.997342, 0, 0.168065, 0.42)

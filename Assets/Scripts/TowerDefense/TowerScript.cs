@@ -14,9 +14,11 @@ public partial class TowerScript : Node2D
 	public override void _Ready()
 	{
 		coneOfAttack = GetNode<CollisionPolygon2D>("AttackArea/Cone");
-		ConeMath();
+		//ConeMath();
 	}
 
+	//Currently unused; kept around in case we need a cone, but i've switched it to be a circle
+		// is actually a capsule polygon for future flexibility
 	private void ConeMath()
 	{
 
