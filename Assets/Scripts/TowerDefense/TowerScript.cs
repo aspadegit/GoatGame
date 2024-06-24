@@ -32,7 +32,7 @@ public partial class TowerScript : Node2D
 	{
 
 		/*
-		    |\   <-- angle from here
+			|\   <-- angle from here
 			|  \
 			|    \
 			|______\
@@ -61,8 +61,8 @@ public partial class TowerScript : Node2D
 		
 	}
 
-    // Called every frame. 'delta' is the elapsed time since the previous frame.
-    public override void _Process(double delta)
+	// Called every frame. 'delta' is the elapsed time since the previous frame.
+	public override void _Process(double delta)
 	{
 	}
 }
