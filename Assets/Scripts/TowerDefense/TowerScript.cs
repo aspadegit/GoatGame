@@ -71,11 +71,11 @@ public partial class TowerScript : Node2D
 
 	private void Shoot()
 	{
-
+		//TODO: adjust targetedIndex potentially to not always be 0?
 		List<Enemy> shotEnemies = machine.ShotType.GetShotEnemies(enemies, 0);
 		foreach(Enemy e in shotEnemies)
 		{
-			GD.Print(e.Name + " was shot!");
+			GD.Print(e.Name + " was shot by " + Name);
 		}
 	}
 
