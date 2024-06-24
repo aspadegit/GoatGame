@@ -36,14 +36,16 @@ public class Shot
 
         //sort the list by how close enemies are to the target
         Vector2 checkPos = enemiesCanHit[targetedIndex].Position;
-        List<Enemy> sortedList = enemiesCanHit.OrderByDescending(enemy=>enemy.Position.DistanceTo(checkPos)).ToList();
 
-        //im PRETTY sure the first one in the list will be the same guy but. checking it anyways
-        GD.Print(sortedList[0].Name + " compared to  " + result[0].Name);
-
+        List<Enemy> sortedList = enemiesCanHit.OrderBy(enemy=>enemy.Position.DistanceTo(checkPos)).ToList();
+        
         //starts at 1 to account for the first enemy (added earlier)
         for(int i = 1; i < NumEnemiesToHit; i++)
         {
+            //avoid index out of bounds
+            if(i >= sortedList.Count)
+                break;
+
             Enemy curEnemy = sortedList[i];
 
             //all subsequent enemies will be too far, so break

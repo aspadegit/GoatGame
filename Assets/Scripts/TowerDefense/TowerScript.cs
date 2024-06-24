@@ -13,10 +13,11 @@ public partial class TowerScript : Node2D
 	public float coneLength = 50;
 
 	Timer shotTimer;
-	public float fireRate = 5; // X times per second
+	
+	Machine machine;
 
 	//enemies get added when they enter shooting collider, get taken off when they exit
-	Queue<Enemy> enemies = new Queue<Enemy>();	//TODO: potentially may not work if enemies get frozen / stuck
+	List<Enemy> enemies;
 
 	CollisionPolygon2D coneOfAttack;
 	public override void _Ready()
@@ -24,6 +25,13 @@ public partial class TowerScript : Node2D
 		coneOfAttack = GetNode<CollisionPolygon2D>("AttackArea/Cone");
 		shotTimer = GetNode<Timer>("ShotTimer");
 		//ConeMath();
+	}
+
+	public void Setup(Machine machine)
+	{
+		this.machine = machine;
+		shotTimer.WaitTime = machine.FireRate;
+		enemies = new List<Enemy>();
 	}
 
 	//Currently unused; kept around in case we need a cone, but i've switched it to be a circle
@@ -53,16 +61,57 @@ public partial class TowerScript : Node2D
 	// use this and not process to update the polygon if ever necessary
     public override void _PhysicsProcess(double delta)
     {
-		
+		if(enemies.Count > 0 && shotTimer.IsStopped())
+		{
+			Shoot();
+			shotTimer.Start();
+		}
+	
     }
 
 	private void Shoot()
 	{
-		
+
+		List<Enemy> shotEnemies = machine.ShotType.GetShotEnemies(enemies, 0);
+		foreach(Enemy e in shotEnemies)
+		{
+			GD.Print(e.Name + " was shot!");
+		}
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
+	private void PrintEnemies()
 	{
+		GD.Print("Enemies in " + Name + ": ");
+		foreach(Enemy e in enemies)
+		{
+			GD.Print(e.Name);
+		}
+	}
+
+	//============================ Signal connections ========================
+	private void OnShotTimerEnd()
+	{
+		if(enemies.Count > 0)
+		{
+			Shoot();
+		}
+		else
+		{
+			shotTimer.Stop();
+		}
+	}
+
+	//NOTE: since towers only scan on layer 3, enemies should ONLY be on layer 3, so this should always work
+		//if there are errors it means that either the enemy's area2D got moved, or the mask/collision numbers changed
+	private void AreaEntered(Area2D area)
+	{
+		Enemy newEnemy = area.GetParent<Enemy>();
+		enemies.Add(newEnemy);
+	}
+
+	private void AreaExited(Area2D area)
+	{
+		Enemy leavingEnemy = area.GetParent<Enemy>();
+		enemies.Remove(leavingEnemy);
 	}
 }

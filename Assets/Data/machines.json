@@ -7,7 +7,7 @@
             "level": 1,
             "damage": 50,
             "range": 50,
-            "fireRate": 40,
+            "fireRate": 1,
             "shotType": "Arrow",
             "description": "A simple wooden tower that shoots arrows in a circle.",
             "recipe": "ArrowTowerRecipe"
@@ -19,7 +19,7 @@
             "level": 1,
             "damage": 80,
             "range": 20,
-            "fireRate": 20,
+            "fireRate": 5,
             "shotType": "Cannon",
             "description": "A simple cannon tower that shoots a cannonball at a target.",
             "recipe": "CannonTowerRecipe" 

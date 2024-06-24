@@ -13,7 +13,7 @@
             "id": 1,
             "type": "Physical",
             "numEnemies": 5,
-            "aoeRange": 10,
+            "aoeRange": 120,
             "damage": 80
         }
     ]

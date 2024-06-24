@@ -91,7 +91,8 @@ public partial class TileScript : Node2D
 
 			//put it in the tree
 			towerParent.AddChild(tower);
-			
+			tower.Setup(currentMachine);
+
 			//tileMap.SetCell(towerLayer, curTile, 0, new Vector2I(0, 41), 0);
 		}
 	}

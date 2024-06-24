@@ -76,9 +76,10 @@ material = ExtResource("1_afl43")
 sprite_frames = SubResource("SpriteFrames_wpawy")
 animation = &"walk_side"
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="EnemyArea2D" type="Area2D" parent="."]
+collision_layer = 5
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyArea2D"]
 shape = SubResource("CircleShape2D_x52o7")
 debug_color = Color(0, 0.6, 0.701961, 0.133333)
 

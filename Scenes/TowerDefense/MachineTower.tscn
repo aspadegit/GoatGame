@@ -42,16 +42,18 @@ shape = SubResource("RectangleShape2D_gsh6c")
 debug_color = Color(0, 0.6, 0.701961, 0.160784)
 
 [node name="AttackArea" type="Area2D" parent="."]
-visible = false
 collision_layer = 2
+collision_mask = 4
 
 [node name="Cone" type="CollisionPolygon2D" parent="AttackArea"]
 visible = false
 build_mode = 1
 polygon = PackedVector2Array(0, 0, -27, 49, 27, 49)
+disabled = true
 
 [node name="Circle" type="CollisionShape2D" parent="AttackArea"]
 rotation = 1.5708
+scale = Vector2(2, 2)
 shape = SubResource("CapsuleShape2D_q41rt")
 debug_color = Color(0.996078, 0, 0.168627, 0.196078)
 
@@ -62,3 +64,7 @@ sprite_frames = SubResource("SpriteFrames_rph0v")
 script = ExtResource("4_1ygsq")
 
 [node name="ShotTimer" type="Timer" parent="."]
+
+[connection signal="area_entered" from="AttackArea" to="." method="AreaEntered"]
+[connection signal="area_exited" from="AttackArea" to="." method="AreaExited"]
+[connection signal="timeout" from="ShotTimer" to="." method="OnShotTimerEnd"]
