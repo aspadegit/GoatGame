@@ -1,5 +1,7 @@
 using Godot;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 
 public partial class TowerScript : Node2D
 {
@@ -10,10 +12,17 @@ public partial class TowerScript : Node2D
 	[Export]
 	public float coneLength = 50;
 
+	Timer shotTimer;
+	public float fireRate = 5; // X times per second
+
+	//enemies get added when they enter shooting collider, get taken off when they exit
+	Queue<Enemy> enemies = new Queue<Enemy>();	//TODO: potentially may not work if enemies get frozen / stuck
+
 	CollisionPolygon2D coneOfAttack;
 	public override void _Ready()
 	{
 		coneOfAttack = GetNode<CollisionPolygon2D>("AttackArea/Cone");
+		shotTimer = GetNode<Timer>("ShotTimer");
 		//ConeMath();
 	}
 
@@ -44,8 +53,13 @@ public partial class TowerScript : Node2D
 	// use this and not process to update the polygon if ever necessary
     public override void _PhysicsProcess(double delta)
     {
-        base._PhysicsProcess(delta);
+		
     }
+
+	private void Shoot()
+	{
+		
+	}
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(double delta)

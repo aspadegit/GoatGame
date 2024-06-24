@@ -1,0 +1,20 @@
+{
+    "shots": [
+        {
+            "name": "Arrow",
+            "id": 0,
+            "type": "Physical",
+            "numEnemies": 1,
+            "aoeRange": -1,
+            "damage": 50
+        },
+        {
+            "name": "Cannon",
+            "id": 1,
+            "type": "Physical",
+            "numEnemies": 5,
+            "aoeRange": 10,
+            "damage": 80
+        }
+    ]
+}

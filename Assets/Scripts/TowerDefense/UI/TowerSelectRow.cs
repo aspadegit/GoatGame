@@ -14,7 +14,7 @@ public partial class TowerSelectRow : RowScript
 		ButtonSetup();
 
 		//name, damage, amount
-		string[] text = {machine.Name, machine.Damage.ToString(), GlobalVars.machineInventory[machine.ID].ToString()};
+		string[] text = {machine.Name, machine.ShotType.Damage.ToString(), GlobalVars.machineInventory[machine.ID].ToString()};
 		base.Setup(text, new Texture2D[]{temp}); //TODO: make this come from somewhere
 		
 	}

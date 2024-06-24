@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 
@@ -13,6 +14,8 @@ public partial class GlobalVars : Node
 	public static Dictionary<int, Job> jobs = new Dictionary<int, Job>(); //ID, Job
 	public static Dictionary<int, Machine> machines; //ID, Machine
 	public static Dictionary<string, Recipe> recipes; //name, Recipe
+
+	public static Dictionary<string, Shot> shots; //name, Shot
 
 	public static Dictionary<string, int> materialsObtained = new Dictionary<string, int>(); //materialName, amountOfThatMaterial
 	public static Dictionary<int, int> machineInventory = new Dictionary<int, int>(); //machineID, amountOfThatMachine
@@ -28,6 +31,7 @@ public partial class GlobalVars : Node
 	{
 		loadJSON("materials.json", "materials", parseMaterials);
 		loadJSON("recipes.json", "recipes", parseRecipes);
+		loadJSON("shots.json", "shots", parseShots);
 		loadJSON("machines.json", "machines", parseMachines);
 
 		machineInventory.Add(0, 5); //TODO: DELETE ME
@@ -105,6 +109,25 @@ public partial class GlobalVars : Node
 		}
 	}
 
+	private void parseShots(JsonArray array)
+	{
+		shots = new Dictionary<string, Shot>();
+		foreach(JsonNode shot in array)
+		{
+			//initial stuff
+			string name = (string)shot["name"];
+			int id = (int)shot["id"];
+			string type = (string)shot["type"];
+			int numEnemies = (int)shot["numEnemies"];
+			int aoeRange = (int)shot["aoeRange"];
+			int damage = (int)shot["damage"];
+
+			//create the new object
+			Shot s = new Shot(name, id, type, numEnemies, aoeRange, damage);
+			shots.Add(name, s);
+		}
+	}
+
 	private void parseMachines(JsonArray array)
 	{
 		machines = new Dictionary<int, Machine>();
@@ -113,12 +136,17 @@ public partial class GlobalVars : Node
 			int id = (int)machine["id"];
 			string name = (string)machine["name"];
 			string type = (string)machine["type"];
+			
 			int level = (int)machine["level"];
 			int dmg = (int)machine["damage"];
+			int range = (int)machine["range"];
+			int fireRate = (int)machine["fireRate"];
+
+			Shot shot = shots[(string)machine["shotType"]];
 			string desc = (string)machine["description"];
 			Recipe recipe = recipes[(string)machine["recipe"]];
 
-			Machine newMach = new Machine(name, id, type, level, dmg, desc, recipe);
+			Machine newMach = new Machine(name, id, type, level, range, fireRate, shot, desc, recipe);
 			machines.Add(id, newMach);
 		}
 

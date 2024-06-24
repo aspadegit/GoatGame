@@ -1,7 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://1v8f8ln10xjh"]
+[gd_scene load_steps=9 format=3 uid="uid://1v8f8ln10xjh"]
 
 [ext_resource type="Texture2D" uid="uid://brh80auhux7xw" path="res://Assets/Sprites/ts_constructions.png" id="1_hxli5"]
 [ext_resource type="Script" path="res://Assets/Scripts/TowerDefense/TowerScript.cs" id="1_iuiwv"]
+[ext_resource type="Texture2D" uid="uid://5fm486o1wv26" path="res://Assets/Sprites/Tiles/Select.png" id="3_0akta"]
+[ext_resource type="Script" path="res://Assets/Scripts/TowerDefense/ShotScript.cs" id="4_1ygsq"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iyadu"]
 atlas = ExtResource("1_hxli5")
@@ -13,6 +15,17 @@ size = Vector2(32, 60)
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_q41rt"]
 radius = 30.0
 height = 60.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rph0v"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_0akta")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [node name="MachineTower" type="Node2D"]
 script = ExtResource("1_iuiwv")
@@ -29,6 +42,7 @@ shape = SubResource("RectangleShape2D_gsh6c")
 debug_color = Color(0, 0.6, 0.701961, 0.160784)
 
 [node name="AttackArea" type="Area2D" parent="."]
+visible = false
 collision_layer = 2
 
 [node name="Cone" type="CollisionPolygon2D" parent="AttackArea"]
@@ -39,4 +53,12 @@ polygon = PackedVector2Array(0, 0, -27, 49, 27, 49)
 [node name="Circle" type="CollisionShape2D" parent="AttackArea"]
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_q41rt")
-debug_color = Color(0.997342, 0, 0.168065, 0.42)
+debug_color = Color(0.996078, 0, 0.168627, 0.196078)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+self_modulate = Color(0.302347, 0.000116958, 0.331644, 1)
+top_level = true
+sprite_frames = SubResource("SpriteFrames_rph0v")
+script = ExtResource("4_1ygsq")
+
+[node name="ShotTimer" type="Timer" parent="."]
