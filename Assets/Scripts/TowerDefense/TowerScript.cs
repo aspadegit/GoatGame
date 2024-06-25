@@ -59,15 +59,15 @@ public partial class TowerScript : Node2D
 	}
 
 	// use this and not process to update the polygon if ever necessary
-    public override void _PhysicsProcess(double delta)
-    {
+	public override void _PhysicsProcess(double delta)
+	{
 		if(enemies.Count > 0 && shotTimer.IsStopped())
 		{
 			Shoot();
 			shotTimer.Start();
 		}
 	
-    }
+	}
 
 	private void Shoot()
 	{
@@ -75,6 +75,7 @@ public partial class TowerScript : Node2D
 		List<Enemy> shotEnemies = machine.ShotType.GetShotEnemies(enemies, 0);
 		foreach(Enemy e in shotEnemies)
 		{
+			e.TakeDamage(machine.ShotType.Damage);
 			GD.Print(e.Name + " was shot by " + Name);
 		}
 	}
