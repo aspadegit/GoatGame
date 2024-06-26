@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://14nrv6ny78df"]
+[gd_scene load_steps=19 format=3 uid="uid://14nrv6ny78df"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/TowerDefense/Enemy.cs" id="1_ftv3n"]
 [ext_resource type="Shader" path="res://Assets/Shaders/Enemy.gdshader" id="2_1bedq"]
@@ -6,16 +6,22 @@
 [ext_resource type="Texture2D" uid="uid://dm32otuhcvl1t" path="res://Assets/Sprites/damage_slime.png" id="3_dhu8b"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_fybq2"]
+seed = 265
+frequency = 0.0041
 fractal_type = 3
 fractal_octaves = 10
 fractal_lacunarity = 1.12
+metadata/_preview_in_3d_space_ = true
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_r42lw"]
+seamless = true
 noise = SubResource("FastNoiseLite_fybq2")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kx22l"]
+resource_local_to_scene = true
 shader = ExtResource("2_1bedq")
 shader_parameter/dissolveState = 0.0
+shader_parameter/amount = 40
 shader_parameter/dissolveNoise = SubResource("NoiseTexture2D_r42lw")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2cewx"]
@@ -61,7 +67,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"damage",
-"speed": 20.0
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -99,6 +105,10 @@ animations = [{
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_x52o7"]
 
+[sub_resource type="Gradient" id="Gradient_jkfcs"]
+offsets = PackedFloat32Array(0, 0.533937, 1)
+colors = PackedColorArray(0.680989, 0.135575, 1.92523e-07, 1, 0.97, 0.245733, 0.194, 1, 0.619608, 0.427451, 0.419608, 0.643137)
+
 [node name="Enemy" type="Node2D"]
 scale = Vector2(1.5, 1.5)
 script = ExtResource("1_ftv3n")
@@ -107,7 +117,7 @@ script = ExtResource("1_ftv3n")
 texture_filter = 1
 material = SubResource("ShaderMaterial_kx22l")
 sprite_frames = SubResource("SpriteFrames_wpawy")
-animation = &"walk_side"
+animation = &"damage"
 
 [node name="EnemyArea2D" type="Area2D" parent="."]
 collision_layer = 5
@@ -117,5 +127,21 @@ shape = SubResource("CircleShape2D_x52o7")
 debug_color = Color(0, 0.6, 0.701961, 0.133333)
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="DeathParticles" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 16
+lifetime = 0.5
+randomness = 0.31
+emission_shape = 4
+emission_points = PackedVector2Array()
+emission_colors = PackedColorArray()
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 5.0
+initial_velocity_max = 50.0
+scale_amount_min = 0.1
+scale_amount_max = 5.0
+color_ramp = SubResource("Gradient_jkfcs")
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="OnVisibleOnScreenNotifier2DScreenExited"]

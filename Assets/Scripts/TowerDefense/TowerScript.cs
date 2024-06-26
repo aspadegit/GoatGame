@@ -76,7 +76,6 @@ public partial class TowerScript : Node2D
 		foreach(Enemy e in shotEnemies)
 		{
 			e.TakeDamage(machine.ShotType.Damage);
-			GD.Print(e.Name + " was shot by " + Name);
 		}
 	}
 

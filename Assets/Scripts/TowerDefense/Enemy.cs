@@ -5,13 +5,18 @@ public partial class Enemy : Node2D
 {
 	private PathFollow2D pathFollow;
 	private AnimatedSprite2D animation;
+	private ShaderMaterial shaderMat;
 	private Vector2 prevPosition;
 	bool shouldStart = false;
+	float deathDissolveVal = 0.0f;
+	bool dying = false;
 	public int Health { get; private set; }
 
 	public override void _Ready()
 	{
+		dying = false;
 		animation = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+		shaderMat = (ShaderMaterial)animation.Material;
 		Health = 200;
 	}
 
@@ -32,7 +37,9 @@ public partial class Enemy : Node2D
 
 	public override void _Process(double delta)
 	{
-		if(shouldStart)
+		if(dying)
+			animation.Stop();
+		if(shouldStart && !dying)
 		{
 			prevPosition = Position;	//set old position
 
@@ -43,8 +50,20 @@ public partial class Enemy : Node2D
 		}
 	}
 
-	//changes the animation based on the instantaneous velocity 
-	private void AdjustAnimation()
+    public override void _PhysicsProcess(double delta)
+    {
+		if(dying)
+		{
+        	deathDissolveVal += 1.5f * (float)delta;
+			shaderMat.SetShaderParameter("dissolveState", deathDissolveVal);
+
+			if(deathDissolveVal >= 1)
+				Destroy();
+		}
+    }
+
+    //changes the animation based on the instantaneous velocity 
+    private void AdjustAnimation()
 	{
 		Vector2 velocity = Position - prevPosition;
 
@@ -54,7 +73,7 @@ public partial class Enemy : Node2D
 			animation.Stop();
 
 		//left/right
-		if(Math.Abs(velocity.X) > Math.Abs(velocity.Y))
+		if(Health > 50 && Math.Abs(velocity.X) > Math.Abs(velocity.Y))
 		{
 			animation.Animation = "walk_side";
 			//right
@@ -70,7 +89,7 @@ public partial class Enemy : Node2D
 
 		}
 		//up/down
-		else
+		else if(Health > 50)
 		{
 			animation.FlipH = false;
 			//down
@@ -85,21 +104,31 @@ public partial class Enemy : Node2D
 
 			}
 		}
+		else
+		{
+			animation.Animation = "damage";
+		}
 	}
 	
 	 public void TakeDamage(int damage)
 	{
-		animation.Animation = "damage";
 		Health -= damage;
 		if (Health <= 0)
 		{
-			Destroy();
+			StartDying();
 		}
+		
+	}
+	private void StartDying()
+	{
+		dying = true;
+		GetNode<CpuParticles2D>("DeathParticles").Emitting = true;
 	}
 
 	//deletes itself and its path
 	private void Destroy()
 	{
+
 		pathFollow.QueueFree();
 		QueueFree();
 

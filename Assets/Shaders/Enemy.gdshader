@@ -1,8 +1,8 @@
 shader_type canvas_item;
 
-uniform float dissolveState: hint_range(0,1) = 0.5;
+uniform float dissolveState: hint_range(0,1) = 0.0;
 uniform sampler2D dissolveNoise;
-
+uniform int amount = 16; //pixel amount
 vec4 texturePointSmooth(sampler2D smp, vec2 uv, vec2 pixel_size)
 {
 	vec2 ddx = dFdx(uv);
@@ -24,11 +24,13 @@ vec4 texturePointSmooth(sampler2D smp, vec2 uv, vec2 pixel_size)
 void fragment() {
 	// Called for every pixel the material is visible on.
 	vec4 textureColor = texture(TEXTURE, UV);
-	vec4 brightness = texture(dissolveNoise, UV);
-	
+
+	vec2 grid_uv = round(UV * float(amount)) / float(amount);	//pixelates
+	vec4 brightness = texture(dissolveNoise, grid_uv);
 	float dissolveDif = abs(brightness.r-dissolveState);
+	
 	COLOR = texturePointSmooth(TEXTURE, UV, TEXTURE_PIXEL_SIZE);
-	COLOR.rgb += vec3(1,1,0) * step(dissolveDif, 0.1) * step(0.01, dissolveState);
+	COLOR.rgb += vec3(1,0,0) * step(dissolveDif, 0.2) * step(0.01, dissolveState);
 	
 	COLOR.a = textureColor.a * step(dissolveState, brightness.r);
 }
