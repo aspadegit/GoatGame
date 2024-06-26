@@ -1,9 +1,22 @@
-[gd_scene load_steps=15 format=3 uid="uid://14nrv6ny78df"]
+[gd_scene load_steps=18 format=3 uid="uid://14nrv6ny78df"]
 
-[ext_resource type="Material" uid="uid://drw4sbap8erve" path="res://Assets/Shaders/pixel_shader.tres" id="1_afl43"]
 [ext_resource type="Script" path="res://Assets/Scripts/TowerDefense/Enemy.cs" id="1_ftv3n"]
+[ext_resource type="Shader" path="res://Assets/Shaders/Enemy.gdshader" id="2_1bedq"]
 [ext_resource type="Texture2D" uid="uid://dal4kup5nubfw" path="res://Assets/Sprites/blue_slime.png" id="2_r6gwx"]
-[ext_resource type="Texture2D" uid="uid://dm32otuhcvl1t" path="res://Assets/Sprites/damage_slime.png" id="3_dhu8b"]
+[ext_resource type="Texture2D" path="res://Assets/Sprites/damage_slime.png" id="3_dhu8b"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_fybq2"]
+fractal_type = 3
+fractal_octaves = 10
+fractal_lacunarity = 1.12
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_r42lw"]
+noise = SubResource("FastNoiseLite_fybq2")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kx22l"]
+shader = ExtResource("2_1bedq")
+shader_parameter/dissolveState = 0.0
+shader_parameter/dissolveNoise = SubResource("NoiseTexture2D_r42lw")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2cewx"]
 atlas = ExtResource("3_dhu8b")
@@ -92,9 +105,9 @@ script = ExtResource("1_ftv3n")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
-material = ExtResource("1_afl43")
+material = SubResource("ShaderMaterial_kx22l")
 sprite_frames = SubResource("SpriteFrames_wpawy")
-animation = &"damage"
+animation = &"walk_side"
 
 [node name="EnemyArea2D" type="Area2D" parent="."]
 collision_layer = 5
