@@ -117,7 +117,7 @@ script = ExtResource("1_ftv3n")
 texture_filter = 1
 material = SubResource("ShaderMaterial_kx22l")
 sprite_frames = SubResource("SpriteFrames_wpawy")
-animation = &"damage"
+animation = &"walk_side"
 
 [node name="EnemyArea2D" type="Area2D" parent="."]
 collision_layer = 5
