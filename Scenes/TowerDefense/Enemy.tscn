@@ -1,8 +1,27 @@
-[gd_scene load_steps=12 format=3 uid="uid://14nrv6ny78df"]
+[gd_scene load_steps=15 format=3 uid="uid://14nrv6ny78df"]
 
-[ext_resource type="Material" uid="uid://drw4sbap8erve" path="res://Assets/Shaders/pixel_shader.tres" id="1_afl43"]
 [ext_resource type="Script" path="res://Assets/Scripts/TowerDefense/Enemy.cs" id="1_ftv3n"]
 [ext_resource type="Texture2D" uid="uid://dal4kup5nubfw" path="res://Assets/Sprites/blue_slime.png" id="2_r6gwx"]
+[ext_resource type="Shader" path="res://Assets/Shaders/Enemy.gdshader" id="2_wvcg2"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_t8p0v"]
+noise_type = 2
+seed = 215
+frequency = 0.0106
+fractal_type = 3
+fractal_octaves = 10
+fractal_lacunarity = 1.99
+fractal_weighted_strength = 0.57
+fractal_ping_pong_strength = 2.71
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_vbwq4"]
+seamless = true
+noise = SubResource("FastNoiseLite_t8p0v")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5r4rf"]
+shader = ExtResource("2_wvcg2")
+shader_parameter/dissolveState = 0.0
+shader_parameter/dissolveNoise = SubResource("NoiseTexture2D_vbwq4")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_q7gqw"]
 atlas = ExtResource("2_r6gwx")
@@ -72,11 +91,12 @@ script = ExtResource("1_ftv3n")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
-material = ExtResource("1_afl43")
+material = SubResource("ShaderMaterial_5r4rf")
 sprite_frames = SubResource("SpriteFrames_wpawy")
 animation = &"walk_side"
 
 [node name="EnemyArea2D" type="Area2D" parent="."]
+visible = false
 collision_layer = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyArea2D"]
@@ -84,5 +104,6 @@ shape = SubResource("CircleShape2D_x52o7")
 debug_color = Color(0, 0.6, 0.701961, 0.133333)
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+visible = false
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="OnVisibleOnScreenNotifier2DScreenExited"]
