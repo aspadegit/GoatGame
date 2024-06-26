@@ -67,7 +67,7 @@ public partial class GlobalVars : Node
 		file.Close();
 
 		//converts the file to json
-       	JsonNode jsonNode = JsonNode.Parse(fileText)!;
+	   	JsonNode jsonNode = JsonNode.Parse(fileText)!;
 		JsonArray array = jsonNode[type].AsArray();
 		
 		subFunction.Invoke(array);

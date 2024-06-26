@@ -7,10 +7,12 @@ public partial class Enemy : Node2D
 	private AnimatedSprite2D animation;
 	private Vector2 prevPosition;
 	bool shouldStart = false;
+	public int Health { get; private set; }
 
 	public override void _Ready()
 	{
 		animation = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+		Health = 200;
 	}
 
 	public void Setup(PathFollow2D enemyPathFollow, int enemyNum)
@@ -82,6 +84,16 @@ public partial class Enemy : Node2D
 				animation.Animation = "walk_up";
 
 			}
+		}
+	}
+	
+	 public void TakeDamage(int damage)
+	{
+		animation.Animation = "damage";
+		Health -= damage;
+		if (Health <= 0)
+		{
+			Destroy();
 		}
 	}
 

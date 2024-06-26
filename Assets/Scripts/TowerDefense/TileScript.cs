@@ -66,8 +66,9 @@ public partial class TileScript : Node2D
 		tileMap.SetCell(hoverLayer, tile, selectTileSourceNum, Vector2I.Zero, 0);
 		prevSelection = tile;
 
-		if(Input.IsActionJustPressed("left_click"))
+		if(Input.IsActionJustPressed("left_click")){
 			PlaceTower(tile);
+			}
 	}
 
 	private void PlaceTower(Vector2I curTile)
