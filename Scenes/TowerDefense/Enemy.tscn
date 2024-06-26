@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Assets/Scripts/TowerDefense/Enemy.cs" id="1_ftv3n"]
 [ext_resource type="Shader" path="res://Assets/Shaders/Enemy.gdshader" id="2_1bedq"]
 [ext_resource type="Texture2D" uid="uid://dal4kup5nubfw" path="res://Assets/Sprites/blue_slime.png" id="2_r6gwx"]
-[ext_resource type="Texture2D" path="res://Assets/Sprites/damage_slime.png" id="3_dhu8b"]
+[ext_resource type="Texture2D" uid="uid://dm32otuhcvl1t" path="res://Assets/Sprites/damage_slime.png" id="3_dhu8b"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_fybq2"]
 fractal_type = 3
