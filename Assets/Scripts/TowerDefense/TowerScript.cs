@@ -21,12 +21,12 @@ public partial class TowerScript : Node2D
 	int targetedIndex = -1; 
 
 	CollisionPolygon2D coneOfAttack;
-	Node2D shotAnchor;
+	ShotScript shotScript;
 	public override void _Ready()
 	{
 		coneOfAttack = GetNode<CollisionPolygon2D>("AttackArea/Cone");
 		shotTimer = GetNode<Timer>("ShotTimer");
-		shotAnchor = GetNode<Node2D>("ShotAnchor");
+		shotScript = GetNode("Area2D/ShotAnchor") as ShotScript;
 		//ConeMath();
 	}
 
@@ -76,7 +76,8 @@ public partial class TowerScript : Node2D
 	{
 		
 		List<Enemy> shotEnemies = machine.ShotType.GetShotEnemies(enemies, 0);
-		
+		shotScript.Shoot();
+
 		foreach(Enemy e in shotEnemies)
 		{
 			e.TakeDamage(machine.ShotType.Damage);
@@ -116,9 +117,12 @@ public partial class TowerScript : Node2D
 
 		//first enemy arrives
 		if(enemies.Count < 1)
+		{
 			targetedIndex = 0;
-
+		}
 		enemies.Add(newEnemy);
+		shotScript.UpdateEnemies(enemies, targetedIndex);
+
 	}
 
 	private void AreaExited(Area2D area)
@@ -128,6 +132,10 @@ public partial class TowerScript : Node2D
 
 		//last enemy leaves
 		if(enemies.Count < 1)
+		{
 			targetedIndex = -1;
+		}
+		shotScript.UpdateEnemies(enemies, targetedIndex);
+
 	}
 }
