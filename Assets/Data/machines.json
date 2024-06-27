@@ -19,7 +19,7 @@
             "level": 1,
             "damage": 80,
             "range": 20,
-            "fireRate": 5,
+            "fireRate": 3,
             "shotType": "Cannon",
             "description": "A simple cannon tower that shoots a cannonball at a target.",
             "recipe": "CannonTowerRecipe" 

@@ -22,11 +22,13 @@ public partial class TowerScript : Node2D
 
 	CollisionPolygon2D coneOfAttack;
 	ShotScript shotScript;
+
 	public override void _Ready()
 	{
 		coneOfAttack = GetNode<CollisionPolygon2D>("AttackArea/Cone");
 		shotTimer = GetNode<Timer>("ShotTimer");
 		shotScript = GetNode("Area2D/ShotAnchor") as ShotScript;
+
 		//ConeMath();
 	}
 
@@ -35,6 +37,9 @@ public partial class TowerScript : Node2D
 		this.machine = machine;
 		shotTimer.WaitTime = machine.FireRate;
 		enemies = new List<Enemy>();
+		shotScript.shotType = machine.ShotType;
+		shotScript.aoeArea.SetDeferred(Area2D.PropertyName.Scale, new Vector2(machine.ShotType.AoeRange,machine.ShotType.AoeRange));
+
 	}
 
 	//Currently unused; kept around in case we need a cone, but i've switched it to be a circle
@@ -74,9 +79,8 @@ public partial class TowerScript : Node2D
 
 	private void Shoot()
 	{
-		
-		List<Enemy> shotEnemies = machine.ShotType.GetShotEnemies(enemies, 0);
-		shotScript.Shoot();
+		List<Enemy> shotEnemies = machine.ShotType.GetShotEnemies(enemies, shotScript.enemiesInAoe, 0);
+		shotScript.Shoot();	//shooting animation
 
 		foreach(Enemy e in shotEnemies)
 		{

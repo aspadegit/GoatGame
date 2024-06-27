@@ -119,7 +119,7 @@ public partial class GlobalVars : Node
 			int id = (int)shot["id"];
 			string type = (string)shot["type"];
 			int numEnemies = (int)shot["numEnemies"];
-			int aoeRange = (int)shot["aoeRange"];
+			float aoeRange = (float)shot["aoeRange"];
 			int damage = (int)shot["damage"];
 
 			//create the new object

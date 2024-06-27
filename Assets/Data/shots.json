@@ -5,7 +5,7 @@
             "id": 0,
             "type": "Physical",
             "numEnemies": 1,
-            "aoeRange": -1,
+            "aoeRange": 0,
             "damage": 50
         },
         {
@@ -13,7 +13,7 @@
             "id": 1,
             "type": "Physical",
             "numEnemies": 5,
-            "aoeRange": 120,
+            "aoeRange": 3.5,
             "damage": 80
         }
     ]
