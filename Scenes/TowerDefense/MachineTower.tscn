@@ -1,38 +1,93 @@
-[gd_scene load_steps=9 format=3 uid="uid://1v8f8ln10xjh"]
+[gd_scene load_steps=17 format=3 uid="uid://1v8f8ln10xjh"]
 
-[ext_resource type="Texture2D" uid="uid://brh80auhux7xw" path="res://Assets/Sprites/ts_constructions.png" id="1_hxli5"]
 [ext_resource type="Script" path="res://Assets/Scripts/TowerDefense/TowerScript.cs" id="1_iuiwv"]
-[ext_resource type="Texture2D" uid="uid://5fm486o1wv26" path="res://Assets/Sprites/Tiles/Select.png" id="3_0akta"]
+[ext_resource type="Texture2D" uid="uid://c3c08ytrmy1fy" path="res://Assets/Sprites/Towers/basic_wood_tower.png" id="2_8e82v"]
+[ext_resource type="Texture2D" uid="uid://l0x6xibhpc1x" path="res://Assets/Sprites/Towers/Shots/wooden_crossbow_spritesheet.png" id="3_4d304"]
+[ext_resource type="Material" uid="uid://drw4sbap8erve" path="res://Assets/Shaders/pixel_shader.tres" id="3_ykpoy"]
 [ext_resource type="Script" path="res://Assets/Scripts/TowerDefense/ShotScript.cs" id="4_1ygsq"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iyadu"]
-atlas = ExtResource("1_hxli5")
-region = Rect2(0, 661, 32, 59)
+atlas = ExtResource("2_8e82v")
+region = Rect2(1, 2, 30, 62)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gsh6c"]
 size = Vector2(32, 60)
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_q41rt"]
-radius = 30.0
-height = 60.0
+[sub_resource type="AtlasTexture" id="AtlasTexture_cs5sf"]
+atlas = ExtResource("3_4d304")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_78xgi"]
+atlas = ExtResource("3_4d304")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ta8gt"]
+atlas = ExtResource("3_4d304")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6cw5o"]
+atlas = ExtResource("3_4d304")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_avo63"]
+atlas = ExtResource("3_4d304")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m07ik"]
+atlas = ExtResource("3_4d304")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g56h0"]
+atlas = ExtResource("3_4d304")
+region = Rect2(384, 0, 64, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_rph0v"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_0akta")
+"texture": SubResource("AtlasTexture_cs5sf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_78xgi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ta8gt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6cw5o")
 }],
-"loop": true,
-"name": &"default",
-"speed": 5.0
+"loop": false,
+"name": &"draw",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_avo63")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m07ik")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g56h0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cs5sf")
+}],
+"loop": false,
+"name": &"shoot",
+"speed": 10.0
 }]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_q41rt"]
+radius = 30.0
+height = 60.0
 
 [node name="MachineTower" type="Node2D"]
 script = ExtResource("1_iuiwv")
 
 [node name="Area2D" type="Area2D" parent="."]
 
-[node name="Sprite2D" type="Sprite2D" parent="Area2D"]
+[node name="TowerSprite" type="Sprite2D" parent="Area2D"]
 texture = SubResource("AtlasTexture_iyadu")
 offset = Vector2(0, -16)
 
@@ -40,6 +95,17 @@ offset = Vector2(0, -16)
 position = Vector2(0, -16)
 shape = SubResource("RectangleShape2D_gsh6c")
 debug_color = Color(0, 0.6, 0.701961, 0.160784)
+
+[node name="ShotAnchor" type="Node2D" parent="Area2D"]
+position = Vector2(0, -32)
+script = ExtResource("4_1ygsq")
+
+[node name="ShotSprite" type="AnimatedSprite2D" parent="Area2D/ShotAnchor"]
+z_index = 1
+material = ExtResource("3_ykpoy")
+sprite_frames = SubResource("SpriteFrames_rph0v")
+animation = &"shoot"
+offset = Vector2(0, -16)
 
 [node name="AttackArea" type="Area2D" parent="."]
 collision_layer = 2
@@ -56,12 +122,6 @@ rotation = 1.5708
 scale = Vector2(2, 2)
 shape = SubResource("CapsuleShape2D_q41rt")
 debug_color = Color(0.996078, 0, 0.168627, 0.196078)
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-self_modulate = Color(0.302347, 0.000116958, 0.331644, 1)
-top_level = true
-sprite_frames = SubResource("SpriteFrames_rph0v")
-script = ExtResource("4_1ygsq")
 
 [node name="ShotTimer" type="Timer" parent="."]
 
