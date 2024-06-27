@@ -18,12 +18,15 @@ public partial class TowerScript : Node2D
 
 	//enemies get added when they enter shooting collider, get taken off when they exit
 	List<Enemy> enemies;
+	int targetedIndex = -1; 
 
 	CollisionPolygon2D coneOfAttack;
+	Node2D shotAnchor;
 	public override void _Ready()
 	{
 		coneOfAttack = GetNode<CollisionPolygon2D>("AttackArea/Cone");
 		shotTimer = GetNode<Timer>("ShotTimer");
+		shotAnchor = GetNode<Node2D>("ShotAnchor");
 		//ConeMath();
 	}
 
@@ -71,8 +74,9 @@ public partial class TowerScript : Node2D
 
 	private void Shoot()
 	{
-		//TODO: adjust targetedIndex potentially to not always be 0?
+		
 		List<Enemy> shotEnemies = machine.ShotType.GetShotEnemies(enemies, 0);
+		
 		foreach(Enemy e in shotEnemies)
 		{
 			e.TakeDamage(machine.ShotType.Damage);
@@ -103,9 +107,17 @@ public partial class TowerScript : Node2D
 
 	//NOTE: since towers only scan on layer 3, enemies should ONLY be on layer 3, so this should always work
 		//if there are errors it means that either the enemy's area2D got moved, or the mask/collision numbers changed
+	
 	private void AreaEntered(Area2D area)
 	{
 		Enemy newEnemy = area.GetParent<Enemy>();
+
+		//TODO: adjust targetedIndex potentially to not always be 0?
+
+		//first enemy arrives
+		if(enemies.Count < 1)
+			targetedIndex = 0;
+
 		enemies.Add(newEnemy);
 	}
 
@@ -113,5 +125,9 @@ public partial class TowerScript : Node2D
 	{
 		Enemy leavingEnemy = area.GetParent<Enemy>();
 		enemies.Remove(leavingEnemy);
+
+		//last enemy leaves
+		if(enemies.Count < 1)
+			targetedIndex = -1;
 	}
 }

@@ -23,14 +23,14 @@ public partial class Enemy : Node2D
 		dying = false;
 		animation = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 		health_bar = GetNode<ProgressBar>("HealthBar");
-		damage_bar = GetNode<ProgressBar>("DamageBar");
-		timer = GetNode<Timer>("Timer");
+		damage_bar = GetNode<ProgressBar>("HealthBar/DamageBar");
+		//timer = GetNode<Timer>("Timer");
 		shaderMat = (ShaderMaterial)animation.Material;
 		Health = 300;
 		health_bar.Value = Health;
 		health_bar.MaxValue = Health;
-		damage_bar.Value = Health;
-		damage_bar.MaxValue = Health;
+		//damage_bar.Value = Health;
+		//damage_bar.MaxValue = Health;
 	}
 
 	public void Setup(PathFollow2D enemyPathFollow, int enemyNum)

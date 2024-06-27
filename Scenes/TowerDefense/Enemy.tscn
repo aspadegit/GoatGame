@@ -1,9 +1,23 @@
-[gd_scene load_steps=19 format=3 uid="uid://14nrv6ny78df"]
+[gd_scene load_steps=23 format=3 uid="uid://14nrv6ny78df"]
 
-[ext_resource type="Material" uid="uid://drw4sbap8erve" path="res://Assets/Shaders/pixel_shader.tres" id="1_afl43"]
 [ext_resource type="Script" path="res://Assets/Scripts/TowerDefense/Enemy.cs" id="1_ftv3n"]
+[ext_resource type="Shader" path="res://Assets/Shaders/Enemy.gdshader" id="2_4ltbx"]
 [ext_resource type="Texture2D" uid="uid://dal4kup5nubfw" path="res://Assets/Sprites/blue_slime.png" id="2_r6gwx"]
 [ext_resource type="Texture2D" uid="uid://dm32otuhcvl1t" path="res://Assets/Sprites/damage_slime.png" id="3_dhu8b"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_382rm"]
+noise_type = 2
+frequency = 0.002
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_im6c7"]
+noise = SubResource("FastNoiseLite_382rm")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qyj2h"]
+resource_local_to_scene = true
+shader = ExtResource("2_4ltbx")
+shader_parameter/dissolveState = 0.0
+shader_parameter/amount = 16
+shader_parameter/dissolveNoise = SubResource("NoiseTexture2D_im6c7")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2cewx"]
 atlas = ExtResource("3_dhu8b")
@@ -48,7 +62,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"damage",
-"speed": 20.0
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -103,15 +117,19 @@ shadow_offset = Vector2(0, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8ya8u"]
 bg_color = Color(1, 1, 1, 1)
 
+[sub_resource type="Gradient" id="Gradient_kltvu"]
+offsets = PackedFloat32Array(0, 0.420601, 0.733906, 1)
+colors = PackedColorArray(0.592452, 0, 0, 1, 0.96, 0.3744, 0.38416, 1, 1, 0.608333, 0.53, 0.941176, 1, 0.1, 0.115, 0)
+
 [node name="Enemy" type="Node2D"]
 scale = Vector2(1.5, 1.5)
 script = ExtResource("1_ftv3n")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
-material = ExtResource("1_afl43")
+material = SubResource("ShaderMaterial_qyj2h")
 sprite_frames = SubResource("SpriteFrames_wpawy")
-animation = &"damage"
+animation = &"walk_side"
 
 [node name="EnemyArea2D" type="Area2D" parent="."]
 collision_layer = 5
@@ -141,5 +159,22 @@ offset_bottom = 4.0
 theme_override_styles/background = SubResource("StyleBoxFlat_c113l")
 theme_override_styles/fill = SubResource("StyleBoxFlat_8ya8u")
 show_percentage = false
+
+[node name="DeathParticles" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 16
+lifetime = 0.7
+explosiveness = 0.89
+randomness = 0.19
+lifetime_randomness = 0.66
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 20.05
+initial_velocity_max = 40.5
+scale_amount_max = 3.0
+color_ramp = SubResource("Gradient_kltvu")
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="OnVisibleOnScreenNotifier2DScreenExited"]
