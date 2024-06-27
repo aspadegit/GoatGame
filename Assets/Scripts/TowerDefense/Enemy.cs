@@ -1,8 +1,10 @@
 using Godot;
 using System;
 
+
 public partial class Enemy : Node2D
 {
+	private ProgressBar health_bar;
 	private PathFollow2D pathFollow;
 	private AnimatedSprite2D animation;
 	private ShaderMaterial shaderMat;
@@ -10,14 +12,17 @@ public partial class Enemy : Node2D
 	bool shouldStart = false;
 	float deathDissolveVal = 0.0f;
 	bool dying = false;
-	public int Health { get; private set; }
+	public int Health { get; private set; 
+	}
 
 	public override void _Ready()
 	{
 		dying = false;
 		animation = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+		health_bar = GetNode<ProgressBar>("HealthBar");
 		shaderMat = (ShaderMaterial)animation.Material;
-		Health = 200;
+		Health = 100;
+		health_bar.Value = Health;
 	}
 
 	public void Setup(PathFollow2D enemyPathFollow, int enemyNum)
@@ -37,6 +42,8 @@ public partial class Enemy : Node2D
 
 	public override void _Process(double delta)
 	{
+		health_bar.Value = Health;
+		
 		if(dying)
 			animation.Stop();
 		if(shouldStart && !dying)
@@ -50,20 +57,20 @@ public partial class Enemy : Node2D
 		}
 	}
 
-    public override void _PhysicsProcess(double delta)
-    {
+	public override void _PhysicsProcess(double delta)
+	{
 		if(dying)
 		{
-        	deathDissolveVal += 1.5f * (float)delta;
+			deathDissolveVal += 1.5f * (float)delta;
 			shaderMat.SetShaderParameter("dissolveState", deathDissolveVal);
 
 			if(deathDissolveVal >= 1)
 				Destroy();
 		}
-    }
+	}
 
-    //changes the animation based on the instantaneous velocity 
-    private void AdjustAnimation()
+	//changes the animation based on the instantaneous velocity 
+	private void AdjustAnimation()
 	{
 		Vector2 velocity = Position - prevPosition;
 
@@ -113,6 +120,7 @@ public partial class Enemy : Node2D
 	 public void TakeDamage(int damage)
 	{
 		Health -= damage;
+		health_bar.Value = Health;
 		if (Health <= 0)
 		{
 			StartDying();
