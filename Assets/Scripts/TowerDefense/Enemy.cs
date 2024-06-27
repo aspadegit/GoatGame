@@ -5,6 +5,8 @@ using System;
 public partial class Enemy : Node2D
 {
 	private ProgressBar health_bar;
+	private ProgressBar damage_bar;
+	private Timer timer;
 	private PathFollow2D pathFollow;
 	private AnimatedSprite2D animation;
 	private ShaderMaterial shaderMat;
@@ -15,14 +17,20 @@ public partial class Enemy : Node2D
 	public int Health { get; private set; 
 	}
 
+
 	public override void _Ready()
 	{
 		dying = false;
 		animation = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 		health_bar = GetNode<ProgressBar>("HealthBar");
+		damage_bar = GetNode<ProgressBar>("DamageBar");
+		timer = GetNode<Timer>("Timer");
 		shaderMat = (ShaderMaterial)animation.Material;
-		Health = 100;
+		Health = 300;
 		health_bar.Value = Health;
+		health_bar.MaxValue = Health;
+		damage_bar.Value = Health;
+		damage_bar.MaxValue = Health;
 	}
 
 	public void Setup(PathFollow2D enemyPathFollow, int enemyNum)
@@ -56,7 +64,8 @@ public partial class Enemy : Node2D
 			AdjustAnimation();
 		}
 	}
-
+		
+		
 	public override void _PhysicsProcess(double delta)
 	{
 		if(dying)
@@ -125,8 +134,8 @@ public partial class Enemy : Node2D
 		{
 			StartDying();
 		}
-		
 	}
+		
 	private void StartDying()
 	{
 		dying = true;
@@ -148,3 +157,6 @@ public partial class Enemy : Node2D
 		Destroy();
 	}
 }
+
+
+
