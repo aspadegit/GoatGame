@@ -20,8 +20,19 @@ public partial class ShotScript : Node2D
 	public void Shoot()
 	{
 		sprite.Animation = "shoot";
-		sprite.Play();
+		if(!sprite.IsPlaying())
+			sprite.Play();
 
+	}
+
+	public void OnAnimationFinish()
+	{
+		//if we just finished shooting, switch to preparing to shoot
+		if(sprite.Animation == "shoot")
+		{
+			sprite.Animation = "draw";
+			sprite.Play();
+		}
 	}
 
 	public void UpdateEnemies(List<Enemy> newEnemies, int targetIndex)
@@ -44,7 +55,8 @@ public partial class ShotScript : Node2D
 	{
 		targetedEnemy = e;
 		sprite.Animation = "draw";
-		sprite.Play();
+		if(!sprite.IsPlaying())
+			sprite.Play();
 	}
 	private void RotateSprite(Vector2 other, double delta)
 	{

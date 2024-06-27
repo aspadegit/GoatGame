@@ -58,7 +58,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"draw",
-"speed": 10.0
+"speed": 20.0
 }, {
 "frames": [{
 "duration": 0.5,
@@ -69,9 +69,6 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_g56h0")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_cs5sf")
 }],
 "loop": false,
 "name": &"shoot",
@@ -125,6 +122,7 @@ debug_color = Color(0.996078, 0, 0.168627, 0.196078)
 
 [node name="ShotTimer" type="Timer" parent="."]
 
+[connection signal="animation_finished" from="Area2D/ShotAnchor/ShotSprite" to="Area2D/ShotAnchor" method="OnAnimationFinish"]
 [connection signal="area_entered" from="AttackArea" to="." method="AreaEntered"]
 [connection signal="area_exited" from="AttackArea" to="." method="AreaExited"]
 [connection signal="timeout" from="ShotTimer" to="." method="OnShotTimerEnd"]
