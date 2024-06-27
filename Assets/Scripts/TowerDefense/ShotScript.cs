@@ -4,24 +4,43 @@ using System.Collections.Generic;
 
 public partial class ShotScript : Node2D
 {
+	[Export]
+	public Area2D aoeArea;
+
+	public Shot shotType;
+
 	//TODO: handle AOE targetting
 	AnimatedSprite2D sprite;
 	Animation draw;
 	Animation shoot;
 	Enemy targetedEnemy = null;
+	public List<Enemy> enemies; // enemies in red circle; the range of where to hit
+	public List<Enemy> enemiesInAoe;	//enemies in smaller purple circle; all enemies that can be hit at once
 
-	public List<Enemy> enemies;
 	public override void _Ready()
 	{
 		sprite = GetNode<AnimatedSprite2D>("ShotSprite");
+		enemiesInAoe = new List<Enemy>();
 		FullReset();
 	}
 
 	public void Shoot()
 	{
 		sprite.Animation = "shoot";
-		sprite.Play();
+		if(!sprite.IsPlaying())
+			sprite.Play();
 
+		aoeArea.GetNode<CpuParticles2D>("ExplosionParticles").Emitting = true;
+	}
+
+	public void OnAnimationFinish()
+	{
+		//if we just finished shooting, switch to preparing to shoot
+		if(sprite.Animation == "shoot")
+		{
+			sprite.Animation = "draw";
+			sprite.Play();
+		}
 	}
 
 	public void UpdateEnemies(List<Enemy> newEnemies, int targetIndex)
@@ -44,7 +63,8 @@ public partial class ShotScript : Node2D
 	{
 		targetedEnemy = e;
 		sprite.Animation = "draw";
-		sprite.Play();
+		if(!sprite.IsPlaying())
+			sprite.Play();
 	}
 	private void RotateSprite(Vector2 other, double delta)
 	{
@@ -54,6 +74,21 @@ public partial class ShotScript : Node2D
 		angleDeg = angleDeg - 90;
 
 		Rotation = (float)Mathf.LerpAngle(Rotation, Mathf.DegToRad(angleDeg), delta*10);
+	}
+
+	private void MoveAoeCollider(Vector2 enemyPos)
+	{
+		aoeArea.SetDeferred("global_position", enemyPos);
+	}
+
+	private void OnEnemyInShotCollider(Area2D enemy)
+	{
+		enemiesInAoe.Add(enemy.GetParent<Enemy>());
+	}
+
+	private void OnEnemyLeavingShotCollider(Area2D enemy)
+	{
+		enemiesInAoe.Remove(enemy.GetParent<Enemy>());
 	}
 
 	private void FullReset()
@@ -74,6 +109,8 @@ public partial class ShotScript : Node2D
 		sprite.Animation = "draw";
 		sprite.Frame = 0;
 		targetedEnemy = null;
+		aoeArea.SetDeferred("position", new Vector2(0,32));
+
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -82,6 +119,7 @@ public partial class ShotScript : Node2D
 		if(targetedEnemy != null)
 		{
 			RotateSprite(targetedEnemy.Position, delta);
+			MoveAoeCollider(targetedEnemy.GlobalPosition);
 		}
 		//no enemy to target, reset if not resetted
 		else if(Rotation != 0)

@@ -11,6 +11,7 @@ public partial class Enemy : Node2D
 	private AnimatedSprite2D animation;
 	private ShaderMaterial shaderMat;
 	private Vector2 prevPosition;
+	private int damage = 1; //TODO: adjust for diff types of enemies?
 	bool shouldStart = false;
 	float deathDissolveVal = 0.0f;
 	bool dying = false;
@@ -145,7 +146,7 @@ public partial class Enemy : Node2D
 	//deletes itself and its path
 	private void Destroy()
 	{
-
+		SignalHandler.Instance.EmitSignal(SignalHandler.SignalName.OnEnemyDeath);
 		pathFollow.QueueFree();
 		QueueFree();
 
@@ -154,7 +155,14 @@ public partial class Enemy : Node2D
 	//destroy when no longer visible
 	private void OnVisibleOnScreenNotifier2DScreenExited()
 	{
+		Breakthrough();
 		Destroy();
+	}
+
+	//when the enemy passes through all the towers successfully w/o being killed
+	private void Breakthrough()
+	{
+		SignalHandler.Instance.EmitSignal(SignalHandler.SignalName.EnemyBreakthrough, damage);
 	}
 }
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://1v8f8ln10xjh"]
+[gd_scene load_steps=19 format=3 uid="uid://1v8f8ln10xjh"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/TowerDefense/TowerScript.cs" id="1_iuiwv"]
 [ext_resource type="Texture2D" uid="uid://c3c08ytrmy1fy" path="res://Assets/Sprites/Towers/basic_wood_tower.png" id="2_8e82v"]
@@ -58,7 +58,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"draw",
-"speed": 10.0
+"speed": 20.0
 }, {
 "frames": [{
 "duration": 0.5,
@@ -69,9 +69,6 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_g56h0")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_cs5sf")
 }],
 "loop": false,
 "name": &"shoot",
@@ -81,6 +78,12 @@ animations = [{
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_q41rt"]
 radius = 30.0
 height = 60.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_py6gf"]
+
+[sub_resource type="Gradient" id="Gradient_uaqrl"]
+offsets = PackedFloat32Array(0, 0.837104, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
 
 [node name="MachineTower" type="Node2D"]
 script = ExtResource("1_iuiwv")
@@ -96,9 +99,10 @@ position = Vector2(0, -16)
 shape = SubResource("RectangleShape2D_gsh6c")
 debug_color = Color(0, 0.6, 0.701961, 0.160784)
 
-[node name="ShotAnchor" type="Node2D" parent="Area2D"]
+[node name="ShotAnchor" type="Node2D" parent="Area2D" node_paths=PackedStringArray("aoeArea")]
 position = Vector2(0, -32)
 script = ExtResource("4_1ygsq")
+aoeArea = NodePath("../../AoeHitArea")
 
 [node name="ShotSprite" type="AnimatedSprite2D" parent="Area2D/ShotAnchor"]
 z_index = 1
@@ -123,8 +127,37 @@ scale = Vector2(2, 2)
 shape = SubResource("CapsuleShape2D_q41rt")
 debug_color = Color(0.996078, 0, 0.168627, 0.196078)
 
+[node name="AoeHitArea" type="Area2D" parent="."]
+scale = Vector2(2, 2)
+collision_layer = 8
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AoeHitArea"]
+shape = SubResource("CircleShape2D_py6gf")
+debug_color = Color(0.664587, 0.339456, 0.9583, 0.42)
+
+[node name="ExplosionParticles" type="CPUParticles2D" parent="AoeHitArea"]
+emitting = false
+amount = 10
+one_shot = true
+explosiveness = 1.0
+lifetime_randomness = 0.2
+emission_shape = 2
+emission_sphere_radius = 1.0
+direction = Vector2(0, 0)
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 10.0
+initial_velocity_max = 15.0
+scale_amount_min = 2.0
+scale_amount_max = 3.0
+color_ramp = SubResource("Gradient_uaqrl")
+
 [node name="ShotTimer" type="Timer" parent="."]
 
+[connection signal="animation_finished" from="Area2D/ShotAnchor/ShotSprite" to="Area2D/ShotAnchor" method="OnAnimationFinish"]
 [connection signal="area_entered" from="AttackArea" to="." method="AreaEntered"]
 [connection signal="area_exited" from="AttackArea" to="." method="AreaExited"]
+[connection signal="area_entered" from="AoeHitArea" to="Area2D/ShotAnchor" method="OnEnemyInShotCollider"]
+[connection signal="area_exited" from="AoeHitArea" to="Area2D/ShotAnchor" method="OnEnemyLeavingShotCollider"]
 [connection signal="timeout" from="ShotTimer" to="." method="OnShotTimerEnd"]

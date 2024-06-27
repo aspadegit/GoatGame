@@ -7,10 +7,10 @@ public class Shot
 	public int ID {get; set;}
 	public string Type {get; set;}
 	public int NumEnemiesToHit {get; set;}
-	public int AoeRange {get; set;} //how far multihits can go
+	public float AoeRange {get; set;} //how far multihits can go (scales by the size of the hitbox)
 	public int Damage {get; set;}
 
-	public Shot(string Name, int ID, string Type, int NumEnemiesToHit, int AoeRange, int Damage)
+	public Shot(string Name, int ID, string Type, int NumEnemiesToHit, float AoeRange, int Damage)
 	{
 		this.Name = Name;
 		this.ID = ID;
@@ -20,7 +20,8 @@ public class Shot
 		this.Damage = Damage;
 	}
 
-	public virtual List<Enemy> GetShotEnemies(List<Enemy> enemiesCanHit, int targetedIndex)
+	//handles the number of enemies that are shot
+	public virtual List<Enemy> GetShotEnemies(List<Enemy> enemiesCanHit, List<Enemy> enemiesInAoe, int targetedIndex)
 	{
 		List<Enemy> result = new List<Enemy>();
 
@@ -34,10 +35,11 @@ public class Shot
 		if(NumEnemiesToHit == 1)
 			return result;
 
-		//sort the list by how close enemies are to the target
+		//sort the list by how close other enemies are to the targeted enemies
 		Vector2 checkPos = enemiesCanHit[targetedIndex].Position;
 
-		List<Enemy> sortedList = enemiesCanHit.OrderBy(enemy=>enemy.Position.DistanceTo(checkPos)).ToList();
+		//TODO: this probably isn't necessary, so remove once all shot types are finished if it's still unused
+		List<Enemy> sortedList = enemiesInAoe.OrderBy(enemy=>enemy.Position.DistanceTo(checkPos)).ToList(); 
 		
 		//starts at 1 to account for the first enemy (added earlier)
 		for(int i = 1; i < NumEnemiesToHit; i++)
@@ -47,10 +49,6 @@ public class Shot
 				break;
 
 			Enemy curEnemy = sortedList[i];
-
-			//all subsequent enemies will be too far, so break
-			if(curEnemy.Position.DistanceTo(checkPos) > AoeRange)
-				break;
 
 			result.Add(curEnemy);
 		}

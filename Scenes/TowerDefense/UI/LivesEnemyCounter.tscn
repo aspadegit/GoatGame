@@ -1,0 +1,88 @@
+[gd_scene load_steps=6 format=3 uid="uid://dm7vtrfjqllkv"]
+
+[ext_resource type="Texture2D" uid="uid://dsk2ybhhw5dwp" path="res://Assets/Sprites/UI/RPG_Pixel_EDSlashEm.png" id="1_4142u"]
+[ext_resource type="Script" path="res://Assets/Scripts/TowerDefense/UI/Lives.cs" id="1_vjg87"]
+[ext_resource type="FontFile" uid="uid://b40px0i27n7ll" path="res://Assets/Fonts/NicoClean-Regular.ttf" id="2_noyvg"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rde8j"]
+atlas = ExtResource("1_4142u")
+region = Rect2(2012, 336, 52, 44)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xit2q"]
+atlas = ExtResource("1_4142u")
+region = Rect2(2336, 656, 68, 60)
+
+[node name="LivesEnemyCounter" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+mouse_filter = 2
+script = ExtResource("1_vjg87")
+
+[node name="PanelMargin" type="MarginContainer" parent="."]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Panel" type="Panel" parent="PanelMargin"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="HBoxMargin" type="MarginContainer" parent="PanelMargin"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelMargin/HBoxMargin"]
+layout_mode = 2
+
+[node name="Image" type="TextureRect" parent="PanelMargin/HBoxMargin/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+texture = SubResource("AtlasTexture_rde8j")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="NumLives" type="Label" parent="PanelMargin/HBoxMargin/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_fonts/font = ExtResource("2_noyvg")
+theme_override_font_sizes/font_size = 24
+text = "99"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="Panel" type="Panel" parent="PanelMargin/HBoxMargin/HBoxContainer"]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+
+[node name="EnemyImage" type="TextureRect" parent="PanelMargin/HBoxMargin/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+texture = SubResource("AtlasTexture_xit2q")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="NumEnemiesRemaining" type="Label" parent="PanelMargin/HBoxMargin/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+theme_override_fonts/font = ExtResource("2_noyvg")
+theme_override_font_sizes/font_size = 24
+text = "99"
+horizontal_alignment = 1
+vertical_alignment = 2

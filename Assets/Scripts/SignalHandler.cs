@@ -32,6 +32,17 @@ public partial class SignalHandler : Node
 	[Signal]
 	public delegate void TowerSelectEventHandler(int param);
 
+	//enemy emits a signal when it breaks through the towers, to decrease lives
+
+	[Signal]
+	public delegate void EnemyBreakthroughEventHandler(int param);
+
+	//emitted by an enemy as it starts to die
+	[Signal]
+	public delegate void OnEnemyDeathEventHandler();
+
+
+
 	public override void _Ready() {
 		Instance = this;
 	}
