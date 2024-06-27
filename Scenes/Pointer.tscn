@@ -8,7 +8,8 @@
 atlas = ExtResource("2_e3qbu")
 region = Rect2(624, 72, 64, 64)
 
-[node name="Pointer" type="Sprite2D" node_paths=PackedStringArray("camera")]
+[node name="Pointer" type="Sprite2D"]
+process_mode = 3
 z_index = 4
 material = ExtResource("1_jeabo")
 position = Vector2(310, 168)
@@ -16,4 +17,3 @@ scale = Vector2(0.5, 0.5)
 texture = SubResource("AtlasTexture_ulocn")
 centered = false
 script = ExtResource("3_7nbj5")
-camera = NodePath("")

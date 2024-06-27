@@ -22,6 +22,9 @@ public partial class TileScript : Node2D
 	[Export]
 	public Pointer pointer;
 
+	[Export]
+	public Lives livesEnemyCounter;
+
 
 	const int selectTileSourceNum = 3;
 	Vector2I prevSelection = Vector2I.Zero;
@@ -108,6 +111,11 @@ public partial class TileScript : Node2D
 		enemy.Setup(pathFollow, enemyNum);
 		enemies.AddChild(enemy);
 		
+		//no more spawning enemies, once we've hit the max
+		if(enemyNum >= livesEnemyCounter.numEnemies)
+		{
+			enemySpawnTimer.Stop();
+		}
 
 	}
 

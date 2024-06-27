@@ -1217,6 +1217,5 @@ layer_3/tile_data = PackedInt32Array()
 curve = SubResource("Curve2D_ub7u2")
 
 [node name="EnemySpawnTimer" type="Timer" parent="."]
-wait_time = 5.0
 
 [connection signal="timeout" from="EnemySpawnTimer" to="." method="OnEnemySpawnTimeout"]
