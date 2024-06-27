@@ -45,7 +45,6 @@ public partial class Lives : Control
 	private void DecreaseLives(int amount)
 	{
 		numLives -= amount;
-		DecreaseEnemies(1);	//only 1 enemy breaks through
 
 		if(numLives < 0)
 			numLives = 0;

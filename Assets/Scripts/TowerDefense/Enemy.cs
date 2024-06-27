@@ -140,14 +140,13 @@ public partial class Enemy : Node2D
 	private void StartDying()
 	{
 		dying = true;
-		SignalHandler.Instance.EmitSignal(SignalHandler.SignalName.OnEnemyDeath);
 		GetNode<CpuParticles2D>("DeathParticles").Emitting = true;
 	}
 
 	//deletes itself and its path
 	private void Destroy()
 	{
-
+		SignalHandler.Instance.EmitSignal(SignalHandler.SignalName.OnEnemyDeath);
 		pathFollow.QueueFree();
 		QueueFree();
 
