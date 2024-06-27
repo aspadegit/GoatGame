@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://14nrv6ny78df"]
+[gd_scene load_steps=19 format=3 uid="uid://14nrv6ny78df"]
 
 [ext_resource type="Material" uid="uid://drw4sbap8erve" path="res://Assets/Shaders/pixel_shader.tres" id="1_afl43"]
 [ext_resource type="Script" path="res://Assets/Scripts/TowerDefense/Enemy.cs" id="1_ftv3n"]
@@ -86,11 +86,22 @@ animations = [{
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_x52o7"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2l5tk"]
-bg_color = Color(0, 0, 0, 1)
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_e43d2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_smtlk"]
 bg_color = Color(1, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c113l"]
+bg_color = Color(0.0728426, 0.0728426, 0.0728426, 1)
+expand_margin_left = 1.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
+shadow_color = Color(0, 0, 0, 0.27451)
+shadow_offset = Vector2(0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8ya8u"]
+bg_color = Color(1, 1, 1, 1)
 
 [node name="Enemy" type="Node2D"]
 scale = Vector2(1.5, 1.5)
@@ -112,13 +123,23 @@ debug_color = Color(0, 0.6, 0.701961, 0.133333)
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 
 [node name="HealthBar" type="ProgressBar" parent="."]
+z_index = 1
 offset_left = -10.0
 offset_top = 10.0
 offset_right = 10.0
 offset_bottom = 14.0
-theme_override_styles/background = SubResource("StyleBoxFlat_2l5tk")
+theme_override_styles/background = SubResource("StyleBoxEmpty_e43d2")
 theme_override_styles/fill = SubResource("StyleBoxFlat_smtlk")
 value = 5.0
+show_percentage = false
+
+[node name="DamageBar" type="ProgressBar" parent="HealthBar"]
+z_index = -1
+layout_mode = 0
+offset_right = 20.0
+offset_bottom = 4.0
+theme_override_styles/background = SubResource("StyleBoxFlat_c113l")
+theme_override_styles/fill = SubResource("StyleBoxFlat_8ya8u")
 show_percentage = false
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="OnVisibleOnScreenNotifier2DScreenExited"]
