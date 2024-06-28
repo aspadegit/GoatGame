@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://bhw8ro0hbihnv"]
+[gd_scene load_steps=7 format=3 uid="uid://bhw8ro0hbihnv"]
 
 [ext_resource type="PackedScene" uid="uid://hfsc17wxuyoa" path="res://Scenes/UI/UI.tscn" id="1_xrs2k"]
 [ext_resource type="PackedScene" uid="uid://dt63vw62ebwc6" path="res://Scenes/UI/GoatSelectMenu.tscn" id="2_ru6af"]
 [ext_resource type="PackedScene" uid="uid://b53c8cu27kawi" path="res://Scenes/Debug.tscn" id="2_x716l"]
 [ext_resource type="PackedScene" uid="uid://41i1kwtsnj4x" path="res://Scenes/UI/PerformJobs.tscn" id="3_kaqqc"]
 [ext_resource type="PackedScene" uid="uid://bjjqhdqqi3en8" path="res://Scenes/UI/BuildMenu.tscn" id="5_yodis"]
+[ext_resource type="PackedScene" uid="uid://boocd06xur3ak" path="res://Scenes/UI/InventoryMenu.tscn" id="6_pxgtx"]
 
 [node name="root" type="Node"]
 
@@ -21,4 +22,7 @@ visible = false
 visible = false
 
 [node name="BuildMenu" parent="CanvasLayer" instance=ExtResource("5_yodis")]
+visible = false
+
+[node name="InventoryMenu" parent="CanvasLayer" instance=ExtResource("6_pxgtx")]
 visible = false

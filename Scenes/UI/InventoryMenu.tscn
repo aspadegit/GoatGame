@@ -1,0 +1,248 @@
+[gd_scene load_steps=4 format=3 uid="uid://boocd06xur3ak"]
+
+[ext_resource type="Script" path="res://Assets/Scripts/UI/InventoryTab.cs" id="1_dkimr"]
+[ext_resource type="Script" path="res://Assets/Scripts/UI/InventoryMenu.cs" id="1_s7kf4"]
+[ext_resource type="PackedScene" uid="uid://bf5hgn88imvr5" path="res://Scenes/UI/RowEntries/InventoryRow.tscn" id="3_rpwry"]
+
+[node name="InventoryMenu" type="Control" node_paths=PackedStringArray("tabParent")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_s7kf4")
+tabParent = NodePath("MainMargin/Tabs")
+
+[node name="MainMargin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="Tabs" type="TabContainer" parent="MainMargin"]
+layout_mode = 2
+
+[node name="Goats" type="MarginContainer" parent="MainMargin/Tabs" node_paths=PackedStringArray("scrollVBox")]
+layout_mode = 2
+script = ExtResource("1_dkimr")
+scrollVBox = NodePath("VBoxContainer/MainHBox/ListMargin/ScrollList/ScrollVBox")
+inventoryRow = ExtResource("3_rpwry")
+type = "goat"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMargin/Tabs/Goats"]
+layout_mode = 2
+
+[node name="TopMargin" type="MarginContainer" parent="MainMargin/Tabs/Goats/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="TopSortHBox" type="HBoxContainer" parent="MainMargin/Tabs/Goats/VBoxContainer/TopMargin"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="SortByLabel" type="Label" parent="MainMargin/Tabs/Goats/VBoxContainer/TopMargin/TopSortHBox"]
+layout_mode = 2
+text = "Sort By:"
+
+[node name="SortDropdown" type="OptionButton" parent="MainMargin/Tabs/Goats/VBoxContainer/TopMargin/TopSortHBox"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+item_count = 1
+selected = 0
+popup/item_0/text = "Name"
+popup/item_0/id = 0
+
+[node name="MainHBox" type="HBoxContainer" parent="MainMargin/Tabs/Goats/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ListMargin" type="MarginContainer" parent="MainMargin/Tabs/Goats/VBoxContainer/MainHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="ScrollList" type="ScrollContainer" parent="MainMargin/Tabs/Goats/VBoxContainer/MainHBox/ListMargin"]
+layout_mode = 2
+
+[node name="ScrollVBox" type="VBoxContainer" parent="MainMargin/Tabs/Goats/VBoxContainer/MainHBox/ListMargin/ScrollList"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="InfoMargin" type="MarginContainer" parent="MainMargin/Tabs/Goats/VBoxContainer/MainHBox"]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Panel" type="Panel" parent="MainMargin/Tabs/Goats/VBoxContainer/MainHBox/InfoMargin"]
+layout_mode = 2
+
+[node name="InfoVBox" type="VBoxContainer" parent="MainMargin/Tabs/Goats/VBoxContainer/MainHBox/InfoMargin"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MainMargin/Tabs/Goats/VBoxContainer/MainHBox/InfoMargin/InfoVBox"]
+layout_mode = 2
+text = "Name
+Stats
+Etc."
+
+[node name="Materials" type="MarginContainer" parent="MainMargin/Tabs" node_paths=PackedStringArray("scrollVBox")]
+visible = false
+layout_mode = 2
+script = ExtResource("1_dkimr")
+scrollVBox = NodePath("VBoxContainer/MainHBox/ListMargin/ScrollList/ScrollVBox")
+inventoryRow = ExtResource("3_rpwry")
+type = "material"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMargin/Tabs/Materials"]
+layout_mode = 2
+
+[node name="TopMargin" type="MarginContainer" parent="MainMargin/Tabs/Materials/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="TopSortHBox" type="HBoxContainer" parent="MainMargin/Tabs/Materials/VBoxContainer/TopMargin"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="SortByLabel" type="Label" parent="MainMargin/Tabs/Materials/VBoxContainer/TopMargin/TopSortHBox"]
+layout_mode = 2
+text = "Sort By:"
+
+[node name="SortDropdown" type="OptionButton" parent="MainMargin/Tabs/Materials/VBoxContainer/TopMargin/TopSortHBox"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+item_count = 1
+selected = 0
+popup/item_0/text = "Name"
+popup/item_0/id = 0
+
+[node name="MainHBox" type="HBoxContainer" parent="MainMargin/Tabs/Materials/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ListMargin" type="MarginContainer" parent="MainMargin/Tabs/Materials/VBoxContainer/MainHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="ScrollList" type="ScrollContainer" parent="MainMargin/Tabs/Materials/VBoxContainer/MainHBox/ListMargin"]
+layout_mode = 2
+
+[node name="ScrollVBox" type="VBoxContainer" parent="MainMargin/Tabs/Materials/VBoxContainer/MainHBox/ListMargin/ScrollList"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="InfoMargin" type="MarginContainer" parent="MainMargin/Tabs/Materials/VBoxContainer/MainHBox"]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Panel" type="Panel" parent="MainMargin/Tabs/Materials/VBoxContainer/MainHBox/InfoMargin"]
+layout_mode = 2
+
+[node name="InfoVBox" type="VBoxContainer" parent="MainMargin/Tabs/Materials/VBoxContainer/MainHBox/InfoMargin"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MainMargin/Tabs/Materials/VBoxContainer/MainHBox/InfoMargin/InfoVBox"]
+layout_mode = 2
+text = "Name
+Stats
+Etc."
+
+[node name="Machines" type="MarginContainer" parent="MainMargin/Tabs" node_paths=PackedStringArray("scrollVBox")]
+visible = false
+layout_mode = 2
+script = ExtResource("1_dkimr")
+scrollVBox = NodePath("VBoxContainer/MainHBox/ListMargin/ScrollList/ScrollVBox")
+inventoryRow = ExtResource("3_rpwry")
+type = "machine"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMargin/Tabs/Machines"]
+layout_mode = 2
+
+[node name="TopMargin" type="MarginContainer" parent="MainMargin/Tabs/Machines/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="TopSortHBox" type="HBoxContainer" parent="MainMargin/Tabs/Machines/VBoxContainer/TopMargin"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="SortByLabel" type="Label" parent="MainMargin/Tabs/Machines/VBoxContainer/TopMargin/TopSortHBox"]
+layout_mode = 2
+text = "Sort By:"
+
+[node name="SortDropdown" type="OptionButton" parent="MainMargin/Tabs/Machines/VBoxContainer/TopMargin/TopSortHBox"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+item_count = 1
+selected = 0
+popup/item_0/text = "Name"
+popup/item_0/id = 0
+
+[node name="MainHBox" type="HBoxContainer" parent="MainMargin/Tabs/Machines/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ListMargin" type="MarginContainer" parent="MainMargin/Tabs/Machines/VBoxContainer/MainHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="ScrollList" type="ScrollContainer" parent="MainMargin/Tabs/Machines/VBoxContainer/MainHBox/ListMargin"]
+layout_mode = 2
+
+[node name="ScrollVBox" type="VBoxContainer" parent="MainMargin/Tabs/Machines/VBoxContainer/MainHBox/ListMargin/ScrollList"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="InfoMargin" type="MarginContainer" parent="MainMargin/Tabs/Machines/VBoxContainer/MainHBox"]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Panel" type="Panel" parent="MainMargin/Tabs/Machines/VBoxContainer/MainHBox/InfoMargin"]
+layout_mode = 2
+
+[node name="InfoVBox" type="VBoxContainer" parent="MainMargin/Tabs/Machines/VBoxContainer/MainHBox/InfoMargin"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MainMargin/Tabs/Machines/VBoxContainer/MainHBox/InfoMargin/InfoVBox"]
+layout_mode = 2
+text = "Name
+Stats
+Etc."
