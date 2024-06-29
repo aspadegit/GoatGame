@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://p8awrnaglo0q"]
 
-[ext_resource type="Texture2D" uid="uid://5fm486o1wv26" path="res://Assets/Sprites/Tiles/Select.png" id="1_ae6fr"]
 [ext_resource type="Script" path="res://Assets/Scripts/TowerDefense/UI/TowerSelectRow.cs" id="1_r1aig"]
 [ext_resource type="Texture2D" uid="uid://dhl4osfa8k8cw" path="res://icon.svg" id="2_hnfg8"]
+[ext_resource type="Theme" uid="uid://cjxixwomxbsma" path="res://Assets/Themes/RowButtonTheme.tres" id="2_i3f60"]
 [ext_resource type="FontFile" uid="uid://b40px0i27n7ll" path="res://Assets/Fonts/NicoClean-Regular.ttf" id="3_g28u1"]
 
 [node name="TowerSelectRow" type="MarginContainer" node_paths=PackedStringArray("labels", "images")]
@@ -21,11 +21,9 @@ self_modulate = Color(1, 1, 1, 0.505882)
 layout_mode = 2
 mouse_filter = 2
 
-[node name="RowButton" type="TextureButton" parent="."]
+[node name="RowButton" type="Button" parent="."]
 layout_mode = 2
-texture_hover = ExtResource("1_ae6fr")
-ignore_texture_size = true
-stretch_mode = 0
+theme = ExtResource("2_i3f60")
 
 [node name="TowerRow" type="VBoxContainer" parent="."]
 layout_mode = 2

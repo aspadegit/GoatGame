@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 
+//TODO: (potential) inventory is one big <int,int> dict
 public partial class GlobalVars : Node
 {
 	//should probably only be loaded on scenes where the goat menu could show up

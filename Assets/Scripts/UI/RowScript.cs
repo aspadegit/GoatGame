@@ -62,7 +62,7 @@ public partial class RowScript : Node
 			Action action = pair.Value;
 
 			//get the corresponding button and connect it to its action
-			TextureButton btn = GetNode<TextureButton>(buttons[buttonName]);
+			Button btn = GetNode<Button>(buttons[buttonName]);
 			btn.Connect(buttonConnection, Callable.From(action));
 
 		}

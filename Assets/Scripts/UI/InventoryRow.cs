@@ -1,0 +1,67 @@
+using Godot;
+using System;
+using System.Linq;
+
+public partial class InventoryRow : RowScript
+{
+	[Export]
+	Texture2D temp; //TODO: DELETE ME
+
+	private string type;
+	private int ID;
+
+	public void Setup(string name, string type, int ID)
+	{
+		this.type = type;
+		this.ID = ID;
+		string amount = "";
+		int amt = -1;
+		
+		//not ideal lol
+		switch(type)
+		{
+			case "goat":
+				amount = "";
+				break;
+
+			//should never result in -1, -1 means that it's showing something that you don't have in your inventory...
+			case "material":
+				amt = GlobalVars.materialsObtained.ContainsKey(name) ? GlobalVars.materialsObtained[name] : -1; 
+				break;
+			case "machine":
+				amt = GlobalVars.machineInventory.ContainsKey(ID) ? GlobalVars.machineInventory[ID] : -1; 
+				break;
+		}
+
+		ButtonSetup();
+
+		//it's not a goat, set the count variable properly
+		if(amt != -1)
+		{
+			//just makes sure it shows up in x00 format
+			amount = (amt < 10)? ("0" + amt) : amt.ToString();
+			amount = "x" + amount;
+		}
+
+		base.Setup(new string[]{name,amount}, new Texture2D[]{temp});	
+
+	}
+
+	public override void Setup(string[] labelTexts, Texture2D[] textures)
+	{
+		ButtonSetup();
+		base.Setup(labelTexts, textures);	
+	}
+
+	private void ButtonSetup()
+	{
+		string[] rowButtonStr = {"RowButton", "pressed"};
+		buttonActions.Add(rowButtonStr, ClickRow);	//buttonActions inherited from RowScript
+	}
+
+	private void ClickRow()
+	{
+		//SignalHandler.Instance.EmitSignal(SignalHandler.SignalName.TowerSelect, machine.ID);
+		GD.Print("clicked");
+	}
+}
