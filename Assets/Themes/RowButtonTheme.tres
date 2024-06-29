@@ -1,0 +1,22 @@
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://cjxixwomxbsma"]
+
+[ext_resource type="Texture2D" uid="uid://5fm486o1wv26" path="res://Assets/Sprites/Tiles/Select.png" id="1_m4g4a"]
+[ext_resource type="Texture2D" uid="uid://byaj6myfiburq" path="res://Assets/Sprites/UI/box.png" id="2_58fal"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mx1jt"]
+texture = ExtResource("1_m4g4a")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+texture_margin_right = 2.0
+texture_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_be7hw"]
+texture = ExtResource("2_58fal")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+
+[resource]
+Button/styles/hover = SubResource("StyleBoxTexture_mx1jt")
+Button/styles/normal = SubResource("StyleBoxTexture_be7hw")
