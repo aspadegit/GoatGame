@@ -14,6 +14,9 @@ public partial class InventoryTab : MarginContainer
 	[Export]
 	string type;
 
+	[Export]
+	Label infoLabel;
+
 	//TODO: sort button
 
 	public override void _Ready()
@@ -45,6 +48,9 @@ public partial class InventoryTab : MarginContainer
 				InstantiateMaterials();
 				break;
 		}
+
+		infoLabel.Text = "";
+		
 
 	}
 
@@ -89,7 +95,22 @@ public partial class InventoryTab : MarginContainer
 
 	private void OnRowHover(InventoryRow row)
 	{
-		GD.Print(row.type);
+		//only adjust the tab whose type matches
+		if(type == row.type)
+		{
+			switch(row.type)
+			{
+				case "goat":
+					infoLabel.Text = GlobalVars.goats[row.ID].ToString();
+					break;
+				case "machine":
+					infoLabel.Text = GlobalVars.machines[row.ID].ToString();
+					break;
+				case "material":
+					infoLabel.Text = GlobalVars.materials[row.name].ToString();
+					break;
+			}
+		}
 	}
 
 }

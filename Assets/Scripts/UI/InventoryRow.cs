@@ -8,12 +8,14 @@ public partial class InventoryRow : RowScript
 	Texture2D temp; //TODO: DELETE ME
 
 	public string type;
+	public string name;
 	public int ID;
 
 	public void Setup(string name, string type, int ID)
 	{
 		this.type = type;
 		this.ID = ID;
+		this.name = name;
 		string amount = "";
 		int amt = -1;
 		
