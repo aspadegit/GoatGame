@@ -10,7 +10,8 @@
             "fireRate": 1,
             "shotType": "Arrow",
             "description": "A simple wooden tower that shoots arrows in a circle.",
-            "recipe": "ArrowTowerRecipe"
+            "recipe": "ArrowTowerRecipe",
+            "texture": [1,2,30,62]
         },
         {
             "id": 1,
@@ -22,7 +23,9 @@
             "fireRate": 3,
             "shotType": "Cannon",
             "description": "A simple cannon tower that shoots a cannonball at a target.",
-            "recipe": "CannonTowerRecipe" 
+            "recipe": "CannonTowerRecipe",
+            "texture": [1,2,30,62]
+
         }
     ]
 

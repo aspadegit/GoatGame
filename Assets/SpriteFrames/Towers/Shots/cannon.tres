@@ -1,0 +1,30 @@
+[gd_resource type="SpriteFrames" load_steps=4 format=3 uid="uid://6vqs8l8hfa8d"]
+
+[ext_resource type="Texture2D" uid="uid://bqyb73jmywd6l" path="res://Assets/Sprites/Towers/Shots/cannon tower.png" id="1_74ga6"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vjoru"]
+atlas = ExtResource("1_74ga6")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jhbfq"]
+atlas = ExtResource("1_74ga6")
+region = Rect2(0, 0, 64, 64)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vjoru")
+}],
+"loop": true,
+"name": &"draw",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jhbfq")
+}],
+"loop": true,
+"name": &"shoot",
+"speed": 5.0
+}]

@@ -38,6 +38,7 @@ public partial class TowerScript : Node2D
 		shotTimer.WaitTime = machine.FireRate;
 		enemies = new List<Enemy>();
 		shotScript.shotType = machine.ShotType;
+		shotScript.Setup();
 		shotScript.aoeArea.SetDeferred(Area2D.PropertyName.Scale, new Vector2(machine.ShotType.AoeRange,machine.ShotType.AoeRange));
 
 	}

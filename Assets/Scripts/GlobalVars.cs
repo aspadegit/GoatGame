@@ -21,6 +21,8 @@ public partial class GlobalVars : Node
 	public static Dictionary<string, int> materialsObtained = new Dictionary<string, int>(); //materialName, amountOfThatMaterial
 	public static Dictionary<int, int> machineInventory = new Dictionary<int, int>(); //machineID, amountOfThatMachine
 
+	public static readonly string spriteShotPath = "res://Assets/SpriteFrames/Towers/Shots/";
+
 	public static readonly int restingJobID = 0;
 
 	private static readonly string jsonStartingPath = "res://Assets/Data/";
@@ -122,9 +124,10 @@ public partial class GlobalVars : Node
 			int numEnemies = (int)shot["numEnemies"];
 			float aoeRange = (float)shot["aoeRange"];
 			int damage = (int)shot["damage"];
+			string texPath = (string)shot["texture"];
 
 			//create the new object
-			Shot s = new Shot(name, id, type, numEnemies, aoeRange, damage);
+			Shot s = new Shot(name, id, type, numEnemies, aoeRange, damage, texPath);
 			shots.Add(name, s);
 		}
 	}
@@ -147,7 +150,10 @@ public partial class GlobalVars : Node
 			string desc = (string)machine["description"];
 			Recipe recipe = recipes[(string)machine["recipe"]];
 
-			Machine newMach = new Machine(name, id, type, level, range, fireRate, shot, desc, recipe);
+			JsonArray coords = machine["texture"].AsArray();
+			int[] textureCoords = new int[] {(int)coords[0], (int)coords[1],(int)coords[2],(int)coords[3]};
+
+			Machine newMach = new Machine(name, id, type, level, range, fireRate, shot, desc, recipe, textureCoords);
 			machines.Add(id, newMach);
 		}
 

@@ -12,7 +12,8 @@ public class Machine
 	public Shot ShotType {get; private set;}
 	public string Description {get; private set;}
 	public Recipe CraftingRecipe {get; private set;}
-	
+	public int[] TextureCoords {get; set;}	//x,y,w,h (check the atlas coords for what image a tower should show; currently unused)
+
 	public Machine()
 	{
 	   Name = "[UNITIALIZED NAME]";
@@ -21,7 +22,7 @@ public class Machine
 	   Level = 1;
 	}
 
-	public Machine(string Name, int ID, string Type, int Level, int Range, int FireRate, Shot ShotType, string Description, Recipe CraftingRecipe)
+	public Machine(string Name, int ID, string Type, int Level, int Range, int FireRate, Shot ShotType, string Description, Recipe CraftingRecipe, int[] TextureCoords)
 	{
 		this.Name = Name;
 		this.ID = ID;
@@ -32,6 +33,8 @@ public class Machine
 		this.ShotType = ShotType;
 		this.Description = Description;
 		this.CraftingRecipe = CraftingRecipe;
+		this.TextureCoords = TextureCoords;
+
 	}
 
 	public override string ToString()
