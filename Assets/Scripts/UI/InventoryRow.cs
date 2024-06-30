@@ -7,8 +7,8 @@ public partial class InventoryRow : RowScript
 	[Export]
 	Texture2D temp; //TODO: DELETE ME
 
-	private string type;
-	private int ID;
+	public string type;
+	public int ID;
 
 	public void Setup(string name, string type, int ID)
 	{
@@ -57,11 +57,25 @@ public partial class InventoryRow : RowScript
 	{
 		string[] rowButtonStr = {"RowButton", "pressed"};
 		buttonActions.Add(rowButtonStr, ClickRow);	//buttonActions inherited from RowScript
+		
+		rowButtonStr = new string[]{"RowButton", "focus_entered"};
+		buttonActions.Add(rowButtonStr, HoverRow);
+
+		rowButtonStr = new string[]{"RowButton", "mouse_entered"};
+		buttonActions.Add(rowButtonStr, HoverRow);
+
 	}
 
 	private void ClickRow()
 	{
-		//SignalHandler.Instance.EmitSignal(SignalHandler.SignalName.TowerSelect, machine.ID);
+		//TODO: items can be used when clicked
 		GD.Print("clicked");
+	}
+
+	private void HoverRow()
+	{
+		//emit this script to the inventory menu when hovering
+		SignalHandler.Instance.EmitSignal(SignalHandler.SignalName.OnInventoryHover, this);
+
 	}
 }

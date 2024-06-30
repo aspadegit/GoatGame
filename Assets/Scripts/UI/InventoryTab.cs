@@ -18,6 +18,8 @@ public partial class InventoryTab : MarginContainer
 
 	public override void _Ready()
 	{
+		SignalHandler.Instance.Connect(SignalHandler.SignalName.OnInventoryHover, Callable.From((InventoryRow row)=> OnRowHover(row)), (uint)ConnectFlags.Deferred);
+
 		InstantiateChildren();
 	}
 
@@ -85,8 +87,9 @@ public partial class InventoryTab : MarginContainer
 		}
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
+	private void OnRowHover(InventoryRow row)
 	{
+		GD.Print(row.type);
 	}
+
 }

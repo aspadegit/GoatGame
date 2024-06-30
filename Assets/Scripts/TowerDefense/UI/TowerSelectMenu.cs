@@ -19,7 +19,7 @@ public partial class TowerSelectMenu : Control
 
     public override void _Ready()
     {
-		SignalHandler.Instance.Connect(SignalHandler.SignalName.TowerSelect, Callable.From((int param)=> HideMainMenu()), (uint)ConnectFlags.Deferred);
+		TowerDefenseSignals.Instance.Connect(TowerDefenseSignals.SignalName.TowerSelect, Callable.From((int param)=> HideMainMenu()), (uint)ConnectFlags.Deferred);
 
     }
 
