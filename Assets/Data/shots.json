@@ -6,7 +6,8 @@
             "type": "Physical",
             "numEnemies": 1,
             "aoeRange": 0,
-            "damage": 50
+            "damage": 50,
+            "texture": "wood_crossbow.tres"
         },
         {
             "name": "Cannon",
@@ -14,7 +15,9 @@
             "type": "Physical",
             "numEnemies": 5,
             "aoeRange": 3.5,
-            "damage": 80
+            "damage": 80,
+            "texture": "cannon.tres"
+
         }
     ]
 }

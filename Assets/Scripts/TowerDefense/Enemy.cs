@@ -146,7 +146,7 @@ public partial class Enemy : Node2D
 	//deletes itself and its path
 	private void Destroy()
 	{
-		SignalHandler.Instance.EmitSignal(SignalHandler.SignalName.OnEnemyDeath);
+		TowerDefenseSignals.Instance.EmitSignal(TowerDefenseSignals.SignalName.OnEnemyDeath);
 		pathFollow.QueueFree();
 		QueueFree();
 
@@ -162,7 +162,7 @@ public partial class Enemy : Node2D
 	//when the enemy passes through all the towers successfully w/o being killed
 	private void Breakthrough()
 	{
-		SignalHandler.Instance.EmitSignal(SignalHandler.SignalName.EnemyBreakthrough, damage);
+		TowerDefenseSignals.Instance.EmitSignal(TowerDefenseSignals.SignalName.EnemyBreakthrough, damage);
 	}
 }
 

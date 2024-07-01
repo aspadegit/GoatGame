@@ -20,8 +20,20 @@ public partial class ShotScript : Node2D
 	public override void _Ready()
 	{
 		sprite = GetNode<AnimatedSprite2D>("ShotSprite");
+
+		
 		enemiesInAoe = new List<Enemy>();
 		FullReset();
+	}
+
+	public void Setup()
+	{
+
+		//load in the proper texture
+		var frames = GD.Load(GlobalVars.spriteShotPath + shotType.TexturePath);
+
+		if(frames != null)
+			sprite.SpriteFrames = frames as SpriteFrames;
 	}
 
 	public void Shoot()
