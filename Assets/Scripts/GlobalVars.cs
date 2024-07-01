@@ -22,6 +22,7 @@ public partial class GlobalVars : Node
 	public static Dictionary<int, int> machineInventory = new Dictionary<int, int>(); //machineID, amountOfThatMachine
 
 	public static readonly string spriteShotPath = "res://Assets/SpriteFrames/Towers/Shots/";
+	public static readonly string texMaterialsPath = "res://Assets/Sprites/Items/Materials/";
 
 	public static readonly int restingJobID = 0;
 
@@ -82,7 +83,16 @@ public partial class GlobalVars : Node
 		materials = new Dictionary<string, Material>();
 		foreach(JsonNode material in array)
 		{
-			Material m = new Material((string)material["name"], (int)material["id"], (string)material["description"], (string)material["type"]);
+			string texPath = (string)material["texture"];
+			var loadedTex = GD.Load(texMaterialsPath + texPath);
+			Material m;
+
+			//load with the texture only if successful
+			if(loadedTex != null)
+				m = new Material((string)material["name"], (int)material["id"], (string)material["description"], (string)material["type"], loadedTex as Texture2D);
+			else
+				 m = new Material((string)material["name"], (int)material["id"], (string)material["description"], (string)material["type"]);
+			
 			materials.Add(m.Name, m);
 		}
 

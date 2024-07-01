@@ -5,6 +5,7 @@ public class Material
     public int ID {get; set;}
     public string Description {get; set;}
     public string Type {get; set;}
+    public Texture2D Texture {get;set;}
     
     public Material()
     {
@@ -18,6 +19,14 @@ public class Material
         this.ID = ID;
         this.Description = Description;
         this.Type = Type;
+    }
+    public Material(string Name, int ID, string Description, string Type, Texture2D Texture)
+    {
+        this.Name = Name;
+        this.ID = ID;
+        this.Description = Description;
+        this.Type = Type;
+        this.Texture = Texture;
     }
 
     public override string ToString()

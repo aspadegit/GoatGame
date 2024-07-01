@@ -18,6 +18,8 @@ public partial class InventoryRow : RowScript
 		this.name = name;
 		string amount = "";
 		int amt = -1;
+
+		Texture2D[] tex = new Texture2D[]{temp};
 		
 		//not ideal lol
 		switch(type)
@@ -29,6 +31,7 @@ public partial class InventoryRow : RowScript
 			//should never result in -1, -1 means that it's showing something that you don't have in your inventory...
 			case "material":
 				amt = GlobalVars.materialsObtained.ContainsKey(name) ? GlobalVars.materialsObtained[name] : -1; 
+				tex = new Texture2D[]{GlobalVars.materials[name].Texture};
 				break;
 			case "machine":
 				amt = GlobalVars.machineInventory.ContainsKey(ID) ? GlobalVars.machineInventory[ID] : -1; 
@@ -45,7 +48,7 @@ public partial class InventoryRow : RowScript
 			amount = "x" + amount;
 		}
 
-		base.Setup(new string[]{name,amount}, new Texture2D[]{temp});	
+		base.Setup(new string[]{name,amount}, tex);	
 
 	}
 

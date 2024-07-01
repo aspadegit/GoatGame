@@ -4,19 +4,22 @@
             "id": 0,
             "name": "Logs",
             "description": "Standard set of logs harvested from trees",
-            "type": "Wood"
+            "type": "Wood",
+            "texture": "logs.png"
         },
         {
             "id": 1,
             "name": "Rocks",
             "description": "Standard set of rocks mined from quarries",
-            "type": "Stone"  
+            "type": "Stone",
+            "texture": "rocks.png"
         },
         {
             "id": 2,
             "name": "Wheat",
             "description": "Grains harvested from the fields.",
-            "type": "Food"
+            "type": "Food",
+            "texture": "logs.png"
         }
     ]
 
