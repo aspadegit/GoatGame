@@ -24,9 +24,10 @@ process_mode = 3
 [node name="Pointer" parent="CanvasLayer" instance=ExtResource("4_3ino2")]
 scale = Vector2(1, 1)
 
-[node name="LivesEnemyCounter" parent="CanvasLayer" node_paths=PackedStringArray("gameOverScreen", "towerDefenseParent") instance=ExtResource("5_3a7p2")]
+[node name="LivesEnemyCounter" parent="CanvasLayer" node_paths=PackedStringArray("gameOverScreen", "towerDefenseParent", "test") instance=ExtResource("5_3a7p2")]
 gameOverScreen = NodePath("../TowerGameOver")
 towerDefenseParent = NodePath("../../TowerTest")
+test = NodePath("")
 numEnemies = 5
 numLives = 5
 

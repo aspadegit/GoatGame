@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Assets/Scripts/UI/InventoryTab.cs" id="1_dkimr"]
 [ext_resource type="Script" path="res://Assets/Scripts/UI/InventoryMenu.cs" id="1_s7kf4"]
 [ext_resource type="FontFile" uid="uid://b40px0i27n7ll" path="res://Assets/Fonts/NicoClean-Regular.ttf" id="2_7r0s8"]
-[ext_resource type="StyleBox" uid="uid://blxajgwymsus5" path="res://Assets/Themes/dark_panel_stylebox.tres" id="3_fka6y"]
+[ext_resource type="StyleBox" uid="uid://blxajgwymsus5" path="res://Assets/Themes/StyleBoxes/dark_panel_stylebox.tres" id="3_fka6y"]
 [ext_resource type="PackedScene" uid="uid://bf5hgn88imvr5" path="res://Scenes/UI/RowEntries/InventoryRow.tscn" id="3_rpwry"]
 [ext_resource type="Texture2D" uid="uid://byaj6myfiburq" path="res://Assets/Sprites/UI/box.png" id="4_kriaf"]
 [ext_resource type="Texture2D" uid="uid://nfbab4anoyel" path="res://Assets/Sprites/UI/box_sheet.png" id="5_ytfty"]
