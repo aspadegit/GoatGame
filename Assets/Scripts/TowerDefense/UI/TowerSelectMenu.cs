@@ -21,9 +21,9 @@ public partial class TowerSelectMenu : Control
     {
 		TowerDefenseSignals.Instance.Connect(TowerDefenseSignals.SignalName.TowerSelect, Callable.From((int param)=> HideMainMenu()), (uint)ConnectFlags.Deferred);
 
-    }
+	}
 
-    private void InstantiateChildren()
+	private void InstantiateChildren()
 	{
 		
 		//remove all of the old instances (TODO: not always do this)
