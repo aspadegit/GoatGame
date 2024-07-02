@@ -18,8 +18,8 @@ public partial class Lives : Control
 	public override void _Ready()
 	{
 		//setup signals
-		SignalHandler.Instance.Connect(SignalHandler.SignalName.EnemyBreakthrough, Callable.From((int param)=> DecreaseLives(param)), (uint)ConnectFlags.Deferred);
-		SignalHandler.Instance.Connect(SignalHandler.SignalName.OnEnemyDeath, Callable.From(()=>DecreaseEnemies(1)), (uint)ConnectFlags.Deferred);
+		TowerDefenseSignals.Instance.Connect(TowerDefenseSignals.SignalName.EnemyBreakthrough, Callable.From((int param)=> DecreaseLives(param)), (uint)ConnectFlags.Deferred);
+		TowerDefenseSignals.Instance.Connect(TowerDefenseSignals.SignalName.OnEnemyDeath, Callable.From(()=>DecreaseEnemies(1)), (uint)ConnectFlags.Deferred);
 		
 		//get nodes
 		numLivesLabel = GetNode<Label>("PanelMargin/HBoxMargin/HBoxContainer/NumLives");

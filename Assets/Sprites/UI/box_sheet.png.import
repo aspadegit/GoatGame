@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://l1ex8w8b85ps"
-path="res://.godot/imported/logs.png-e7baad448408036202be6782a6462937.ctex"
+uid="uid://nfbab4anoyel"
+path="res://.godot/imported/box_sheet.png-490cf60db81ed047db0c2f62bc42ca14.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/Items/Materials/logs.png"
-dest_files=["res://.godot/imported/logs.png-e7baad448408036202be6782a6462937.ctex"]
+source_file="res://Assets/Sprites/UI/box_sheet.png"
+dest_files=["res://.godot/imported/box_sheet.png-490cf60db81ed047db0c2f62bc42ca14.ctex"]
 
 [params]
 

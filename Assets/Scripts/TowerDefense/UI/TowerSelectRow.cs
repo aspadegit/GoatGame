@@ -32,7 +32,7 @@ public partial class TowerSelectRow : RowScript
 
 	private void ClickRow()
 	{
-		SignalHandler.Instance.EmitSignal(SignalHandler.SignalName.TowerSelect, machine.ID);
+		TowerDefenseSignals.Instance.EmitSignal(TowerDefenseSignals.SignalName.TowerSelect, machine.ID);
 	}
 
 	

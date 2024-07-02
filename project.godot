@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 SignalHandler="*res://Assets/Scripts/SignalHandler.cs"
 GlobalVars="*res://Assets/Scripts/GlobalVars.cs"
+TowerDefenseSignals="*res://Assets/Scripts/TowerDefense/TowerDefenseSignals.cs"
 
 [display]
 

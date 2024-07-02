@@ -10,7 +10,9 @@ public class Shot
 	public float AoeRange {get; set;} //how far multihits can go (scales by the size of the hitbox)
 	public int Damage {get; set;}
 
-	public Shot(string Name, int ID, string Type, int NumEnemiesToHit, float AoeRange, int Damage)
+	public string TexturePath {get; set;}
+
+	public Shot(string Name, int ID, string Type, int NumEnemiesToHit, float AoeRange, int Damage, string TexturePath)
 	{
 		this.Name = Name;
 		this.ID = ID;
@@ -18,6 +20,7 @@ public class Shot
 		this.NumEnemiesToHit = NumEnemiesToHit;
 		this.AoeRange = AoeRange;
 		this.Damage = Damage;
+		this.TexturePath = TexturePath;
 	}
 
 	//handles the number of enemies that are shot

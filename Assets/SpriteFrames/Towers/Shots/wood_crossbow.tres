@@ -1,0 +1,65 @@
+[gd_resource type="SpriteFrames" load_steps=9 format=3 uid="uid://b6vxbrojsrom7"]
+
+[ext_resource type="Texture2D" uid="uid://l0x6xibhpc1x" path="res://Assets/Sprites/Towers/Shots/wooden_crossbow_spritesheet.png" id="1_ats4y"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cs5sf"]
+atlas = ExtResource("1_ats4y")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_78xgi"]
+atlas = ExtResource("1_ats4y")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ta8gt"]
+atlas = ExtResource("1_ats4y")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6cw5o"]
+atlas = ExtResource("1_ats4y")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_avo63"]
+atlas = ExtResource("1_ats4y")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m07ik"]
+atlas = ExtResource("1_ats4y")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g56h0"]
+atlas = ExtResource("1_ats4y")
+region = Rect2(384, 0, 64, 64)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cs5sf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_78xgi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ta8gt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6cw5o")
+}],
+"loop": false,
+"name": &"draw",
+"speed": 20.0
+}, {
+"frames": [{
+"duration": 0.5,
+"texture": SubResource("AtlasTexture_avo63")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m07ik")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g56h0")
+}],
+"loop": false,
+"name": &"shoot",
+"speed": 10.0
+}]

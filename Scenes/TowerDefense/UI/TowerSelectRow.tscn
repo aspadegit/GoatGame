@@ -10,8 +10,8 @@ custom_minimum_size = Vector2(0, 50)
 size_flags_horizontal = 3
 mouse_filter = 2
 script = ExtResource("1_r1aig")
-labels = [NodePath("TowerRow/MainHBox/TowerName"), NodePath("TowerRow/MainHBox/DamageVBox/Number"), NodePath("TowerRow/MainHBox/AmountVBox/Number")]
-images = [NodePath("TowerRow/MainHBox/TowerImage")]
+labels = [NodePath("TowerRow/MarginContainer/MainHBox/TowerName"), NodePath("TowerRow/MarginContainer/MainHBox/DamageVBox/Number"), NodePath("TowerRow/MarginContainer/MainHBox/AmountVBox/Number")]
+images = [NodePath("TowerRow/MarginContainer/MainHBox/TowerImage")]
 buttons = {
 "RowButton": NodePath("RowButton")
 }
@@ -29,61 +29,71 @@ theme = ExtResource("2_i3f60")
 layout_mode = 2
 mouse_filter = 2
 
-[node name="MainHBox" type="HBoxContainer" parent="TowerRow"]
+[node name="MarginContainer" type="MarginContainer" parent="TowerRow"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="MainHBox" type="HBoxContainer" parent="TowerRow/MarginContainer"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 mouse_filter = 2
+theme_override_constants/separation = 3
 
-[node name="TowerImage" type="TextureRect" parent="TowerRow/MainHBox"]
+[node name="TowerImage" type="TextureRect" parent="TowerRow/MarginContainer/MainHBox"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 mouse_filter = 2
 texture = ExtResource("2_hnfg8")
 expand_mode = 3
 
-[node name="TowerName" type="Label" parent="TowerRow/MainHBox"]
+[node name="TowerName" type="Label" parent="TowerRow/MarginContainer/MainHBox"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme = ExtResource("2_i3f60")
 theme_override_fonts/font = ExtResource("3_g28u1")
 text = "Name of Machine"
 autowrap_mode = 2
 
-[node name="DamageVBox" type="VBoxContainer" parent="TowerRow/MainHBox"]
+[node name="DamageVBox" type="VBoxContainer" parent="TowerRow/MarginContainer/MainHBox"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 mouse_filter = 2
 
-[node name="Label" type="Label" parent="TowerRow/MainHBox/DamageVBox"]
+[node name="Label" type="Label" parent="TowerRow/MarginContainer/MainHBox/DamageVBox"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme = ExtResource("2_i3f60")
 theme_override_fonts/font = ExtResource("3_g28u1")
 text = "DMG"
 horizontal_alignment = 1
 
-[node name="Number" type="Label" parent="TowerRow/MainHBox/DamageVBox"]
+[node name="Number" type="Label" parent="TowerRow/MarginContainer/MainHBox/DamageVBox"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme = ExtResource("2_i3f60")
 theme_override_fonts/font = ExtResource("3_g28u1")
 text = "50"
 horizontal_alignment = 1
 
-[node name="AmountVBox" type="VBoxContainer" parent="TowerRow/MainHBox"]
+[node name="AmountVBox" type="VBoxContainer" parent="TowerRow/MarginContainer/MainHBox"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
+size_flags_vertical = 4
 mouse_filter = 2
 
-[node name="Label" type="Label" parent="TowerRow/MainHBox/AmountVBox"]
+[node name="Label" type="Label" parent="TowerRow/MarginContainer/MainHBox/AmountVBox"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_g28u1")
 text = "AMT"
 horizontal_alignment = 1
 
-[node name="Number" type="Label" parent="TowerRow/MainHBox/AmountVBox"]
+[node name="Number" type="Label" parent="TowerRow/MarginContainer/MainHBox/AmountVBox"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_g28u1")
 text = "x00"
 horizontal_alignment = 1

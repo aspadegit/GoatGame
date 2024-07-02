@@ -7,15 +7,19 @@ public partial class InventoryRow : RowScript
 	[Export]
 	Texture2D temp; //TODO: DELETE ME
 
-	private string type;
-	private int ID;
+	public string type;
+	public string name;
+	public int ID;
 
 	public void Setup(string name, string type, int ID)
 	{
 		this.type = type;
 		this.ID = ID;
+		this.name = name;
 		string amount = "";
 		int amt = -1;
+
+		Texture2D[] tex = new Texture2D[]{temp};
 		
 		//not ideal lol
 		switch(type)
@@ -27,6 +31,7 @@ public partial class InventoryRow : RowScript
 			//should never result in -1, -1 means that it's showing something that you don't have in your inventory...
 			case "material":
 				amt = GlobalVars.materialsObtained.ContainsKey(name) ? GlobalVars.materialsObtained[name] : -1; 
+				tex = new Texture2D[]{GlobalVars.materials[name].Texture};
 				break;
 			case "machine":
 				amt = GlobalVars.machineInventory.ContainsKey(ID) ? GlobalVars.machineInventory[ID] : -1; 
@@ -43,7 +48,7 @@ public partial class InventoryRow : RowScript
 			amount = "x" + amount;
 		}
 
-		base.Setup(new string[]{name,amount}, new Texture2D[]{temp});	
+		base.Setup(new string[]{name,amount}, tex);	
 
 	}
 
@@ -57,11 +62,25 @@ public partial class InventoryRow : RowScript
 	{
 		string[] rowButtonStr = {"RowButton", "pressed"};
 		buttonActions.Add(rowButtonStr, ClickRow);	//buttonActions inherited from RowScript
+		
+		rowButtonStr = new string[]{"RowButton", "focus_entered"};
+		buttonActions.Add(rowButtonStr, HoverRow);
+
+		rowButtonStr = new string[]{"RowButton", "mouse_entered"};
+		buttonActions.Add(rowButtonStr, HoverRow);
+
 	}
 
 	private void ClickRow()
 	{
-		//SignalHandler.Instance.EmitSignal(SignalHandler.SignalName.TowerSelect, machine.ID);
+		//TODO: items can be used when clicked
 		GD.Print("clicked");
+	}
+
+	private void HoverRow()
+	{
+		//emit this script to the inventory menu when hovering
+		SignalHandler.Instance.EmitSignal(SignalHandler.SignalName.OnInventoryHover, this);
+
 	}
 }

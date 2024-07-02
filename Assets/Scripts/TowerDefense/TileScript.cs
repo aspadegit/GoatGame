@@ -43,8 +43,8 @@ public partial class TileScript : Node2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		SignalHandler.Instance.Connect(SignalHandler.SignalName.TowerSelect, Callable.From((int param)=> SetTower(param)), (uint)ConnectFlags.Deferred);
-		
+		TowerDefenseSignals.Instance.Connect(TowerDefenseSignals.SignalName.TowerSelect, Callable.From((int param)=> SetTower(param)), (uint)ConnectFlags.Deferred);
+
 		tileMap = GetNode<TileMap>("TileMap");
 		enemySpawnTimer = GetNode<Timer>("EnemySpawnTimer");
 		enemies = GetNode<Node2D>("Enemies");

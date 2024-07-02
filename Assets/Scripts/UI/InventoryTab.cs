@@ -14,10 +14,15 @@ public partial class InventoryTab : MarginContainer
 	[Export]
 	string type;
 
+	[Export]
+	Label infoLabel;
+
 	//TODO: sort button
 
 	public override void _Ready()
 	{
+		SignalHandler.Instance.Connect(SignalHandler.SignalName.OnInventoryHover, Callable.From((InventoryRow row)=> OnRowHover(row)), (uint)ConnectFlags.Deferred);
+
 		InstantiateChildren();
 	}
 
@@ -43,6 +48,9 @@ public partial class InventoryTab : MarginContainer
 				InstantiateMaterials();
 				break;
 		}
+
+		infoLabel.Text = "";
+		
 
 	}
 
@@ -85,8 +93,24 @@ public partial class InventoryTab : MarginContainer
 		}
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
+	private void OnRowHover(InventoryRow row)
 	{
+		//only adjust the tab whose type matches
+		if(type == row.type)
+		{
+			switch(row.type)
+			{
+				case "goat":
+					infoLabel.Text = GlobalVars.goats[row.ID].ToString();
+					break;
+				case "machine":
+					infoLabel.Text = GlobalVars.machines[row.ID].ToString();
+					break;
+				case "material":
+					infoLabel.Text = GlobalVars.materials[row.name].ToString();
+					break;
+			}
+		}
 	}
+
 }
