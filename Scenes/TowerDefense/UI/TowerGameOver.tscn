@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://c7vmt8xfj33jy"]
+[gd_scene load_steps=3 format=3 uid="uid://bc4b4lqxog2us"]
 
 [ext_resource type="FontFile" uid="uid://b40px0i27n7ll" path="res://Assets/Fonts/NicoClean-Regular.ttf" id="1_8f50s"]
 [ext_resource type="Theme" uid="uid://cvjlrwyqj6u1w" path="res://Assets/Themes/PanelTheme.tres" id="1_rb2qa"]

@@ -4,13 +4,17 @@
 [ext_resource type="PackedScene" uid="uid://cu4yjwmkly6ed" path="res://Scenes/TowerDefense/TowerTest.tscn" id="1_cmywu"]
 [ext_resource type="PackedScene" uid="uid://7a13alpcisww" path="res://Scenes/TowerDefense/UI/TowerSelectMenu.tscn" id="2_o2b12"]
 [ext_resource type="PackedScene" uid="uid://bv8p4nmmbluor" path="res://Scenes/Pointer.tscn" id="4_3ino2"]
-[ext_resource type="PackedScene" uid="uid://dm7vtrfjqllkv" path="res://Scenes/TowerDefense/UI/LivesEnemyCounter.tscn" id="5_3a7p2"]
-[ext_resource type="PackedScene" uid="uid://c7vmt8xfj33jy" path="res://Scenes/TowerDefense/UI/TowerGameOver.tscn" id="6_cff35"]
+[ext_resource type="PackedScene" uid="uid://dnirkmi6gsok0" path="res://Scenes/TowerDefense/UI/LivesEnemyCounter.tscn" id="5_3a7p2"]
+[ext_resource type="PackedScene" uid="uid://bc4b4lqxog2us" path="res://Scenes/TowerDefense/UI/TowerGameOver.tscn" id="6_cff35"]
 
-[node name="TowerScene" type="Node"]
+[node name="TowerScene" type="Node" node_paths=PackedStringArray("pauseMenu", "towerTest")]
+process_mode = 3
 script = ExtResource("1_54o1s")
+pauseMenu = NodePath("CanvasLayer/PauseMenu")
+towerTest = NodePath("TowerTest")
 
 [node name="TowerTest" parent="." node_paths=PackedStringArray("pointer", "livesEnemyCounter") instance=ExtResource("1_cmywu")]
+process_mode = 1
 pointer = NodePath("../CanvasLayer/Pointer")
 livesEnemyCounter = NodePath("../CanvasLayer/LivesEnemyCounter")
 
@@ -35,3 +39,41 @@ numLives = 5
 
 [node name="TowerGameOver" parent="CanvasLayer" instance=ExtResource("6_cff35")]
 visible = false
+
+[node name="PauseMenu" type="Control" parent="CanvasLayer"]
+visible = false
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -33.5
+offset_right = 100.0
+offset_bottom = 33.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/PauseMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/PauseMenu/MarginContainer"]
+layout_mode = 2
+
+[node name="Resume" type="Button" parent="CanvasLayer/PauseMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Resume
+"
+
+[node name="Quit" type="Button" parent="CanvasLayer/PauseMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Quit"
