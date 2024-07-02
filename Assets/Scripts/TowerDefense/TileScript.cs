@@ -25,7 +25,6 @@ public partial class TileScript : Node2D
 	[Export]
 	public Lives livesEnemyCounter;
 
-
 	const int selectTileSourceNum = 3;
 	Vector2I prevSelection = Vector2I.Zero;
 	TileMap tileMap;
@@ -45,7 +44,7 @@ public partial class TileScript : Node2D
 	public override void _Ready()
 	{
 		SignalHandler.Instance.Connect(SignalHandler.SignalName.TowerSelect, Callable.From((int param)=> SetTower(param)), (uint)ConnectFlags.Deferred);
-
+		
 		tileMap = GetNode<TileMap>("TileMap");
 		enemySpawnTimer = GetNode<Timer>("EnemySpawnTimer");
 		enemies = GetNode<Node2D>("Enemies");
@@ -68,12 +67,14 @@ public partial class TileScript : Node2D
 		tileMap.EraseCell(hoverLayer, prevSelection);
 		tileMap.SetCell(hoverLayer, tile, selectTileSourceNum, Vector2I.Zero, 0);
 		prevSelection = tile;
-
+		
+		
+		
 		if(Input.IsActionJustPressed("left_click")){
 			PlaceTower(tile);
 			}
 	}
-
+	
 	private void PlaceTower(Vector2I curTile)
 	{	
 		//only set the tile if it is on top of a placeable tile, if the currentMachine exists, and if we have enough of that machine
