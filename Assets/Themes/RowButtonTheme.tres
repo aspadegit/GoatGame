@@ -1,7 +1,7 @@
-[gd_resource type="Theme" load_steps=5 format=3 uid="uid://cjxixwomxbsma"]
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://cjxixwomxbsma"]
 
 [ext_resource type="Texture2D" uid="uid://5fm486o1wv26" path="res://Assets/Sprites/Tiles/Select.png" id="1_m4g4a"]
-[ext_resource type="Texture2D" uid="uid://byaj6myfiburq" path="res://Assets/Sprites/UI/box.png" id="2_58fal"]
+[ext_resource type="Texture2D" uid="uid://nfbab4anoyel" path="res://Assets/Sprites/UI/box_sheet.png" id="2_p6wl5"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mx1jt"]
 texture = ExtResource("1_m4g4a")
@@ -10,8 +10,12 @@ texture_margin_top = 2.0
 texture_margin_right = 2.0
 texture_margin_bottom = 2.0
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_v2f45"]
+atlas = ExtResource("2_p6wl5")
+region = Rect2(48, 0, 48, 48)
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_be7hw"]
-texture = ExtResource("2_58fal")
+texture = SubResource("AtlasTexture_v2f45")
 texture_margin_left = 5.0
 texture_margin_top = 5.0
 texture_margin_right = 5.0
@@ -20,3 +24,7 @@ texture_margin_bottom = 5.0
 [resource]
 Button/styles/hover = SubResource("StyleBoxTexture_mx1jt")
 Button/styles/normal = SubResource("StyleBoxTexture_be7hw")
+Label/colors/font_color = Color(1, 1, 1, 1)
+Label/colors/font_shadow_color = Color(0, 0, 0, 0.254902)
+Label/constants/shadow_offset_y = 1
+Label/constants/shadow_outline_size = 2

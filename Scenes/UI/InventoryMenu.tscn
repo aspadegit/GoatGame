@@ -1,8 +1,49 @@
-[gd_scene load_steps=4 format=3 uid="uid://boocd06xur3ak"]
+[gd_scene load_steps=13 format=3 uid="uid://boocd06xur3ak"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/UI/InventoryTab.cs" id="1_dkimr"]
 [ext_resource type="Script" path="res://Assets/Scripts/UI/InventoryMenu.cs" id="1_s7kf4"]
+[ext_resource type="FontFile" uid="uid://b40px0i27n7ll" path="res://Assets/Fonts/NicoClean-Regular.ttf" id="2_7r0s8"]
+[ext_resource type="StyleBox" uid="uid://blxajgwymsus5" path="res://Assets/Themes/dark_panel_stylebox.tres" id="3_fka6y"]
 [ext_resource type="PackedScene" uid="uid://bf5hgn88imvr5" path="res://Scenes/UI/RowEntries/InventoryRow.tscn" id="3_rpwry"]
+[ext_resource type="Texture2D" uid="uid://byaj6myfiburq" path="res://Assets/Sprites/UI/box.png" id="4_kriaf"]
+[ext_resource type="Texture2D" uid="uid://nfbab4anoyel" path="res://Assets/Sprites/UI/box_sheet.png" id="5_ytfty"]
+
+[sub_resource type="FontVariation" id="FontVariation_e6gsx"]
+base_font = ExtResource("2_7r0s8")
+spacing_top = 3
+spacing_bottom = 3
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_d2wos"]
+texture = ExtResource("4_kriaf")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k65fm"]
+atlas = ExtResource("5_ytfty")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ptv22"]
+content_margin_left = 10.0
+content_margin_right = 10.0
+texture = SubResource("AtlasTexture_k65fm")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+modulate_color = Color(0.485703, 0.485704, 0.485703, 1)
+
+[sub_resource type="Theme" id="Theme_0k1v4"]
+Label/colors/font_shadow_color = Color(0, 0, 0, 0.235294)
+Label/constants/shadow_offset_y = 2
+Label/constants/shadow_outline_size = 2
+Label/fonts/font = ExtResource("2_7r0s8")
+Panel/styles/panel = ExtResource("3_fka6y")
+TabContainer/fonts/font = SubResource("FontVariation_e6gsx")
+TabContainer/styles/panel = SubResource("StyleBoxTexture_d2wos")
+TabContainer/styles/tab_selected = ExtResource("3_fka6y")
+TabContainer/styles/tab_unselected = SubResource("StyleBoxTexture_ptv22")
 
 [node name="InventoryMenu" type="Control" node_paths=PackedStringArray("tabParent")]
 layout_mode = 3
@@ -21,6 +62,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = SubResource("Theme_0k1v4")
 theme_override_constants/margin_left = 40
 theme_override_constants/margin_top = 40
 theme_override_constants/margin_right = 40
