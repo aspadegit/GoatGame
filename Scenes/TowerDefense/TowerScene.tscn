@@ -4,8 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://cu4yjwmkly6ed" path="res://Scenes/TowerDefense/TowerTest.tscn" id="1_cmywu"]
 [ext_resource type="PackedScene" uid="uid://7a13alpcisww" path="res://Scenes/TowerDefense/UI/TowerSelectMenu.tscn" id="2_o2b12"]
 [ext_resource type="PackedScene" uid="uid://bv8p4nmmbluor" path="res://Scenes/Pointer.tscn" id="4_3ino2"]
-[ext_resource type="PackedScene" uid="uid://dm7vtrfjqllkv" path="res://Scenes/TowerDefense/UI/LivesEnemyCounter.tscn" id="5_3a7p2"]
-[ext_resource type="PackedScene" uid="uid://c7vmt8xfj33jy" path="res://Scenes/TowerDefense/UI/TowerGameOver.tscn" id="6_cff35"]
+[ext_resource type="PackedScene" uid="uid://dnirkmi6gsok0" path="res://Scenes/TowerDefense/UI/LivesEnemyCounter.tscn" id="5_3a7p2"]
+[ext_resource type="PackedScene" uid="uid://bc4b4lqxog2us" path="res://Scenes/TowerDefense/UI/TowerGameOver.tscn" id="6_cff35"]
 
 [node name="TowerScene" type="Node"]
 script = ExtResource("1_54o1s")
@@ -34,3 +34,26 @@ numLives = 5
 
 [node name="TowerGameOver" parent="CanvasLayer" instance=ExtResource("6_cff35")]
 visible = false
+
+[node name="PauseMenu" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/PauseMenu"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/PauseMenu/MarginContainer"]
+layout_mode = 2
+
+[node name="Resume" type="Button" parent="CanvasLayer/PauseMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Resume
+"
+
+[node name="Quit" type="Button" parent="CanvasLayer/PauseMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Quit"

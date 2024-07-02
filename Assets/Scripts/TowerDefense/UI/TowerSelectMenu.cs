@@ -17,13 +17,13 @@ public partial class TowerSelectMenu : Control
 	public delegate void TowerSelectedEventHandler();
 	bool menuShowing = false;
 
-    public override void _Ready()
-    {
+	public override void _Ready()
+	{
 		SignalHandler.Instance.Connect(SignalHandler.SignalName.TowerSelect, Callable.From((int param)=> HideMainMenu()), (uint)ConnectFlags.Deferred);
 
-    }
+	}
 
-    private void InstantiateChildren()
+	private void InstantiateChildren()
 	{
 		
 		//remove all of the old instances (TODO: not always do this)
