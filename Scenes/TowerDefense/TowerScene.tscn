@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bhwgiemcefhed"]
+[gd_scene load_steps=9 format=3 uid="uid://bhwgiemcefhed"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/TowerDefense/TowerUIConnector.cs" id="1_54o1s"]
 [ext_resource type="PackedScene" uid="uid://cu4yjwmkly6ed" path="res://Scenes/TowerDefense/TowerTest.tscn" id="1_cmywu"]
@@ -6,6 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://bv8p4nmmbluor" path="res://Scenes/Pointer.tscn" id="4_3ino2"]
 [ext_resource type="PackedScene" uid="uid://dnirkmi6gsok0" path="res://Scenes/TowerDefense/UI/LivesEnemyCounter.tscn" id="5_3a7p2"]
 [ext_resource type="PackedScene" uid="uid://bc4b4lqxog2us" path="res://Scenes/TowerDefense/UI/TowerGameOver.tscn" id="6_cff35"]
+[ext_resource type="Script" path="res://Assets/Scripts/TowerDefense/UI/PauseMenu.cs" id="7_plxlq"]
+[ext_resource type="Theme" uid="uid://cvjlrwyqj6u1w" path="res://Assets/Themes/PanelTheme.tres" id="8_kem53"]
 
 [node name="TowerScene" type="Node" node_paths=PackedStringArray("pauseMenu", "towerTest")]
 process_mode = 3
@@ -39,8 +41,7 @@ numLives = 5
 [node name="TowerGameOver" parent="CanvasLayer" instance=ExtResource("6_cff35")]
 visible = false
 
-[node name="PauseMenu" type="Control" parent="CanvasLayer"]
-visible = false
+[node name="PauseMenu" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("towerScene")]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 3
 anchors_preset = 8
@@ -56,6 +57,18 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
+script = ExtResource("7_plxlq")
+towerScene = NodePath("../..")
+
+[node name="Panel" type="Panel" parent="CanvasLayer/PauseMenu"]
+custom_minimum_size = Vector2(400, 250)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("8_kem53")
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/PauseMenu"]
 layout_mode = 1
@@ -76,3 +89,6 @@ text = "Resume
 [node name="Quit" type="Button" parent="CanvasLayer/PauseMenu/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Quit"
+
+[connection signal="pressed" from="CanvasLayer/PauseMenu/MarginContainer/VBoxContainer/Resume" to="CanvasLayer/PauseMenu" method="_on_resume_pressed"]
+[connection signal="pressed" from="CanvasLayer/PauseMenu/MarginContainer/VBoxContainer/Quit" to="CanvasLayer/PauseMenu" method="_on_quit_pressed"]
