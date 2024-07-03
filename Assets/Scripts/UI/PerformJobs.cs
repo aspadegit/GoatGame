@@ -31,6 +31,10 @@ public partial class PerformJobs : Control
 
 		if(timerCount >= 4)
 		{
+			//stamina & EXP effects on each goat
+			foreach(KeyValuePair<int, Goat> goatPair in GlobalVars.goats)
+				goatPair.Value.DoJob();
+
 			timer.Stop();
 			closeButton.Show();
 		}
@@ -54,7 +58,7 @@ public partial class PerformJobs : Control
 	private void CalculateGoatContribution(Goat goat)
 	{
 		Job job = goat.AssignedJob;
-
+		
 		//calculate contributions
 		foreach(KeyValuePair<Material, int> result in job.Result)
 		{
@@ -94,7 +98,6 @@ public partial class PerformJobs : Control
 		//TODO: adjust based on class / other stats
 		result += (int)goat.Stamina/20;
 		
-		goat.DoJob(1, 5);
 
 		return result;
 	}

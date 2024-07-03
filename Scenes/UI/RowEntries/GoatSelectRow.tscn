@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cerkm83bthnsv"]
+[gd_scene load_steps=31 format=3 uid="uid://cerkm83bthnsv"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/UI/GoatSelectRow.cs" id="1_dy7u8"]
 [ext_resource type="FontFile" uid="uid://b40px0i27n7ll" path="res://Assets/Fonts/NicoClean-Regular.ttf" id="2_hk8tq"]
@@ -23,18 +23,73 @@ Panel/styles/panel = SubResource("StyleBoxTexture_8a004")
 atlas = ExtResource("2_smjqq")
 region = Rect2(2420, 536, 39, 40)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_dxpxj"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fcqta"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5cj7w"]
+bg_color = Color(0.292134, 0.628555, 0.372669, 1)
 
 [sub_resource type="Theme" id="Theme_1ti3a"]
 Panel/styles/panel = ExtResource("5_yexv1")
-ProgressBar/styles/background = SubResource("StyleBoxTexture_dxpxj")
+ProgressBar/styles/background = SubResource("StyleBoxFlat_fcqta")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_5cj7w")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_856np"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5ypw4"]
+bg_color = Color(1, 0.19, 0.19, 1)
+
+[sub_resource type="Theme" id="Theme_mo8ih"]
+ProgressBar/styles/background = SubResource("StyleBoxFlat_856np")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_5ypw4")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jm43f"]
+bg_color = Color(1, 1, 1, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_of2w1"]
+bg_color = Color(0.68012, 0.98, 0.6468, 1)
+
+[sub_resource type="Theme" id="Theme_v02ra"]
+ProgressBar/styles/background = SubResource("StyleBoxFlat_jm43f")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_of2w1")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qxb6o"]
+bg_color = Color(1, 1, 1, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e5ro4"]
+bg_color = Color(0.42005, 0.93, 0.0558, 1)
+
+[sub_resource type="Theme" id="Theme_clfo7"]
+ProgressBar/styles/background = SubResource("StyleBoxFlat_qxb6o")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_e5ro4")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3jv6m"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6u1fn"]
+bg_color = Color(0.469483, 0.967366, 1, 1)
+
+[sub_resource type="Theme" id="Theme_nvppl"]
+ProgressBar/styles/background = SubResource("StyleBoxFlat_3jv6m")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_6u1fn")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fykfj"]
+bg_color = Color(1, 1, 1, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y5ja5"]
+bg_color = Color(5.96821e-06, 0.683334, 0.95603, 1)
+
+[sub_resource type="Theme" id="Theme_ayqae"]
+ProgressBar/styles/background = SubResource("StyleBoxFlat_fykfj")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_y5ja5")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p1bvy"]
 resource_local_to_scene = true
 atlas = ExtResource("3_j4cng")
 region = Rect2(55, 127, 14, 14)
 
-[node name="GoatSelectRow" type="Control"]
+[node name="GoatSelectRow" type="Control" node_paths=PackedStringArray("staminaBar", "staminaRestoreBar", "expBar")]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 3
 anchors_preset = 10
@@ -44,6 +99,9 @@ grow_horizontal = 2
 size_flags_horizontal = 3
 mouse_filter = 2
 script = ExtResource("1_dy7u8")
+staminaBar = NodePath("VBoxContainer/GoatSelectMargin/GoatSelectHBox/StaminaClassMargin/StaminaClassVBox/StaminaHBox/RedBar/StaminaBar")
+staminaRestoreBar = NodePath("VBoxContainer/GoatSelectMargin/GoatSelectHBox/StaminaClassMargin/StaminaClassVBox/StaminaHBox/RedBar/StaminaRestoreBar")
+expBar = NodePath("VBoxContainer/GoatSelectMargin/GoatSelectHBox/ExpMargin/VBoxContainer/ExpHBox/PotentialBar/CurrentBar")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -175,7 +233,7 @@ vertical_alignment = 1
 
 [node name="StaminaClassMargin" type="MarginContainer" parent="VBoxContainer/GoatSelectMargin/GoatSelectHBox"]
 layout_mode = 2
-size_flags_horizontal = 0
+size_flags_horizontal = 3
 size_flags_vertical = 4
 theme_override_constants/margin_left = 25
 
@@ -204,18 +262,35 @@ text = "STAMINA:"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="StaminaBar" type="TextureProgressBar" parent="VBoxContainer/GoatSelectMargin/GoatSelectHBox/StaminaClassMargin/StaminaClassVBox/StaminaHBox"]
-custom_minimum_size = Vector2(350, 0)
+[node name="RedBar" type="ProgressBar" parent="VBoxContainer/GoatSelectMargin/GoatSelectHBox/StaminaClassMargin/StaminaClassVBox/StaminaHBox"]
+custom_minimum_size = Vector2(350, 25)
 layout_mode = 2
+theme = SubResource("Theme_mo8ih")
+value = 95.0
+show_percentage = false
 
-[node name="Panel" type="Panel" parent="VBoxContainer/GoatSelectMargin/GoatSelectHBox/StaminaClassMargin/StaminaClassVBox/StaminaHBox/StaminaBar"]
+[node name="StaminaRestoreBar" type="ProgressBar" parent="VBoxContainer/GoatSelectMargin/GoatSelectHBox/StaminaClassMargin/StaminaClassVBox/StaminaHBox/RedBar"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 1
+theme = SubResource("Theme_v02ra")
+value = 100.0
+fill_mode = 1
+show_percentage = false
+
+[node name="StaminaBar" type="ProgressBar" parent="VBoxContainer/GoatSelectMargin/GoatSelectHBox/StaminaClassMargin/StaminaClassVBox/StaminaHBox/RedBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_clfo7")
+value = 100.0
+show_percentage = false
 
 [node name="ExpMargin" type="MarginContainer" parent="VBoxContainer/GoatSelectMargin/GoatSelectHBox"]
 layout_mode = 2
@@ -243,18 +318,21 @@ text = "EXP:"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ExpBar" type="TextureProgressBar" parent="VBoxContainer/GoatSelectMargin/GoatSelectHBox/ExpMargin/VBoxContainer/ExpHBox"]
-custom_minimum_size = Vector2(350, 0)
+[node name="PotentialBar" type="ProgressBar" parent="VBoxContainer/GoatSelectMargin/GoatSelectHBox/ExpMargin/VBoxContainer/ExpHBox"]
+custom_minimum_size = Vector2(350, 25)
 layout_mode = 2
+theme = SubResource("Theme_nvppl")
+show_percentage = false
 
-[node name="Panel" type="Panel" parent="VBoxContainer/GoatSelectMargin/GoatSelectHBox/ExpMargin/VBoxContainer/ExpHBox/ExpBar"]
+[node name="CurrentBar" type="ProgressBar" parent="VBoxContainer/GoatSelectMargin/GoatSelectHBox/ExpMargin/VBoxContainer/ExpHBox/PotentialBar"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 1
+theme = SubResource("Theme_ayqae")
+show_percentage = false
 
 [node name="SelectMargin" type="MarginContainer" parent="VBoxContainer/GoatSelectMargin/GoatSelectHBox"]
 custom_minimum_size = Vector2(100, 0)

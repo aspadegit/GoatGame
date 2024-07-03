@@ -4,7 +4,9 @@
             "id": 0,
             "name": "Rest",
             "result": [
-            ]
+            ],
+            "strain": -1,
+            "expReward": 0
         },
         {
             "id": 1,
@@ -14,7 +16,9 @@
                     "name": "Rocks",
                     "amount": 5
                 }
-            ]
+            ],
+            "strain": 10,
+            "expReward": 10
         },
         {
             "id": 2,
@@ -24,13 +28,17 @@
                     "name": "Logs",
                     "amount": 5
                 }
-            ]
+            ],
+            "strain": 10,
+            "expReward": 10
         },
         {
             "id": 3,
             "name": "Research",
             "result": [
-            ]
+            ],
+            "strain": 10,
+            "expReward": 10
         },
         {
             "id": 4,
@@ -40,7 +48,9 @@
                     "name": "Wheat",
                     "amount": 5
                 }
-            ]
+            ],
+            "strain": 10,
+            "expReward": 10
         }
     ]
 
