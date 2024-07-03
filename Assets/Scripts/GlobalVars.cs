@@ -49,16 +49,16 @@ public partial class GlobalVars : Node
 		Dictionary<Material,int> d = new Dictionary<Material, int>();
 
 		//TODO: jobs must read from JSON
-		jobs.Add(0, new Job("Rest", 0, d));
+		jobs.Add(0, new Job("Rest", 0, d, -1, 0));
 		d = new Dictionary<Material, int>();
 		d.Add(materials["Logs"], 5);
-		jobs.Add(1, new Job("Mining", 1, d));
-		jobs.Add(2, new Job("Logging", 2, d));
+		jobs.Add(1, new Job("Mining", 1, d, 10, 10));
+		jobs.Add(2, new Job("Logging", 2, d, 10, 10));
 		d = new Dictionary<Material, int>();
 		d.Add(materials["Logs"], 1);
 		d.Add(materials["Rocks"], 1);
-		jobs.Add(3, new Job("Research", 3, d));
-		jobs.Add(4, new Job("Farming", 4, d));
+		jobs.Add(3, new Job("Research", 3, d, 20, 15));
+		jobs.Add(4, new Job("Farming", 4, d, 15, 15));
 
 	
 

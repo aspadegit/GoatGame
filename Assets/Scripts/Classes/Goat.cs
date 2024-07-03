@@ -6,6 +6,7 @@ public class Goat
 	public int ID {get; private set;}
 	public string Class {get; private set;} //TODO: potentially, make this a subclass (Coding term not gaming term)
 	public float Stamina {get; private set;}
+	public float CurrentStamina {get; private set;}
 	public int Level {get; private set;}
 	public int Exp { get; private set;}
 	public Job AssignedJob { get; set; }
@@ -32,13 +33,42 @@ public class Goat
 		this.Exp = Exp;
 
 		AssignedJob = null;
+		CurrentStamina = Stamina;
+		
 	}
 
 	//TODO: refine
-	public void DoJob(int strain, int exp)
+	public void DoJob()
 	{
-		Stamina -= strain;
-		Exp += exp;
+		//resting restores stamina
+		
+		if(AssignedJob.Strain < 0)
+		{
+			CurrentStamina = Stamina;
+		}
+		else
+		{
+			CurrentStamina -= AssignedJob.Strain;
+		}
+
+		Exp += AssignedJob.ExpReward;
+
+		//TODO: exp function where it's not just 100 every time
+		if(Exp >= 100)
+		{
+			LevelUp();
+		}
+	}
+
+	private void LevelUp()
+	{
+		Level++;
+		Exp -= 100; //TDOO: change in regards to function
+
+		//shouldnt happen
+		if(Exp < 0)
+			Exp = 0;
+
 	}
 
 	public override string ToString()
