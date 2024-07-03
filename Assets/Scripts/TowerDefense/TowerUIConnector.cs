@@ -26,7 +26,7 @@ public partial class TowerUIConnector : Node
 		}
 	}
 	
-	private void PauseMenu(){
+	public void PauseMenu(){
 		
 		paused = !paused;
 		
