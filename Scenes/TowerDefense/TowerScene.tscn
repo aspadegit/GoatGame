@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bhwgiemcefhed"]
+[gd_scene load_steps=10 format=3 uid="uid://bhwgiemcefhed"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/TowerDefense/TowerUIConnector.cs" id="1_54o1s"]
 [ext_resource type="PackedScene" uid="uid://cu4yjwmkly6ed" path="res://Scenes/TowerDefense/TowerTest.tscn" id="1_cmywu"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://bc4b4lqxog2us" path="res://Scenes/TowerDefense/UI/TowerGameOver.tscn" id="6_cff35"]
 [ext_resource type="Script" path="res://Assets/Scripts/TowerDefense/UI/PauseMenu.cs" id="7_plxlq"]
 [ext_resource type="Theme" uid="uid://cvjlrwyqj6u1w" path="res://Assets/Themes/PanelTheme.tres" id="8_kem53"]
+[ext_resource type="Theme" uid="uid://cjxixwomxbsma" path="res://Assets/Themes/RowButtonTheme.tres" id="9_ivsjp"]
 
 [node name="TowerScene" type="Node" node_paths=PackedStringArray("pauseMenu", "towerTest")]
 process_mode = 3
@@ -82,12 +83,16 @@ grow_vertical = 2
 layout_mode = 2
 
 [node name="Resume" type="Button" parent="CanvasLayer/PauseMenu/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
+theme = ExtResource("9_ivsjp")
 text = "Resume
 "
 
 [node name="Quit" type="Button" parent="CanvasLayer/PauseMenu/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
+theme = ExtResource("9_ivsjp")
 text = "Quit"
 
 [connection signal="pressed" from="CanvasLayer/PauseMenu/MarginContainer/VBoxContainer/Resume" to="CanvasLayer/PauseMenu" method="_on_resume_pressed"]
