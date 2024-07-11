@@ -2,7 +2,7 @@
 
 [ext_resource type="FontFile" uid="uid://b40px0i27n7ll" path="res://Assets/Fonts/NicoClean-Regular.ttf" id="1_1qwfj"]
 [ext_resource type="Texture2D" uid="uid://dpmsr41t5737i" path="res://Assets/Sprites/UIpackSheet_transparent.png" id="1_hlpsg"]
-[ext_resource type="StyleBox" uid="uid://8dryiflhwodt" path="res://Assets/Themes/ButtonStyleBox.tres" id="1_vw5q6"]
+[ext_resource type="StyleBox" uid="uid://8dryiflhwodt" path="res://Assets/Themes/StyleBoxes/ButtonStyleBox.tres" id="1_vw5q6"]
 [ext_resource type="Texture2D" uid="uid://byaj6myfiburq" path="res://Assets/Sprites/UI/box.png" id="3_rgf86"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_itll2"]

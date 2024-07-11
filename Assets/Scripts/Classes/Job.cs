@@ -6,6 +6,9 @@ public class Job
 	public int ID {get; private set;}
 	public Dictionary<Material, int> Result {get; private set;} // (Material, the average amount of it that you get)
 	
+	public int Strain {get; set;} //how much stamina it takes
+	public int ExpReward {get; set;} //how much exp it gives
+
 	public Job()
 	{
 	   Name = "[UNITIALIZED NAME]";
@@ -13,11 +16,13 @@ public class Job
 	   Result = null;
 	}
 
-	public Job(string Name, int ID, Dictionary<Material, int> Result)
+	public Job(string Name, int ID, Dictionary<Material, int> Result, int Strain, int ExpReward)
 	{
 		this.Name = Name;
 		this.ID = ID;
 		this.Result = Result;
+		this.Strain = Strain;
+		this.ExpReward = ExpReward;
 	}
 
 	public override string ToString()

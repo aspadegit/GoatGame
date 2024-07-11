@@ -4,6 +4,16 @@ using System.Collections.Generic;
 
 public partial class GoatSelectRow : Control
 {
+
+	[Export]
+	ProgressBar staminaBar; //green bar
+
+	[Export]
+	ProgressBar staminaRestoreBar; //light green bar
+
+	[Export]
+	ProgressBar expBar;	//blue bar
+
 	TextureButton selectButton;
 	VBoxContainer bigHitbox;
 	MarginContainer popUpMargin;
@@ -13,7 +23,7 @@ public partial class GoatSelectRow : Control
 	int goatID = -1;
 
 	readonly int[] textureOffsetX = {55, 163, 271, 379};
-	
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -29,6 +39,8 @@ public partial class GoatSelectRow : Control
 
 			selectButton.Connect("mouse_entered", Callable.From(Hover));
 			selectButton.Connect("mouse_exited", Callable.From(LeaveHover));
+
+
 		}
 		catch(InvalidCastException e)
 		{
@@ -40,6 +52,12 @@ public partial class GoatSelectRow : Control
 		{
 			//parse attempt was unsuccessful
 			GD.PrintErr("Unable to parse " + Name + " to an integer in GoatSelectRow.");
+		}
+		//successful parse
+		else
+		{
+			SetupBars();
+
 		}
 
 	}
@@ -53,6 +71,8 @@ public partial class GoatSelectRow : Control
 		}
 		UpdateGoat();
 		ChangeTexture();
+		PretendDoJob(GlobalVars.goats[goatID]);
+
 	}
 
 	private void ChangeTexture()
@@ -94,9 +114,9 @@ public partial class GoatSelectRow : Control
 
 			//...also, if im lazy and this stays, leave this comment in for haha sillies
 		goat.AssignedJob = GlobalVars.jobs[currentJobNum];
+
 	}
 
-	
 	private void Hover()
 	{
 		popUpMargin.Modulate = new Color(1,1,1,1);
@@ -107,5 +127,64 @@ public partial class GoatSelectRow : Control
 
 		popUpMargin.Modulate = new Color(1,1,1,0);
 		
+	}
+
+	private void PretendDoJob(Goat goat)
+	{
+		staminaBar.Value = goat.CurrentStamina;
+		expBar.GetParent<ProgressBar>().Value = goat.Exp;
+		Job job = goat.AssignedJob;
+		DecreaseStaminaBar(job.Strain);
+		IncreaseExpBar(job.ExpReward);
+	}
+	private void DecreaseStaminaBar(int amount)
+	{
+		//resting job
+		if(amount < 0)
+		{
+			staminaRestoreBar.Show();
+		}
+		//not resting job
+		else
+		{
+			staminaRestoreBar.Hide();
+			//preventing underflow
+			if(staminaBar.Value - amount < staminaBar.MinValue)
+				staminaBar.Value = staminaBar.MinValue;
+			else
+				staminaBar.Value -= amount;
+		}
+	}
+
+	private void IncreaseExpBar(int amount)
+	{
+		ProgressBar parent = expBar.GetParent<ProgressBar>();
+
+		if(parent.Value + amount >= parent.MaxValue)
+			parent.Value = parent.MaxValue;
+		else
+			parent.Value += amount;
+	}
+
+	private void SetupBars()
+	{
+		Goat goat = GlobalVars.goats[goatID];
+		ChangeBarsMinMax(staminaBar, 0, (int)goat.Stamina);
+		ChangeBarsMinMax(expBar, 0, 100);	//TODO: adjust to exp min / max
+		staminaBar.Value = goat.CurrentStamina;
+		staminaBar.GetParent<ProgressBar>().Value = goat.CurrentStamina;
+
+		expBar.Value = goat.Exp;
+		expBar.GetParent<ProgressBar>().Value = goat.Exp;
+		staminaRestoreBar.Show();
+	}
+
+	private void ChangeBarsMinMax(ProgressBar barChild, int min, int max)
+	{
+		barChild.MinValue = min;
+		barChild.MaxValue = max;
+
+		barChild.GetParent<ProgressBar>().MinValue = min;
+		barChild.GetParent<ProgressBar>().MaxValue = max;
 	}
 }
