@@ -1,6 +1,7 @@
 [gd_resource type="Theme" load_steps=7 format=3 uid="uid://cjxixwomxbsma"]
 
 [ext_resource type="Texture2D" uid="uid://5fm486o1wv26" path="res://Assets/Sprites/Tiles/Select.png" id="1_m4g4a"]
+
 [ext_resource type="FontFile" uid="uid://b40px0i27n7ll" path="res://Assets/Fonts/NicoClean-Regular.ttf" id="1_xp157"]
 [ext_resource type="Texture2D" uid="uid://nfbab4anoyel" path="res://Assets/Sprites/UI/box_sheet.png" id="2_p6wl5"]
 

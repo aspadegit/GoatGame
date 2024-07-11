@@ -15,7 +15,7 @@ public partial class GlobalVars : Node
 	public static Dictionary<int, Job> jobs = new Dictionary<int, Job>(); //ID, Job
 	public static Dictionary<int, Machine> machines; //ID, Machine
 	public static Dictionary<string, Recipe> recipes; //name, Recipe
-
+	public static Dictionary<string, Item> items; //ID, item
 	public static Dictionary<string, Shot> shots; //name, Shot
 
 	public static Dictionary<string, int> materialsObtained = new Dictionary<string, int>(); //materialName, amountOfThatMaterial
@@ -37,6 +37,7 @@ public partial class GlobalVars : Node
 		loadJSON("recipes.json", "recipes", parseRecipes);
 		loadJSON("shots.json", "shots", parseShots);
 		loadJSON("machines.json", "machines", parseMachines);
+		loadJSON("items.json", "items", parseItems);
 
 		machineInventory.Add(0, 5); //TODO: DELETE ME
 		machineInventory.Add(1, 5); //TODO: DELETE ME
@@ -49,7 +50,9 @@ public partial class GlobalVars : Node
 		Dictionary<Material,int> d = new Dictionary<Material, int>();
 
 		//TODO: jobs must read from JSON
-		jobs.Add(0, new Job("Rest", 0, d, -1, 0));
+
+		// ask alaine abt this
+		jobs.Add(0, new Job("Rest", 0, d));
 		d = new Dictionary<Material, int>();
 		d.Add(materials["Logs"], 5);
 		jobs.Add(1, new Job("Mining", 1, d, 10, 10));
@@ -119,6 +122,28 @@ public partial class GlobalVars : Node
 			//create the new object
 			Recipe newRecipe = new Recipe(name, id, currentRecipeItems);
 			recipes.Add(name, newRecipe);
+		}
+	}
+
+	private void parseItems(JsonArray array){
+		items = new Dictionary<string, Item>();
+
+		foreach(JsonNode item in array){
+			int id = (int)item["id"];
+			string name =(string)item["name"];
+			string description = (string)item["description"];
+			int value = (int)item["value"];
+        	int sellValue = (int)item["sellValue"];
+
+			JsonArray statsNode = (JsonArray)item["stats"];
+			Dictionary<string, int> stats = new Dictionary<string, int>();
+			
+			foreach(JsonNode stat in statsNode){
+				stats.Add((string)stat["name"], (int)stat["amount"]);
+			}
+
+			Item newItem = new Item(name, id, description, stats, value, sellValue);
+			items.Add(name, newItem);
 		}
 	}
 
