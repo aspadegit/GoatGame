@@ -50,6 +50,7 @@ public partial class GlobalVars : Node
 		Dictionary<Material,int> d = new Dictionary<Material, int>();
 
 		//TODO: jobs must read from JSON
+		// ask alaine abt this
 		jobs.Add(0, new Job("Rest", 0, d));
 		d = new Dictionary<Material, int>();
 		d.Add(materials["Logs"], 5);
