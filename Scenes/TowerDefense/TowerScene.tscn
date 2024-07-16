@@ -10,7 +10,6 @@
 [ext_resource type="Theme" uid="uid://cvjlrwyqj6u1w" path="res://Assets/Themes/PanelTheme.tres" id="8_kem53"]
 [ext_resource type="Theme" uid="uid://cjxixwomxbsma" path="res://Assets/Themes/RowButtonTheme.tres" id="9_mgjpa"]
 
-
 [node name="TowerScene" type="Node" node_paths=PackedStringArray("pauseMenu", "towerTest")]
 process_mode = 3
 script = ExtResource("1_54o1s")
@@ -44,6 +43,7 @@ numLives = 5
 visible = false
 
 [node name="PauseMenu" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("towerScene")]
+visible = false
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 3
 anchors_preset = 8
@@ -87,7 +87,6 @@ layout_mode = 2
 [node name="Resume" type="Button" parent="CanvasLayer/PauseMenu/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(200, 50)
 layout_mode = 2
-
 size_flags_vertical = 3
 theme = ExtResource("9_mgjpa")
 text = "Resume
@@ -96,10 +95,8 @@ text = "Resume
 [node name="Quit" type="Button" parent="CanvasLayer/PauseMenu/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
-
 size_flags_vertical = 3
 theme = ExtResource("9_mgjpa")
-
 text = "Quit"
 
 [connection signal="pressed" from="CanvasLayer/PauseMenu/MarginContainer/VBoxContainer/Resume" to="CanvasLayer/PauseMenu" method="_on_resume_pressed"]

@@ -37,7 +37,7 @@ public partial class GlobalVars : Node
 		loadJSON("recipes.json", "recipes", parseRecipes);
 		loadJSON("shots.json", "shots", parseShots);
 		loadJSON("machines.json", "machines", parseMachines);
-		loadJSON("items.json", "items", parseItems);
+		// loadJSON("items.json", "items", parseItems);
 
 		machineInventory.Add(0, 5); //TODO: DELETE ME
 		machineInventory.Add(1, 5); //TODO: DELETE ME
@@ -51,8 +51,7 @@ public partial class GlobalVars : Node
 
 		//TODO: jobs must read from JSON
 
-		// ask alaine abt this
-		jobs.Add(0, new Job("Rest", 0, d));
+		jobs.Add(0, new Job("Rest", 0, d, -1, 0));
 		d = new Dictionary<Material, int>();
 		d.Add(materials["Logs"], 5);
 		jobs.Add(1, new Job("Mining", 1, d, 10, 10));
@@ -133,7 +132,7 @@ public partial class GlobalVars : Node
 			string name =(string)item["name"];
 			string description = (string)item["description"];
 			int value = (int)item["value"];
-        	int sellValue = (int)item["sellValue"];
+			int sellValue = (int)item["sellValue"];
 
 			JsonArray statsNode = (JsonArray)item["stats"];
 			Dictionary<string, int> stats = new Dictionary<string, int>();
