@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bhwgiemcefhed"]
+[gd_scene load_steps=11 format=3 uid="uid://bhwgiemcefhed"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/TowerDefense/TowerUIConnector.cs" id="1_54o1s"]
 [ext_resource type="PackedScene" uid="uid://cu4yjwmkly6ed" path="res://Scenes/TowerDefense/TowerTest.tscn" id="1_cmywu"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dnirkmi6gsok0" path="res://Scenes/TowerDefense/UI/LivesEnemyCounter.tscn" id="5_3a7p2"]
 [ext_resource type="PackedScene" uid="uid://bc4b4lqxog2us" path="res://Scenes/TowerDefense/UI/TowerGameOver.tscn" id="6_cff35"]
 [ext_resource type="Script" path="res://Assets/Scripts/TowerDefense/UI/PauseMenu.cs" id="7_plxlq"]
+[ext_resource type="PackedScene" uid="uid://cw5ukk33peanh" path="res://Scenes/TowerDefense/UI/TowerWinLevel.tscn" id="7_ysbfo"]
 [ext_resource type="Theme" uid="uid://cvjlrwyqj6u1w" path="res://Assets/Themes/PanelTheme.tres" id="8_kem53"]
 [ext_resource type="Theme" uid="uid://cjxixwomxbsma" path="res://Assets/Themes/RowButtonTheme.tres" id="9_mgjpa"]
 
@@ -33,7 +34,7 @@ scale = Vector2(1, 1)
 
 [node name="LivesEnemyCounter" parent="CanvasLayer" node_paths=PackedStringArray("gameOverScreen", "winLevelScreen", "towerDefenseParent") instance=ExtResource("5_3a7p2")]
 gameOverScreen = NodePath("../TowerGameOver")
-winLevelScreen = NodePath("")
+winLevelScreen = NodePath("../TowerWinLevel")
 towerDefenseParent = NodePath("../../TowerTest")
 numEnemies = 5
 numLives = 5
@@ -43,40 +44,8 @@ numLives = 5
 [node name="TowerGameOver" parent="CanvasLayer" instance=ExtResource("6_cff35")]
 visible = false
 
-[node name="TowerWinLevel" type="Control" parent="CanvasLayer"]
+[node name="TowerWinLevel" parent="CanvasLayer" instance=ExtResource("7_ysbfo")]
 visible = false
-layout_mode = 3
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="MainMargin" type="MarginContainer" parent="CanvasLayer/TowerWinLevel"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="MainVBox" type="VBoxContainer" parent="CanvasLayer/TowerWinLevel/MainMargin"]
-layout_mode = 2
-
-[node name="TextPanel" type="Panel" parent="CanvasLayer/TowerWinLevel/MainMargin/MainVBox"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="CanvasLayer/TowerWinLevel/MainMargin/MainVBox/TextPanel"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-
-[node name="ButtonHBox" type="HBoxContainer" parent="CanvasLayer/TowerWinLevel/MainMargin/MainVBox"]
-layout_mode = 2
-
-[node name="RetryButton" type="Button" parent="CanvasLayer/TowerWinLevel/MainMargin/MainVBox/ButtonHBox"]
-layout_mode = 2
-
-[node name="Panel" type="Panel" parent="CanvasLayer/TowerWinLevel/MainMargin/MainVBox/ButtonHBox"]
-layout_mode = 2
-
-[node name="ContinueButton" type="Button" parent="CanvasLayer/TowerWinLevel/MainMargin/MainVBox/ButtonHBox"]
-layout_mode = 2
 
 [node name="PauseMenu" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("towerScene")]
 visible = false
