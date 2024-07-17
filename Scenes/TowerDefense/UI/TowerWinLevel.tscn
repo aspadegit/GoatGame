@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://cw5ukk33peanh"]
+
+[node name="TowerWinLevel" type="Control"]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MainMargin" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="MainVBox" type="VBoxContainer" parent="MainMargin"]
+layout_mode = 2
+
+[node name="TextPanel" type="Panel" parent="MainMargin/MainVBox"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MainMargin/MainVBox/TextPanel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+
+[node name="ButtonHBox" type="HBoxContainer" parent="MainMargin/MainVBox"]
+layout_mode = 2
+
+[node name="RetryButton" type="Button" parent="MainMargin/MainVBox/ButtonHBox"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="MainMargin/MainVBox/ButtonHBox"]
+layout_mode = 2
+
+[node name="ContinueButton" type="Button" parent="MainMargin/MainVBox/ButtonHBox"]
+layout_mode = 2
