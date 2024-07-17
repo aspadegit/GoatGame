@@ -1,10 +1,13 @@
 using Godot;
 using System;
+using System.Reflection;
 
 public partial class Lives : Control
 {
 	[Export]
 	Control gameOverScreen;
+	[Export]
+	Control winLevelScreen;
 	[Export]
 	Node towerDefenseParent;
 
@@ -12,9 +15,13 @@ public partial class Lives : Control
 	public int numEnemies = 99;
 	[Export]
 	public int numLives = 99;
+	
 
 	private Label numLivesLabel;
 	private Label numEnemiesLabel;
+	private Timer winTimer;
+
+	private bool win;
 	public override void _Ready()
 	{
 		//setup signals
@@ -24,10 +31,12 @@ public partial class Lives : Control
 		//get nodes
 		numLivesLabel = GetNode<Label>("PanelMargin/HBoxMargin/HBoxContainer/NumLives");
 		numEnemiesLabel = GetNode<Label>("PanelMargin/HBoxMargin/HBoxContainer/NumEnemiesRemaining");
+		winTimer = GetNode<Timer>("Timer");
 		
 		//set the text
 		numEnemiesLabel.Text = numEnemies.ToString();
 		numLivesLabel.Text = numLives.ToString();
+	
 
 	}
 
@@ -38,6 +47,12 @@ public partial class Lives : Control
 			numEnemies = 0;
 
 		numEnemiesLabel.Text = numEnemies.ToString();
+		if(numEnemies <= 0 && numLives > 0)
+		{
+			win = true;
+			winTimer.Start();
+		}
+		
 
 	}
 
@@ -52,9 +67,25 @@ public partial class Lives : Control
 		numLivesLabel.Text = numLives.ToString();
 		if(numLives <= 0)
 		{
-			gameOverScreen.Show();
-			towerDefenseParent.GetTree().Paused = true;
+			win = false;
+			winTimer.Start();
 		}
 	}
+	
+	private void _on_timer_timeout()
+{
+	if (win == true){
+		winLevelScreen.Show();
+		GD.Print("Showing win screen");
+		}
+	else{
+		gameOverScreen.Show();
+		GD.Print("Showing lose screen");
+		}
+		
+	towerDefenseParent.GetTree().Paused = true;
+}
 
 }
+
+

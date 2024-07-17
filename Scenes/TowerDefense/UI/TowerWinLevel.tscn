@@ -1,15 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://bc4b4lqxog2us"]
+[gd_scene load_steps=3 format=3 uid="uid://cw5ukk33peanh"]
 
-[ext_resource type="FontFile" uid="uid://b40px0i27n7ll" path="res://Assets/Fonts/NicoClean-Regular.ttf" id="1_8f50s"]
-[ext_resource type="Theme" uid="uid://cvjlrwyqj6u1w" path="res://Assets/Themes/PanelTheme.tres" id="1_rb2qa"]
+[ext_resource type="Theme" uid="uid://cvjlrwyqj6u1w" path="res://Assets/Themes/PanelTheme.tres" id="1_3rj2p"]
+[ext_resource type="FontFile" uid="uid://b40px0i27n7ll" path="res://Assets/Fonts/NicoClean-Regular.ttf" id="2_pafjh"]
 
-[node name="TowerGameOver" type="Control"]
+[node name="TowerWinLevel" type="Control"]
 layout_mode = 3
-anchors_preset = 15
+anchors_preset = 14
+anchor_top = 0.5
 anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 4
 
 [node name="MainMargin" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -32,7 +34,7 @@ theme_override_constants/separation = 50
 [node name="TextPanel" type="Panel" parent="MainMargin/MainVBox"]
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
-theme = ExtResource("1_rb2qa")
+theme = ExtResource("1_3rj2p")
 
 [node name="Label" type="Label" parent="MainMargin/MainVBox/TextPanel"]
 layout_mode = 1
@@ -42,9 +44,9 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_fonts/font = ExtResource("1_8f50s")
+theme_override_fonts/font = ExtResource("2_pafjh")
 theme_override_font_sizes/font_size = 80
-text = "GAME OVER"
+text = "YOU WIN!"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -56,7 +58,7 @@ size_flags_horizontal = 4
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_fonts/font = ExtResource("1_8f50s")
+theme_override_fonts/font = ExtResource("2_pafjh")
 text = "RETRY"
 
 [node name="Spacer" type="Panel" parent="MainMargin/MainVBox/ButtonHBox"]
@@ -67,5 +69,5 @@ layout_mode = 2
 [node name="ContinueButton" type="Button" parent="MainMargin/MainVBox/ButtonHBox"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-theme_override_fonts/font = ExtResource("1_8f50s")
-text = "LOAD SAVE"
+theme_override_fonts/font = ExtResource("2_pafjh")
+text = "CONTINUE"
