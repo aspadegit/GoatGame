@@ -6,6 +6,8 @@ public partial class Lives : Control
 	[Export]
 	Control gameOverScreen;
 	[Export]
+	Control winLevelScreen;
+	[Export]
 	Node towerDefenseParent;
 
 	[Export]
@@ -38,6 +40,12 @@ public partial class Lives : Control
 			numEnemies = 0;
 
 		numEnemiesLabel.Text = numEnemies.ToString();
+		if(numEnemies <= 0)
+		{
+			winLevelScreen.Show();
+			towerDefenseParent.GetTree().Paused = true;
+		}
+		
 
 	}
 
