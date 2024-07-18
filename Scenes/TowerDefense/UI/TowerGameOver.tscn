@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://bc4b4lqxog2us"]
+[gd_scene load_steps=4 format=3 uid="uid://bc4b4lqxog2us"]
 
 [ext_resource type="FontFile" uid="uid://b40px0i27n7ll" path="res://Assets/Fonts/NicoClean-Regular.ttf" id="1_8f50s"]
+[ext_resource type="Script" path="res://Assets/Scripts/TowerDefense/UI/GameOver.cs" id="1_71tfs"]
 [ext_resource type="Theme" uid="uid://cvjlrwyqj6u1w" path="res://Assets/Themes/PanelTheme.tres" id="1_rb2qa"]
 
 [node name="TowerGameOver" type="Control"]
@@ -10,6 +11,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_71tfs")
 
 [node name="MainMargin" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -69,3 +71,5 @@ custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("1_8f50s")
 text = "LOAD SAVE"
+
+[connection signal="pressed" from="MainMargin/MainVBox/ButtonHBox/RetryButton" to="." method="_on_retry_button_pressed"]
