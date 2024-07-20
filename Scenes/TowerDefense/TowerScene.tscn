@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dnirkmi6gsok0" path="res://Scenes/TowerDefense/UI/LivesEnemyCounter.tscn" id="5_3a7p2"]
 [ext_resource type="PackedScene" uid="uid://bc4b4lqxog2us" path="res://Scenes/TowerDefense/UI/TowerGameOver.tscn" id="6_cff35"]
 [ext_resource type="Script" path="res://Assets/Scripts/TowerDefense/UI/PauseMenu.cs" id="7_plxlq"]
-[ext_resource type="PackedScene" uid="uid://cw5ukk33peanh" path="res://Scenes/TowerDefense/UI/TowerWinLevel.tscn" id="7_ysbfo"]
+[ext_resource type="PackedScene" path="res://Scenes/TowerDefense/UI/TowerWinLevel.tscn" id="7_ysbfo"]
 [ext_resource type="Theme" uid="uid://cvjlrwyqj6u1w" path="res://Assets/Themes/PanelTheme.tres" id="8_kem53"]
 [ext_resource type="Theme" uid="uid://cjxixwomxbsma" path="res://Assets/Themes/RowButtonTheme.tres" id="9_mgjpa"]
 
@@ -32,9 +32,8 @@ process_mode = 3
 [node name="Pointer" parent="CanvasLayer" instance=ExtResource("4_3ino2")]
 scale = Vector2(1, 1)
 
-[node name="LivesEnemyCounter" parent="CanvasLayer" node_paths=PackedStringArray("gameOverScreen", "winLevelScreen", "towerDefenseParent") instance=ExtResource("5_3a7p2")]
+[node name="LivesEnemyCounter" parent="CanvasLayer" node_paths=PackedStringArray("gameOverScreen", "towerDefenseParent") instance=ExtResource("5_3a7p2")]
 gameOverScreen = NodePath("../TowerGameOver")
-winLevelScreen = NodePath("../TowerWinLevel")
 towerDefenseParent = NodePath("../../TowerTest")
 numEnemies = 5
 numLives = 5
