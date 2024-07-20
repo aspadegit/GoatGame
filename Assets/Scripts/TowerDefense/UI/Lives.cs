@@ -11,11 +11,19 @@ public partial class Lives : Control
 	[Export]
 	Node towerDefenseParent;
 
+	//initial numbers for lives/enemies
 	[Export]
 	public int numEnemies = 99;
 	[Export]
 	public int numLives = 99;
+
+	//at the moment, just goes to tilescript & calls OnPause, so that the blue square doesn't hang around awkwardly
+	[Signal]
+	public delegate void PauseGameEventHandler();
 	
+	//tracks what lives/enemies is currently at
+	private int curEnemies;
+	private int curLives;
 
 	private Label numLivesLabel;
 	private Label numEnemiesLabel;
@@ -33,21 +41,18 @@ public partial class Lives : Control
 		numEnemiesLabel = GetNode<Label>("PanelMargin/HBoxMargin/HBoxContainer/NumEnemiesRemaining");
 		winTimer = GetNode<Timer>("Timer");
 		
-		//set the text
-		numEnemiesLabel.Text = numEnemies.ToString();
-		numLivesLabel.Text = numLives.ToString();
-	
+		ResetText();
 
 	}
 
 	private void DecreaseEnemies(int amt)
 	{
-		numEnemies -= amt;
-		if(numEnemies < 0)
-			numEnemies = 0;
+		curEnemies -= amt;
+		if(curEnemies < 0)
+			curEnemies = 0;
 
-		numEnemiesLabel.Text = numEnemies.ToString();
-		if(numEnemies <= 0 && numLives > 0)
+		numEnemiesLabel.Text = curEnemies.ToString();
+		if(curEnemies <= 0 && curLives > 0)
 		{
 			win = true;
 			winTimer.Start();
@@ -59,13 +64,13 @@ public partial class Lives : Control
 	//when an enemy breaks through, decrease how many lives we have & update the string
 	private void DecreaseLives(int amount)
 	{
-		numLives -= amount;
+		curLives -= amount;
 
-		if(numLives < 0)
-			numLives = 0;
+		if(curLives < 0)
+			curLives = 0;
 
-		numLivesLabel.Text = numLives.ToString();
-		if(numLives <= 0)
+		numLivesLabel.Text = curLives.ToString();
+		if(curLives <= 0)
 		{
 			win = false;
 			winTimer.Start();
@@ -73,18 +78,40 @@ public partial class Lives : Control
 	}
 	
 	private void _on_timer_timeout()
-{
-	if (win == true){
-		winLevelScreen.Show();
-		GD.Print("Showing win screen");
+	{
+		if (win == true)
+		{
+			winLevelScreen.Show();
+			GD.Print("Showing win screen");
 		}
-	else{
-		gameOverScreen.Show();
-		GD.Print("Showing lose screen");
+		else
+		{
+			gameOverScreen.Show();
+			GD.Print("Showing lose screen");
 		}
-		
-	towerDefenseParent.GetTree().Paused = true;
-}
+		Pause();
+	}
+
+	//reset lives & enemies & the text
+	public void ResetText()
+	{
+		curEnemies = numEnemies;
+		curLives = numLives;
+
+		if(numEnemiesLabel != null && numLivesLabel != null)
+		{
+			numEnemiesLabel.Text = curEnemies.ToString();
+			numLivesLabel.Text = curLives.ToString();
+		}
+
+	}
+
+	private void Pause()
+	{
+		EmitSignal(SignalName.PauseGame);
+		towerDefenseParent.GetTree().Paused = true;
+
+	}
 
 }
 
