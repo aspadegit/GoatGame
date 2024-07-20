@@ -9,7 +9,10 @@ public partial class TowerUIConnector : Node
 	
 	[Export]
 	public Node2D towerTest;
-	
+
+	[Signal]
+	public delegate void PauseGameEventHandler();
+
 	bool paused = false;
 	
 	// Called when the node enters the scene tree for the first time.
@@ -39,6 +42,7 @@ public partial class TowerUIConnector : Node
 		else{
 			pauseMenu.Show();
 			towerTest.GetTree().Paused = true;
+			EmitSignal(SignalName.PauseGame);
 		}
 
 		

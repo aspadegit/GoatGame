@@ -24,7 +24,6 @@ public partial class TileScript : Node2D
 
 	[Export]
 	public Lives livesEnemyCounter;
-
 	const int selectTileSourceNum = 3;
 	Vector2I prevSelection = Vector2I.Zero;
 	TileMap tileMap;
@@ -37,13 +36,14 @@ public partial class TileScript : Node2D
 	Timer enemySpawnTimer;
 	int enemyNum = 0;
 
-
+	Dictionary<int,int> machinesUsed = new Dictionary<int, int>(); // [id of machine, how many used]
 	private Machine currentMachine;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		TowerDefenseSignals.Instance.Connect(TowerDefenseSignals.SignalName.TowerSelect, Callable.From((int param)=> SetTower(param)), (uint)ConnectFlags.Deferred);
+
 
 		tileMap = GetNode<TileMap>("TileMap");
 		enemySpawnTimer = GetNode<Timer>("EnemySpawnTimer");
@@ -52,8 +52,8 @@ public partial class TileScript : Node2D
 		towerParent = GetNode<Node2D>("Towers");
 
 		placeableTiles = tileMap.GetUsedCells(placementLayer);
-		enemySpawnTimer.Start();
-		enemyNum = 0;
+
+		Reset();
 
 	}
 	
@@ -72,7 +72,7 @@ public partial class TileScript : Node2D
 		
 		if(Input.IsActionJustPressed("left_click")){
 			PlaceTower(tile);
-			}
+		}
 	}
 	
 	private void PlaceTower(Vector2I curTile)
@@ -86,6 +86,16 @@ public partial class TileScript : Node2D
 			//decrease global inventory
 			GlobalVars.machineInventory[currentMachine.ID]--;
 
+			//update that we've used one more of this current machine
+			if(machinesUsed.ContainsKey(currentMachine.ID))
+			{
+				machinesUsed[currentMachine.ID]++;
+			}
+			//hasn't been added yet, so create the key
+			else
+			{
+				machinesUsed.Add(currentMachine.ID, 1);
+			}
 			//create the tower
 			TowerScript tower = towerScene.Instantiate<TowerScript>();
 			towers.Add(curTile, tower);
@@ -124,6 +134,41 @@ public partial class TileScript : Node2D
 	{
 		currentMachine = GlobalVars.machines[machineID];
 
+	}
+
+	public void OnPause()
+	{
+		//makes the hover square disappear so it's not awkwardly still there on pause
+		tileMap.EraseCell(hoverLayer, prevSelection);
+		prevSelection = Vector2I.Zero;
+	}
+
+	public void Reset()
+	{
+		//restore the machines we've used back into the inventory
+		foreach(KeyValuePair<int,int> pair in machinesUsed)
+		{
+			int id = pair.Key;
+			GlobalVars.machineInventory[id] += pair.Value;
+		}
+
+		machinesUsed.Clear();
+
+		//reset enemy spawn time
+		enemySpawnTimer.Start();
+		enemyNum = 0;
+
+		//reset enemies
+		foreach(Node node in enemies.GetChildren())
+		{
+			node.QueueFree();
+		}
+
+		//tracks which tile to erase when hovering
+		prevSelection = Vector2I.Zero;
+
+		//reset # of enemies & lives
+		livesEnemyCounter.ResetText();
 	}
 
 }

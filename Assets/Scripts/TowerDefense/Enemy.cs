@@ -11,6 +11,7 @@ public partial class Enemy : Node2D
 	private AnimatedSprite2D animation;
 	private ShaderMaterial shaderMat;
 	private Vector2 prevPosition;
+	private float speed = 1;
 	private int damage = 1; //TODO: adjust for diff types of enemies?
 	bool shouldStart = false;
 	float deathDissolveVal = 0.0f;
@@ -60,7 +61,7 @@ public partial class Enemy : Node2D
 			prevPosition = Position;	//set old position
 
 			//set new position
-			pathFollow.ProgressRatio += 0.05f * (float)delta;
+			pathFollow.ProgressRatio += 0.05f * (float)delta * speed;
 			Position = pathFollow.Position;
 			AdjustAnimation();
 		}
