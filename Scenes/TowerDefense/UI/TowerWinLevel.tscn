@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://cw5ukk33peanh"]
+[gd_scene load_steps=4 format=3 uid="uid://cw5ukk33peanh"]
 
 [ext_resource type="Theme" uid="uid://cvjlrwyqj6u1w" path="res://Assets/Themes/PanelTheme.tres" id="1_3rj2p"]
+[ext_resource type="Script" path="res://Assets/Scripts/TowerDefense/UI/WinLevel.cs" id="1_g3aqi"]
 [ext_resource type="FontFile" uid="uid://b40px0i27n7ll" path="res://Assets/Fonts/NicoClean-Regular.ttf" id="2_pafjh"]
 
 [node name="TowerWinLevel" type="Control"]
@@ -12,6 +13,7 @@ anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
+script = ExtResource("1_g3aqi")
 
 [node name="MainMargin" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -71,3 +73,5 @@ custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_pafjh")
 text = "CONTINUE"
+
+[connection signal="pressed" from="MainMargin/MainVBox/ButtonHBox/RetryButton" to="." method="_on_retry_button_pressed"]

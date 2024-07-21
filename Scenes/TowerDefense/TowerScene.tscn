@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dnirkmi6gsok0" path="res://Scenes/TowerDefense/UI/LivesEnemyCounter.tscn" id="5_3a7p2"]
 [ext_resource type="PackedScene" uid="uid://bc4b4lqxog2us" path="res://Scenes/TowerDefense/UI/TowerGameOver.tscn" id="6_cff35"]
 [ext_resource type="Script" path="res://Assets/Scripts/TowerDefense/UI/PauseMenu.cs" id="7_plxlq"]
-[ext_resource type="PackedScene" path="res://Scenes/TowerDefense/UI/TowerWinLevel.tscn" id="7_ysbfo"]
+[ext_resource type="PackedScene" uid="uid://cw5ukk33peanh" path="res://Scenes/TowerDefense/UI/TowerWinLevel.tscn" id="7_ysbfo"]
 [ext_resource type="Theme" uid="uid://cvjlrwyqj6u1w" path="res://Assets/Themes/PanelTheme.tres" id="8_kem53"]
 [ext_resource type="Theme" uid="uid://cjxixwomxbsma" path="res://Assets/Themes/RowButtonTheme.tres" id="9_mgjpa"]
 
@@ -107,5 +107,6 @@ text = "Quit"
 [connection signal="PauseGame" from="." to="TowerTest" method="OnPause"]
 [connection signal="PauseGame" from="CanvasLayer/LivesEnemyCounter" to="TowerTest" method="OnPause"]
 [connection signal="GameOverSignal" from="CanvasLayer/TowerGameOver" to="TowerTest" method="Reset"]
+[connection signal="GameOverSignal" from="CanvasLayer/TowerWinLevel" to="TowerTest" method="Reset"]
 [connection signal="pressed" from="CanvasLayer/PauseMenu/MarginContainer/VBoxContainer/Resume" to="CanvasLayer/PauseMenu" method="_on_resume_pressed"]
 [connection signal="pressed" from="CanvasLayer/PauseMenu/MarginContainer/VBoxContainer/Quit" to="CanvasLayer/PauseMenu" method="_on_quit_pressed"]

@@ -3,9 +3,9 @@
 [ext_resource type="Script" path="res://Assets/Scripts/UI/GoatSelectRow.cs" id="1_dy7u8"]
 [ext_resource type="FontFile" uid="uid://b40px0i27n7ll" path="res://Assets/Fonts/NicoClean-Regular.ttf" id="2_hk8tq"]
 [ext_resource type="Texture2D" uid="uid://dsk2ybhhw5dwp" path="res://Assets/Sprites/UI/RPG_Pixel_EDSlashEm.png" id="2_smjqq"]
-[ext_resource type="Texture2D" uid="uid://l1ex8w8b85ps" path="res://Assets/Sprites/Items/Materials/logs.png" id="3_a8chl"]
+[ext_resource type="Texture2D" uid="uid://l1ex8w8b85ps" path="res://Assets/Sprites/Items/Materials/Logs.png" id="3_a8chl"]
 [ext_resource type="Texture2D" uid="uid://dpmsr41t5737i" path="res://Assets/Sprites/UIpackSheet_transparent.png" id="3_j4cng"]
-[ext_resource type="Texture2D" uid="uid://dl24vshki5mps" path="res://Assets/Sprites/Items/Materials/rocks.png" id="4_qu3ev"]
+[ext_resource type="Texture2D" uid="uid://dl24vshki5mps" path="res://Assets/Sprites/Items/Materials/Rocks.png" id="4_qu3ev"]
 [ext_resource type="StyleBox" uid="uid://blxajgwymsus5" path="res://Assets/Themes/StyleBoxes/dark_panel_stylebox.tres" id="5_yexv1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_873qf"]
