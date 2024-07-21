@@ -1,9 +1,8 @@
 using Godot;
 using System;
 
-public partial class GameOver : Control
+public partial class WinLevel : Control
 {
-
 	[Signal]
 	public delegate void GameOverSignalEventHandler();
 
