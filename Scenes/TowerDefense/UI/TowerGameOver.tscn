@@ -83,4 +83,5 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("1_8f50s")
 text = "LOAD SAVE"
 
+[connection signal="pressed" from="MainMargin/MainVBox/ButtonHBox/MenuButton" to="." method="_on_menu_button_pressed"]
 [connection signal="pressed" from="MainMargin/MainVBox/ButtonHBox/RetryButton" to="." method="_on_retry_button_pressed"]

@@ -45,7 +45,6 @@ numLives = 5
 visible = false
 
 [node name="TowerWinLevel" parent="CanvasLayer" instance=ExtResource("7_ysbfo")]
-visible = false
 
 [node name="PauseMenu" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("towerScene")]
 visible = false
