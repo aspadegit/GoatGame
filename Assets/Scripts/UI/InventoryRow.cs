@@ -36,6 +36,9 @@ public partial class InventoryRow : RowScript
 			case "machine":
 				amt = GlobalVars.machineInventory.ContainsKey(ID) ? GlobalVars.machineInventory[ID] : -1; 
 				break;
+			case "item":
+				amt = GlobalVars.itemInventory.ContainsKey(name) ? GlobalVars.itemInventory[name] : -1; 
+				break;
 		}
 
 		ButtonSetup();

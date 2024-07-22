@@ -10,6 +10,8 @@ public partial class GlobalVars : Node
 {
 	//should probably only be loaded on scenes where the goat menu could show up
 	//TODO: thoughts: json stores the goat ideas, THIS stores which ones you have
+
+	// ========================= DATA DICTIONARIES ================================
 	public static Dictionary<int, Goat> goats; // ID, Goat
 	public static Dictionary<string, Material> materials;
 	public static Dictionary<int, Job> jobs = new Dictionary<int, Job>(); //ID, Job
@@ -18,8 +20,10 @@ public partial class GlobalVars : Node
 	public static Dictionary<string, Item> items; //name, item
 	public static Dictionary<string, Shot> shots; //name, Shot
 
+	// =========================== INVENTORY DICTIONARIES =================================
 	public static Dictionary<string, int> materialsObtained = new Dictionary<string, int>(); //materialName, amountOfThatMaterial
 	public static Dictionary<int, int> machineInventory = new Dictionary<int, int>(); //machineID, amountOfThatMachine
+	public static Dictionary<string, int> itemInventory = new Dictionary<string, int>(); //itemName, amountOfThatItem
 
 	public static readonly string spriteShotPath = "res://Assets/SpriteFrames/Towers/Shots/";
 	public static readonly string texMaterialsPath = "res://Assets/Sprites/Items/Materials/";
@@ -41,6 +45,8 @@ public partial class GlobalVars : Node
 
 		machineInventory.Add(0, 5); //TODO: DELETE ME
 		machineInventory.Add(1, 5); //TODO: DELETE ME
+
+		itemInventory.Add("Magic Scroll", 5);
 		//TODO: UPDATE THIS
 		goats = new Dictionary<int, Goat>();
 		goats.Add(0, new Goat("Chell", 0, "Test Class", 100, 1, 0));
