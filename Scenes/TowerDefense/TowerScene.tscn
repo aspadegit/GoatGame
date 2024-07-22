@@ -33,11 +33,11 @@ process_mode = 3
 scale = Vector2(1, 1)
 
 [node name="LivesEnemyCounter" parent="CanvasLayer" node_paths=PackedStringArray("gameOverScreen", "winLevelScreen", "towerDefenseParent") instance=ExtResource("5_3a7p2")]
+numEnemies = 5
+numLives = 5
 gameOverScreen = NodePath("../TowerGameOver")
 winLevelScreen = NodePath("../TowerWinLevel")
 towerDefenseParent = NodePath("../../TowerTest")
-numEnemies = 5
-numLives = 5
 
 [node name="TowerSelectMenu" parent="CanvasLayer" instance=ExtResource("2_o2b12")]
 
@@ -103,9 +103,5 @@ size_flags_vertical = 3
 theme = ExtResource("9_mgjpa")
 text = "Quit"
 
-[connection signal="PauseGame" from="." to="TowerTest" method="OnPause"]
-[connection signal="PauseGame" from="CanvasLayer/LivesEnemyCounter" to="TowerTest" method="OnPause"]
-[connection signal="GameOverSignal" from="CanvasLayer/TowerGameOver" to="TowerTest" method="Reset"]
-[connection signal="GameOverSignal" from="CanvasLayer/TowerWinLevel" to="TowerTest" method="Reset"]
 [connection signal="pressed" from="CanvasLayer/PauseMenu/MarginContainer/VBoxContainer/Resume" to="CanvasLayer/PauseMenu" method="_on_resume_pressed"]
 [connection signal="pressed" from="CanvasLayer/PauseMenu/MarginContainer/VBoxContainer/Quit" to="CanvasLayer/PauseMenu" method="_on_quit_pressed"]
