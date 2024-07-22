@@ -15,7 +15,7 @@ public partial class GlobalVars : Node
 	public static Dictionary<int, Job> jobs = new Dictionary<int, Job>(); //ID, Job
 	public static Dictionary<int, Machine> machines; //ID, Machine
 	public static Dictionary<string, Recipe> recipes; //name, Recipe
-	public static Dictionary<string, Item> items; //ID, item
+	public static Dictionary<string, Item> items; //name, item
 	public static Dictionary<string, Shot> shots; //name, Shot
 
 	public static Dictionary<string, int> materialsObtained = new Dictionary<string, int>(); //materialName, amountOfThatMaterial
@@ -37,7 +37,7 @@ public partial class GlobalVars : Node
 		loadJSON("recipes.json", "recipes", parseRecipes);
 		loadJSON("shots.json", "shots", parseShots);
 		loadJSON("machines.json", "machines", parseMachines);
-		// loadJSON("items.json", "items", parseItems);
+	    loadJSON("items.json", "items", parseItems);
 
 		machineInventory.Add(0, 5); //TODO: DELETE ME
 		machineInventory.Add(1, 5); //TODO: DELETE ME
@@ -135,10 +135,10 @@ public partial class GlobalVars : Node
 			int sellValue = (int)item["sellValue"];
 
 			JsonArray statsNode = (JsonArray)item["stats"];
-			Dictionary<string, int> stats = new Dictionary<string, int>();
+			Dictionary<string, float> stats = new Dictionary<string, float>();
 			
 			foreach(JsonNode stat in statsNode){
-				stats.Add((string)stat["name"], (int)stat["amount"]);
+				stats.Add((string)stat["name"], (float)stat["amount"]);
 			}
 
 			Item newItem = new Item(name, id, description, stats, value, sellValue);
