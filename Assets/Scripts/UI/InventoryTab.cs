@@ -47,6 +47,9 @@ public partial class InventoryTab : MarginContainer
 			case "material":
 				InstantiateMaterials();
 				break;
+			case "item":
+				InstantiateItems();
+				break;
 		}
 
 		infoLabel.Text = "";
@@ -92,6 +95,18 @@ public partial class InventoryTab : MarginContainer
 			scrollVBox.AddChild(row);
 		}
 	}
+	private void InstantiateItems()
+	{
+		//spawn in new entries
+		foreach(KeyValuePair<string, int> entry in GlobalVars.itemInventory)
+		{
+			//instantiate
+			InventoryRow row = inventoryRow.Instantiate<InventoryRow>();
+			row.Setup(entry.Key, "item", GlobalVars.items[entry.Key].ID);
+			row.Name = entry.Key.ToString();
+			scrollVBox.AddChild(row);
+		}
+	}
 
 	private void OnRowHover(InventoryRow row)
 	{
@@ -108,6 +123,9 @@ public partial class InventoryTab : MarginContainer
 					break;
 				case "material":
 					infoLabel.Text = GlobalVars.materials[row.name].ToString();
+					break;
+				case "item":
+					infoLabel.Text = GlobalVars.items[row.name].ToString();
 					break;
 			}
 		}

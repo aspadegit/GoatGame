@@ -10,16 +10,20 @@ public partial class GlobalVars : Node
 {
 	//should probably only be loaded on scenes where the goat menu could show up
 	//TODO: thoughts: json stores the goat ideas, THIS stores which ones you have
+
+	// ========================= DATA DICTIONARIES ================================
 	public static Dictionary<int, Goat> goats; // ID, Goat
 	public static Dictionary<string, Material> materials;
 	public static Dictionary<int, Job> jobs = new Dictionary<int, Job>(); //ID, Job
 	public static Dictionary<int, Machine> machines; //ID, Machine
 	public static Dictionary<string, Recipe> recipes; //name, Recipe
-	public static Dictionary<string, Item> items; //ID, item
+	public static Dictionary<string, Item> items; //name, item
 	public static Dictionary<string, Shot> shots; //name, Shot
 
+	// =========================== INVENTORY DICTIONARIES =================================
 	public static Dictionary<string, int> materialsObtained = new Dictionary<string, int>(); //materialName, amountOfThatMaterial
 	public static Dictionary<int, int> machineInventory = new Dictionary<int, int>(); //machineID, amountOfThatMachine
+	public static Dictionary<string, int> itemInventory = new Dictionary<string, int>(); //itemName, amountOfThatItem
 
 	public static readonly string spriteShotPath = "res://Assets/SpriteFrames/Towers/Shots/";
 	public static readonly string texMaterialsPath = "res://Assets/Sprites/Items/Materials/";
@@ -37,10 +41,12 @@ public partial class GlobalVars : Node
 		loadJSON("recipes.json", "recipes", parseRecipes);
 		loadJSON("shots.json", "shots", parseShots);
 		loadJSON("machines.json", "machines", parseMachines);
-		// loadJSON("items.json", "items", parseItems);
+	    loadJSON("items.json", "items", parseItems);
 
 		machineInventory.Add(0, 5); //TODO: DELETE ME
 		machineInventory.Add(1, 5); //TODO: DELETE ME
+
+		itemInventory.Add("Magic Scroll", 5);
 		//TODO: UPDATE THIS
 		goats = new Dictionary<int, Goat>();
 		goats.Add(0, new Goat("Chell", 0, "Test Class", 100, 1, 0));
@@ -135,10 +141,10 @@ public partial class GlobalVars : Node
 			int sellValue = (int)item["sellValue"];
 
 			JsonArray statsNode = (JsonArray)item["stats"];
-			Dictionary<string, int> stats = new Dictionary<string, int>();
+			Dictionary<string, float> stats = new Dictionary<string, float>();
 			
 			foreach(JsonNode stat in statsNode){
-				stats.Add((string)stat["name"], (int)stat["amount"]);
+				stats.Add((string)stat["name"], (float)stat["amount"]);
 			}
 
 			Item newItem = new Item(name, id, description, stats, value, sellValue);
