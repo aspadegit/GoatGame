@@ -1,6 +1,7 @@
-[gd_scene load_steps=12 format=3 uid="uid://hfsc17wxuyoa"]
+[gd_scene load_steps=13 format=3 uid="uid://hfsc17wxuyoa"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/UI/TextBox.cs" id="1_a6qce"]
+[ext_resource type="StyleBox" uid="uid://blxajgwymsus5" path="res://Assets/Themes/StyleBoxes/dark_panel_stylebox.tres" id="2_hylif"]
 [ext_resource type="Theme" uid="uid://cvjlrwyqj6u1w" path="res://Assets/Themes/PanelTheme.tres" id="2_x4mp0"]
 [ext_resource type="FontFile" uid="uid://b40px0i27n7ll" path="res://Assets/Fonts/NicoClean-Regular.ttf" id="3_410cq"]
 [ext_resource type="Script" path="res://Assets/Scripts/UI/YesNoButton.cs" id="4_yemnx"]
@@ -84,7 +85,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 
-[node name="TextBox" type="MarginContainer" parent="."]
+[node name="DialogueBox" type="MarginContainer" parent="." node_paths=PackedStringArray("nameBox", "nameLabel", "textLabel")]
 visible = false
 layout_mode = 1
 anchors_preset = 12
@@ -99,29 +100,66 @@ theme_override_constants/margin_top = 25
 theme_override_constants/margin_right = 75
 theme_override_constants/margin_bottom = 25
 script = ExtResource("1_a6qce")
+nameBox = NodePath("VBox/NameBox")
+nameLabel = NodePath("VBox/NameBox/NameMargin/Label")
+textLabel = NodePath("VBox/TextBox/TextBoxMargin/Text")
 
-[node name="Panel" type="Panel" parent="TextBox"]
+[node name="VBox" type="VBoxContainer" parent="DialogueBox"]
+custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
-theme = ExtResource("2_x4mp0")
+theme_override_constants/separation = -1
 
-[node name="TextBoxForText" type="MarginContainer" parent="TextBox"]
+[node name="NameBox" type="Panel" parent="DialogueBox/VBox"]
+visible = false
+custom_minimum_size = Vector2(250, 50)
 layout_mode = 2
-theme_override_constants/margin_left = 15
-theme_override_constants/margin_top = 15
-theme_override_constants/margin_right = 15
-theme_override_constants/margin_bottom = 15
+size_flags_horizontal = 0
+size_flags_vertical = 10
+theme_override_styles/panel = ExtResource("2_hylif")
 
-[node name="Panel" type="Panel" parent="TextBox/TextBoxForText"]
-self_modulate = Color(1, 1, 1, 0)
-layout_mode = 2
-
-[node name="Text" type="Label" parent="TextBox/TextBoxForText/Panel"]
+[node name="NameMargin" type="MarginContainer" parent="DialogueBox/VBox/NameBox"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Label" type="Label" parent="DialogueBox/VBox/NameBox/NameMargin"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_fonts/font = ExtResource("3_410cq")
+theme_override_font_sizes/font_size = 24
+text = "Name"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextBox" type="Panel" parent="DialogueBox/VBox"]
+custom_minimum_size = Vector2(0, 125)
+layout_mode = 2
+size_flags_vertical = 10
+theme = ExtResource("2_x4mp0")
+
+[node name="TextBoxMargin" type="MarginContainer" parent="DialogueBox/VBox/TextBox"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="Text" type="Label" parent="DialogueBox/VBox/TextBox/TextBoxMargin"]
+custom_minimum_size = Vector2(800, 90)
+layout_mode = 2
+size_flags_vertical = 1
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3_410cq")
 theme_override_font_sizes/font_size = 24

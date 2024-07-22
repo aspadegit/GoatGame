@@ -9,7 +9,14 @@ public partial class TextBox : MarginContainer
 		// potentially: add an animation so it looks intentional lol
 
 	// Called when the node enters the scene tree for the first time.
+
+	[Export]
+	Panel nameBox;
+	[Export]
+	Label nameLabel;
+	[Export]
 	Label textLabel;
+
 	Control parent;
 	Dictionary jsonDictionary;
 	string jsonStartingPath = "res://Assets/Dialogue/";
@@ -17,6 +24,7 @@ public partial class TextBox : MarginContainer
 	int pagePosition = 0;
 	int pageTotal = 1;
 	string[] text;
+	string[] name;
 	bool canProgress = true;
 
 	public override void _Ready()
@@ -24,7 +32,6 @@ public partial class TextBox : MarginContainer
 		SignalHandler.Instance.Connect(SignalHandler.SignalName.ShowTextbox, Callable.From((string text)=> OnTextboxShow(text)), (uint)ConnectFlags.Deferred);
 		SignalHandler.Instance.Connect(SignalHandler.SignalName.ContinueTextbox, Callable.From((string[] text)=> OnTextboxContinue(text)), (uint)ConnectFlags.Deferred);
 		
-		textLabel = GetNode<Label>("TextBoxForText/Panel/Text");
 		parent = GetParent<Control>();
 		
 		
@@ -72,6 +79,9 @@ public partial class TextBox : MarginContainer
 
 	private void NextPage()
 	{
+		//set next name
+		NextName();
+
 		//TODO: may change this if more types of choices are available...
 		if(text[pagePosition] == "<choice>")
 		{
@@ -81,8 +91,30 @@ public partial class TextBox : MarginContainer
 		}
 		else
 		{
+			//set next text
 			textLabel.Text = text[pagePosition];
+
 		}
+	}
+
+	private void NextName()
+	{
+		//namebox should disappear
+		if(name[pagePosition] == "")
+		{
+			nameBox.Hide();
+			nameLabel.Text = "";
+			return;
+		}
+	
+		nameBox.Show();
+
+		// - is only used to continue the previous name (to avoid having to type the same name a bunch)
+		if(name[pagePosition] != "-")
+		{
+			nameLabel.Text = name[pagePosition];
+		}
+
 	}
 
 	//sets up the textbox. returns success
@@ -102,6 +134,10 @@ public partial class TextBox : MarginContainer
 			Show();
 			keyPress++;
 			canProgress = true;
+
+			if(name.Length > 0)
+				nameBox.Show();
+
 			return true;
 		}
 
@@ -156,7 +192,7 @@ public partial class TextBox : MarginContainer
 	//get values from the json
 	private void parseDialogue()
 	{
-		string name = (string)jsonDictionary["Name"];
+		name = (string[])jsonDictionary["Name"];
 		text = (string[]) jsonDictionary["Text"];
 
 		ResetPageVars();		
@@ -167,6 +203,17 @@ public partial class TextBox : MarginContainer
 		pagePosition = 0;
 		pageTotal = text.Length;
 		textLabel.Text = text[0];
+
+		//update name
+		if(name.Length > 0)
+		{
+			nameBox.Show();
+			nameLabel.Text = name[0];
+		}
+		else
+		{
+			nameBox.Hide();
+		}
 	}
 
 }
