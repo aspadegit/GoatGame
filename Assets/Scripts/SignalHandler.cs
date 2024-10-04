@@ -32,6 +32,9 @@ public partial class SignalHandler : Node
 	[Signal]
 	public delegate void OnInventoryHoverEventHandler(InventoryRow row);
 
+	//uses an array for ease of other signals needing parameters, but path should only be [0] in there
+	[Signal]
+	public delegate void ChangeSceneEventHandler(string[] scenePath);
 
 	public override void _Ready() {
 		Instance = this;
