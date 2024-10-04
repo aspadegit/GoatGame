@@ -1,5 +1,7 @@
 using Godot;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 public partial class YesNoButton : MarginContainer
@@ -77,9 +79,19 @@ public partial class YesNoButton : MarginContainer
 		RegExMatch result = regex.Search(toSearch);
 		if(result.GetStart() != -1)
 		{
-			//TODO: (POTENTIAL), ALLOW FOR PARAMETERS
+			List<string> emitParams = new List<string>();
+			//starting at the 3rd entry, until you've discovered all of the emit parameters
+			for(int i = 2; i < param.Length; i++)
+			{
+				emitParams.Add(param[i]);
+			}
 			string emitName = toSearch.Substring(6, toSearch.Length-13);
-			SignalHandler.Instance.EmitSignal(emitName);
+
+			//emit the signal, based on whether or not it has emit parameters
+			if(emitParams.Count > 0)
+				SignalHandler.Instance.EmitSignal(emitName, emitParams.ToArray<string>());
+			else
+				SignalHandler.Instance.EmitSignal(emitName);
 
 			//emit hide textbox (passing in an empty string should make it close. hacky way but it's fine)
 			SignalHandler.Instance.EmitSignal(SignalHandler.SignalName.ShowTextbox, "");

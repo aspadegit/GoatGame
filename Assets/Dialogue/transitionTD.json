@@ -1,0 +1,10 @@
+{
+    "Name": ["Helpful NPC 3", "-", "-"],
+    "Text": ["Hello there! I'm Helpful NPC 3!",
+            "Would you like to switch to the TD section?",
+            "<choice>"
+    ],
+    "SignalName": "ShowYesNo",
+    "SignalParam": ["<emit>ChangeScene</emit>", "Alright, then.", "TowerDefense/TowerScene.tscn"]
+
+}
