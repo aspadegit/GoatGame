@@ -14,7 +14,7 @@ public partial class GlobalVars : Node
 	// ========================= DATA DICTIONARIES ================================
 	public static Dictionary<int, Goat> goats; // ID, Goat
 	public static Dictionary<string, Material> materials;
-	public static Dictionary<int, Job> jobs = new Dictionary<int, Job>(); //ID, Job
+	public static Dictionary<int, Job> jobs; //ID, Job
 	public static Dictionary<int, Machine> machines; //ID, Machine
 	public static Dictionary<string, Recipe> recipes; //name, Recipe
 	public static Dictionary<string, Item> items; //name, item
@@ -42,6 +42,7 @@ public partial class GlobalVars : Node
 		loadJSON("shots.json", "shots", parseShots);
 		loadJSON("machines.json", "machines", parseMachines);
 	    loadJSON("items.json", "items", parseItems);
+		loadJSON("jobs.json", "jobs", parseJobs);
 
 		machineInventory.Add(0, 5); //TODO: DELETE ME
 		machineInventory.Add(1, 5); //TODO: DELETE ME
@@ -56,7 +57,7 @@ public partial class GlobalVars : Node
 		Dictionary<Material,int> d = new Dictionary<Material, int>();
 
 		//TODO: jobs must read from JSON
-
+		/*
 		jobs.Add(0, new Job("Rest", 0, d, -1, 0));
 		d = new Dictionary<Material, int>();
 		d.Add(materials["Logs"], 5);
@@ -67,7 +68,7 @@ public partial class GlobalVars : Node
 		d.Add(materials["Rocks"], 1);
 		jobs.Add(3, new Job("Research", 3, d, 20, 15));
 		jobs.Add(4, new Job("Farming", 4, d, 15, 15));
-
+		*/
 	
 
 	}
@@ -195,6 +196,32 @@ public partial class GlobalVars : Node
 
 			Machine newMach = new Machine(name, id, type, level, range, fireRate, shot, desc, recipe, textureCoords);
 			machines.Add(id, newMach);
+		}
+
+	}
+
+	private void parseJobs(JsonArray array)
+	{
+		jobs = new Dictionary<int, Job>();
+		foreach(JsonNode job in array)
+		{
+			int id = (int)job["id"];
+			string name = (string)job["name"];
+			
+			int strain = (int)job["strain"];
+			int expReward = (int)job["expReward"];
+
+			JsonArray jsonResults = job["result"].AsArray();
+			Dictionary<Material, int> results = new Dictionary<Material, int>();
+			foreach(JsonNode result in jsonResults)
+			{
+				Material mat = materials[(string)result["name"]];
+				int amt = (int)result["amount"];
+				results.Add(mat, amt);
+			}
+
+			Job newJob = new Job(name, id, results, strain, expReward);
+			jobs.Add(id, newJob);
 		}
 
 	}

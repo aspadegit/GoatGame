@@ -19,10 +19,10 @@ public partial class GoatSelectRow : Control
 	MarginContainer popUpMargin;
 	HBoxContainer materialHBox;
 	int currentJobNum = 0;
-	int jobTotal = 4;
+	int jobTotal = GlobalVars.jobs.Count;
 	int goatID = -1;
 
-	readonly int[] textureOffsetX = {55, 163, 271, 379};
+	readonly int[] textureOffsetX = {55, 163, 271, 379, 487};
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -81,24 +81,35 @@ public partial class GoatSelectRow : Control
 		Rect2 newTex = new Rect2(textureOffsetX[currentJobNum], tex.Region.Position.Y, tex.Region.Size);
 		tex.Region = newTex;
 
-		//TODO: replace this with changing textures via atlas map (possibly store coords in Material obj)
 		Job job = GlobalVars.goats[goatID].AssignedJob;
+
+		// hide all of them
+		foreach(Node child in materialHBox.GetChildren())
+		{
+			((TextureRect)child).Hide();
+		}
 		if(job.Name != "Rest")
 		{
+			int i = 0;
 			foreach(KeyValuePair<Material, int> pair in job.Result)
 			{
 				string matName = pair.Key.Name;
-				materialHBox.GetNode<TextureRect>(matName).Show();
+				Texture2D matTex = pair.Key.Texture;
+				TextureRect currRect = materialHBox.GetNode<TextureRect>("Material"+i);
+
+				currRect.Texture = matTex;
+				currRect.Show();
+
 				materialHBox.GetNode<TextureRect>("Rest").Hide();
+
+				i++;
 
 			}
 		}
+		//show rest
 		else
 		{
-			foreach(Node child in materialHBox.GetChildren())
-			{
-				((TextureRect)child).Hide();
-			}
+			
 			materialHBox.GetNode<TextureRect>("Rest").Show();
 		}
 	}
