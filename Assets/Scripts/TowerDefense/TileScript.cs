@@ -31,6 +31,7 @@ public partial class TileScript : Node2D
 	Node2D enemies;
 	Path2D pathParent;
 	Node2D towerParent;
+	TowerPreview towerPreview;
 	Godot.Collections.Array<Vector2I> placeableTiles = new Godot.Collections.Array<Vector2I>();
 	Dictionary<Vector2I, TowerScript> towers = new Dictionary<Vector2I, TowerScript>();	//tracks what map tiles are used/have towers in them
 	Timer enemySpawnTimer;
@@ -50,7 +51,9 @@ public partial class TileScript : Node2D
 		enemies = GetNode<Node2D>("Enemies");
 		pathParent = GetNode<Path2D>("EnemyPath");
 		towerParent = GetNode<Node2D>("Towers");
-
+		towerPreview = GetNode<TowerPreview>("TowerPreview");
+		towerPreview.pointer = pointer;
+		
 		placeableTiles = tileMap.GetUsedCells(placementLayer);
 
 		Reset();
@@ -69,47 +72,56 @@ public partial class TileScript : Node2D
 		prevSelection = tile;
 		
 		
-		
-		if(Input.IsActionJustPressed("left_click")){
-			PlaceTower(tile);
+		//if it is on top of a placeable tile, if the currentMachine exists, and if we have enough of that machine
+		if(placeableTiles.Contains(tile) && currentMachine != null && GlobalVars.machineInventory[currentMachine.ID] > 0)
+		{
+			if(Input.IsActionJustPressed("left_click")){
+				PlaceTower(tile);
+			}
+
+			towerPreview.SetColor(true);
 		}
+		else
+		{
+			towerPreview.SetColor(false);
+		}
+		
 	}
 	
 	private void PlaceTower(Vector2I curTile)
 	{	
-		//only set the tile if it is on top of a placeable tile, if the currentMachine exists, and if we have enough of that machine
-		if(placeableTiles.Contains(curTile) && currentMachine != null && GlobalVars.machineInventory[currentMachine.ID] > 0)
+	
+		//TODO: set tower scene details
+
+		//decrease global inventory
+		GlobalVars.machineInventory[currentMachine.ID]--;
+
+		//update that we've used one more of this current machine
+		if(machinesUsed.ContainsKey(currentMachine.ID))
 		{
-			//TODO: set tower scene details
-			GD.Print("placed " + currentMachine.Name);
-
-			//decrease global inventory
-			GlobalVars.machineInventory[currentMachine.ID]--;
-
-			//update that we've used one more of this current machine
-			if(machinesUsed.ContainsKey(currentMachine.ID))
-			{
-				machinesUsed[currentMachine.ID]++;
-			}
-			//hasn't been added yet, so create the key
-			else
-			{
-				machinesUsed.Add(currentMachine.ID, 1);
-			}
-			//create the tower
-			TowerScript tower = towerScene.Instantiate<TowerScript>();
-			towers.Add(curTile, tower);
-
-			//convert the map position to where the tower scene will sit
-			Vector2 globalPos = ToGlobal(tileMap.MapToLocal(curTile));
-			tower.Position = globalPos;
-
-			//put it in the tree
-			towerParent.AddChild(tower);
-			tower.Setup(currentMachine);
-
-			//tileMap.SetCell(towerLayer, curTile, 0, new Vector2I(0, 41), 0);
+			machinesUsed[currentMachine.ID]++;
 		}
+		//hasn't been added yet, so create the key
+		else
+		{
+			machinesUsed.Add(currentMachine.ID, 1);
+		}
+		//create the tower
+		TowerScript tower = towerScene.Instantiate<TowerScript>();
+		towers.Add(curTile, tower);
+
+		//convert the map position to where the tower scene will sit
+		Vector2 globalPos = ToGlobal(tileMap.MapToLocal(curTile));
+		tower.Position = globalPos;
+
+		//put it in the tree
+		towerParent.AddChild(tower);
+		tower.Setup(currentMachine);
+
+		if(GlobalVars.machineInventory[currentMachine.ID] <= 0)
+			towerPreview.Hide();
+		//tileMap.SetCell(towerLayer, curTile, 0, new Vector2I(0, 41), 0);
+	
 	}
 
 	public void OnEnemySpawnTimeout()
@@ -133,7 +145,8 @@ public partial class TileScript : Node2D
 	private void SetTower(int machineID)
 	{
 		currentMachine = GlobalVars.machines[machineID];
-
+		towerPreview.SetMachine(currentMachine);
+		towerPreview.Show();
 	}
 
 	public void OnPause()

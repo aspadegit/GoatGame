@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://diidk65yhevda"]
+
+[ext_resource type="Shader" path="res://Assets/Shaders/Screen.gdshader" id="1_086yq"]
+
+[resource]
+shader = ExtResource("1_086yq")
+shader_parameter/pickedColor = Color(0.265415, 0.752348, 0, 0.596)
+shader_parameter/intensity = 0.425

@@ -194,7 +194,10 @@ public partial class GlobalVars : Node
 			JsonArray coords = machine["texture"].AsArray();
 			int[] textureCoords = new int[] {(int)coords[0], (int)coords[1],(int)coords[2],(int)coords[3]};
 
-			Machine newMach = new Machine(name, id, type, level, range, fireRate, shot, desc, recipe, textureCoords);
+			JsonArray sizeArr = machine["size"].AsArray();
+			int[] size = new int[] {(int)sizeArr[0], (int)sizeArr[1]};
+
+			Machine newMach = new Machine(name, id, type, level, range, fireRate, shot, desc, recipe, textureCoords, size);
 			machines.Add(id, newMach);
 		}
 

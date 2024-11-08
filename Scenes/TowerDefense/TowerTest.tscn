@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cu4yjwmkly6ed"]
+[gd_scene load_steps=16 format=3 uid="uid://cu4yjwmkly6ed"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/TowerDefense/TileScript.cs" id="1_mxc1x"]
 [ext_resource type="PackedScene" uid="uid://14nrv6ny78df" path="res://Scenes/TowerDefense/Enemy.tscn" id="2_4p6k1"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://5fm486o1wv26" path="res://Assets/Sprites/Tiles/Select.png" id="5_0nar4"]
 [ext_resource type="Texture2D" uid="uid://dl73ubl60xdsv" path="res://Assets/Sprites/Tiles/desert_tiles.png" id="5_oag7p"]
 [ext_resource type="PackedScene" uid="uid://1v8f8ln10xjh" path="res://Scenes/TowerDefense/MachineTower.tscn" id="8_axupb"]
+[ext_resource type="PackedScene" uid="uid://dvhfxwhfdpyub" path="res://Scenes/TowerDefense/TowerPreview.tscn" id="9_u5l0g"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_m8v4r"]
 texture = ExtResource("5_oag7p")
@@ -884,5 +885,8 @@ layer_3/tile_data = PackedInt32Array()
 curve = SubResource("Curve2D_ub7u2")
 
 [node name="EnemySpawnTimer" type="Timer" parent="."]
+
+[node name="TowerPreview" parent="." instance=ExtResource("9_u5l0g")]
+visible = false
 
 [connection signal="timeout" from="EnemySpawnTimer" to="." method="OnEnemySpawnTimeout"]
