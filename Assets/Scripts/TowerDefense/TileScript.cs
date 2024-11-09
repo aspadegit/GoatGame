@@ -75,11 +75,15 @@ public partial class TileScript : Node2D
 		//if it is on top of a placeable tile, if the currentMachine exists, and if we have enough of that machine
 		if(placeableTiles.Contains(tile) && currentMachine != null && GlobalVars.machineInventory[currentMachine.ID] > 0)
 		{
-			if(Input.IsActionJustPressed("left_click")){
+			bool canFit = CheckTowerSize(tile);
+
+			towerPreview.SetColor(canFit);
+
+			if(Input.IsActionJustPressed("left_click") && canFit){
 				PlaceTower(tile);
 			}
 
-			towerPreview.SetColor(true);
+			//towerPreview.SetColor(true);
 		}
 		else
 		{
@@ -122,6 +126,49 @@ public partial class TileScript : Node2D
 			towerPreview.Hide();
 		//tileMap.SetCell(towerLayer, curTile, 0, new Vector2I(0, 41), 0);
 	
+	}
+
+
+	// returns whether it's good to place (true = good to place)
+	private bool CheckTowerSize(Vector2I curTile)
+	{
+		foreach(KeyValuePair<Vector2I, TowerScript> pair in towers)
+		{
+			Vector2I tileToTest = pair.Key;
+			int[] towerSize = pair.Value.GetSize();
+
+			// if the tower we're holding overlaps one on the map
+			bool currentOverlapsCheck = CheckTowerPairOverlap(tileToTest, curTile, towerSize);
+			if(currentOverlapsCheck)
+				return false;
+
+			// if the one on the map overlaps the tower we're holding
+			bool checkOverlapsCurrent = CheckTowerPairOverlap(curTile, tileToTest, currentMachine.Size);
+			if(checkOverlapsCurrent)
+				return false;
+		}
+
+
+	
+		return true;
+	}
+
+	// returns whether overlapper overlaps on stationary tower, where stationary tower has size of radius size
+	private bool CheckTowerPairOverlap(Vector2I stationary, Vector2I overlapper, int[] size)
+	{
+		bool inBoundsToRight = overlapper.X >= stationary.X && overlapper.X <= stationary.X + size[0];
+		bool inBoundsToLeft = overlapper.X <= stationary.X && overlapper.X >= stationary.X - size[0];
+
+		// note: Y increases as it goes down ( (0,0) is top left )
+		bool inBoundsBelow = overlapper.Y >= stationary.Y && overlapper.Y <= stationary.Y + size[1];
+		bool inBoundsAbove = overlapper.Y <= stationary.Y && overlapper.Y >= stationary.Y - size[1];
+
+		//must overlap on X AND Y axes
+		if((inBoundsToLeft || inBoundsToRight) && (inBoundsBelow || inBoundsAbove))
+			return true;
+
+		// no overlaps
+		return false;
 	}
 
 	public void OnEnemySpawnTimeout()

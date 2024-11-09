@@ -98,6 +98,11 @@ public partial class TowerScript : Node2D
 		}
 	}
 
+	public int[] GetSize()
+	{
+		return machine.Size;
+	}
+
 	//============================ Signal connections ========================
 	private void OnShotTimerEnd()
 	{
