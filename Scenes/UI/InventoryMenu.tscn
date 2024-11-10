@@ -385,3 +385,4 @@ Stats
 Etc."
 
 [connection signal="item_selected" from="MainMargin/Tabs/Materials/VBoxContainer/TopMargin/TopSortHBox/SortDropdown" to="MainMargin/Tabs/Materials" method="OnSortOption"]
+[connection signal="item_selected" from="MainMargin/Tabs/Machines/VBoxContainer/TopMargin/TopSortHBox/SortDropdown" to="MainMargin/Tabs/Machines" method="OnSortOption"]

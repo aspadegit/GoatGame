@@ -78,6 +78,7 @@ public partial class InventoryTab : MarginContainer
 		
 	}
 
+
 	//a failure of my architecture... <int,Goat>, <string,int>, <int,int>...they all have to be separate
 	private void InstantiateGoats()
 	{
@@ -111,19 +112,31 @@ public partial class InventoryTab : MarginContainer
 				sortableRows.Add(i, GlobalVars.materials[entry.Key]);
 				currentIDOrder.Add(i);
 			}
+			
 			i++;
 		}
 	}
 	private void InstantiateMachines()
 	{
+		bool sortableRowsFillable = sortableRows.Count > 0? false : true;
+		int i = 0;
+
 		//spawn in new entries
 		foreach(KeyValuePair<int, int> entry in GlobalVars.machineInventory)
 		{
 			//instantiate
 			InventoryRow row = inventoryRow.Instantiate<InventoryRow>();
 			row.Setup(GlobalVars.machines[entry.Key].Name, "machine", entry.Key);
-			row.Name = entry.Key.ToString();
+			row.Name = i.ToString();//entry.Key.ToString();
 			scrollVBox.AddChild(row);
+
+			//avoids adding twice
+			if(sortableRowsFillable)
+			{
+				sortableRows.Add(i, GlobalVars.machines[entry.Key]);
+				currentIDOrder.Add(i);
+			}
+			i++;
 		}
 	}
 	private void InstantiateItems()

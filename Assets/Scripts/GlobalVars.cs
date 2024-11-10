@@ -44,8 +44,8 @@ public partial class GlobalVars : Node
 	    loadJSON("items.json", "items", parseItems);
 		loadJSON("jobs.json", "jobs", parseJobs);
 
-		machineInventory.Add(0, 5); //TODO: DELETE ME
 		machineInventory.Add(1, 5); //TODO: DELETE ME
+		machineInventory.Add(0, 10); //TODO: DELETE ME
 
 		materialsObtained.Add("Logs", 5); //TODO: DELETE ME
 		materialsObtained.Add("Wheat", 10); //TODO: DELETE ME

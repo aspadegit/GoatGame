@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using System.Diagnostics.Tracing;
 using Godot;
-public class Machine
+using System;
+public class Machine : ISortable
 {
 	public string Name {get; private set;}
 	public int ID {get; private set;}
@@ -47,6 +48,37 @@ public class Machine
 	{
 		return "Type: " + Type + "\nLevel: " + Level + "\nDamage: " + ShotType.Damage + "\nDescription: " + Description;
 	}
+    public int Compare(Object other, int howToCompare)
+    {
+        //TODO: (potentially) throw error?
+        if(other.GetType() != typeof(Machine))
+        {
+            return 0;
+        }
 
+        Machine toCompare = (Machine)other;
+
+        switch(howToCompare)
+        {
+            // sort by name
+            case 0:
+                return Name.CompareTo(toCompare.Name);
+            // by amount
+            case 1:
+                int amtOfThis = GlobalVars.machineInventory[ID];
+                int amtOfOther = GlobalVars.machineInventory[toCompare.ID];
+                return amtOfOther.CompareTo(amtOfThis); // gives BIGGEST AMOUNT first
+            // by type
+            case 2:
+                return Type.CompareTo(toCompare.Type);
+			case 3:
+				return toCompare.Level.CompareTo(Level); // BIGGEST level first
+            default:
+                GD.PrintErr("When attempting to compare Machine " + Name + " to Machine " + toCompare.Name + ", an out of bounds comparison index was found");
+                break;
+        }
+
+        return 0;
+    }
 
 }   
