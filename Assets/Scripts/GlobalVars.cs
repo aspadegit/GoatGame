@@ -47,29 +47,15 @@ public partial class GlobalVars : Node
 		machineInventory.Add(0, 5); //TODO: DELETE ME
 		machineInventory.Add(1, 5); //TODO: DELETE ME
 
-		itemInventory.Add("Magic Scroll", 5);
+		materialsObtained.Add("Logs", 5); //TODO: DELETE ME
+		materialsObtained.Add("Wheat", 10); //TODO: DELETE ME
+		materialsObtained.Add("Rocks", 15); //TODO: DELETE ME
+
+		itemInventory.Add("Magic Scroll", 5); //TODO: DELETE ME
 		//TODO: UPDATE THIS
 		goats = new Dictionary<int, Goat>();
 		goats.Add(0, new Goat("Chell", 0, "Test Class", 100, 1, 0));
 		goats.Add(1, new Goat("Wheat", 1, "Test Class", 100, 1, 0));
-
-		//TODO: EDIT ME
-		Dictionary<Material,int> d = new Dictionary<Material, int>();
-
-		//TODO: jobs must read from JSON
-		/*
-		jobs.Add(0, new Job("Rest", 0, d, -1, 0));
-		d = new Dictionary<Material, int>();
-		d.Add(materials["Logs"], 5);
-		jobs.Add(1, new Job("Mining", 1, d, 10, 10));
-		jobs.Add(2, new Job("Logging", 2, d, 10, 10));
-		d = new Dictionary<Material, int>();
-		d.Add(materials["Logs"], 1);
-		d.Add(materials["Rocks"], 1);
-		jobs.Add(3, new Job("Research", 3, d, 20, 15));
-		jobs.Add(4, new Job("Farming", 4, d, 15, 15));
-		*/
-	
 
 	}
 	private void loadJSON(string path, string type, Action<JsonArray> subFunction)
