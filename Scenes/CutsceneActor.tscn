@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://dkjdb462etlux"]
+
+[ext_resource type="Texture2D" uid="uid://do8gai8837u5d" path="res://Assets/Sprites/Goats/Player/goat1.png" id="1_drcpm"]
+[ext_resource type="Script" path="res://Assets/Scripts/CutsceneActor.cs" id="1_lxb2c"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ta6ka"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_drcpm")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"walking",
+"speed": 5.0
+}]
+
+[node name="CutsceneActor" type="Node2D"]
+script = ExtResource("1_lxb2c")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_ta6ka")
+animation = &"walking"

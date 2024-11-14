@@ -37,6 +37,13 @@ public partial class TextBox : MarginContainer
 		
 	}
 
+	public void ManualSetup(string[] name, string[] text)
+	{
+		this.name = name;
+		this.text = text;
+		ResetPageVars();
+	}
+
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{

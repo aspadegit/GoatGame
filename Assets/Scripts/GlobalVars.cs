@@ -31,6 +31,7 @@ public partial class GlobalVars : Node
 	public static readonly int restingJobID = 0;
 
 	private static readonly string jsonStartingPath = "res://Assets/Data/";
+	public static readonly string cutscenePath = jsonStartingPath + "Cutscenes/";
 
 	public static int currentDay = 0;
 	public static int timeLimit = 5;
