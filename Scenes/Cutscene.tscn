@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://b6ml52c0atpf8"]
+
+[ext_resource type="Script" path="res://Assets/Scripts/Cutscene.cs" id="1_cy1ej"]
+
+[node name="Cutscene" type="Node"]
+script = ExtResource("1_cy1ej")
