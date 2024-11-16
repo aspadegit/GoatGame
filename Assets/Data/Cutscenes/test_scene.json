@@ -11,7 +11,7 @@
         {
             "Type": "Action",
             "Actor": 0,
-            "Action": "Move",
+            "Function": "Move",
             "Parameters": [0, 5],
             "Length": 2.5
         },
@@ -23,14 +23,14 @@
         {
             "Type": "Action",
             "Actor": 1,
-            "Action": "Flip",
+            "Function": "Flip",
             "Parameters": [],
             "Length": 0
         },
         {
             "Type": "Action",
             "Actor": 1,
-            "Action": "Jump",
+            "Function": "Jump",
             "Parameters": [],
             "Length": 0.5
         },

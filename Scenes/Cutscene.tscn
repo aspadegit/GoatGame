@@ -5,8 +5,12 @@
 [ext_resource type="PackedScene" uid="uid://dkjdb462etlux" path="res://Scenes/CutsceneActor.tscn" id="3_j30i8"]
 [ext_resource type="PackedScene" uid="uid://hfsc17wxuyoa" path="res://Scenes/UI/UI.tscn" id="4_mbi7o"]
 
-[node name="Cutscene" type="Node"]
+[node name="Cutscene" type="Node" node_paths=PackedStringArray("actorParent", "timer")]
 script = ExtResource("1_cy1ej")
+cutsceneJsonPath = "test_scene.json"
+actorParent = NodePath("Actors")
+cutsceneActorScene = ExtResource("3_j30i8")
+timer = NodePath("Timer")
 
 [node name="Location" parent="." instance=ExtResource("2_iqye2")]
 
@@ -28,5 +32,10 @@ visible = true
 
 [node name="NameBox" parent="CanvasLayer/UI/DialogueBox/VBox" index="0"]
 visible = true
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="TimerTimeout"]
 
 [editable path="CanvasLayer/UI"]
