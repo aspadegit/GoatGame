@@ -19,6 +19,9 @@ public partial class Cutscene : Node
 	[Export]
 	public Timer timer;
 
+	[Signal]
+	public delegate void NextStepDialogueEventHandler(string[] name, string[] text);
+
 	public PackedScene location; 
 
 	List<CutsceneActor> actors = new List<CutsceneActor>();
@@ -67,8 +70,12 @@ public partial class Cutscene : Node
 	
 	private void RunDialogue(string[] name, string[] text)
 	{
-		GD.Print("not implemented dialogue");
+		// hacking existing textbox script
+		EmitSignal(SignalName.NextStepDialogue, name, text);
 
+		// NextStep() is called via signal when the "hidden" signal is emitted by the textbox
+			// in the node menu
+			// ...i just know future me is gonna forget that
 	}
 
 
@@ -156,7 +163,9 @@ public partial class Cutscene : Node
 
 	private void DecodeDialogue(JsonNode dialogue)
 	{
-		Dialogue newDialogue = new Dialogue(RunDialogue);
+		JsonArray name = dialogue["Name"].AsArray();
+		JsonArray text = dialogue["Text"].AsArray();
+		Dialogue newDialogue = new Dialogue(RunDialogue, name, text);
 		cutsceneSteps.Add(newDialogue);
 	}	
 
@@ -174,7 +183,7 @@ public partial class Cutscene : Node
 		NextStep();
 	}
 
-	private void NextStep()
+	public void NextStep()
 	{
 		currentStep++;
 		if(currentStep >= cutsceneSteps.Count)
@@ -216,17 +225,31 @@ public partial class Cutscene : Node
 	public class Dialogue : Step {
 
 		public delegate void RunDialogue(string[] name, string[] text);
-		RunDialogue func;
-		public Dialogue(RunDialogue d)
+		RunDialogue function;
+		string[] name;
+		string[] text;
+		public Dialogue(RunDialogue function, JsonArray name, JsonArray text)
 		{
-			func = d;
+			this.function = function;
+			ParseJsonArr(name, out this.name);
+			ParseJsonArr(text, out this.text);
 		}
         public override void Play()
         {
-			string[] temp = {};
-			func(temp,temp);
-            //throw new NotImplementedException();
+			function(name,text);
         }
+
+		private void ParseJsonArr(JsonArray arr, out string[] str)
+		{
+
+			str = new string[arr.Count];
+
+			for(int i = 0; i < arr.Count; i++)
+			{
+				str[i] = (string)arr[i];
+			}
+
+		}
     }
 	public class Action : Step {
 

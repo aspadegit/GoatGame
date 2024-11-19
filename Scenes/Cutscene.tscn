@@ -27,15 +27,14 @@ offset_top = -10.0
 offset_right = 2.0
 offset_bottom = -10.0
 
-[node name="DialogueBox" parent="CanvasLayer/UI" index="0"]
-visible = true
-
 [node name="NameBox" parent="CanvasLayer/UI/DialogueBox/VBox" index="0"]
 visible = true
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
 
+[connection signal="NextStepDialogue" from="." to="CanvasLayer/UI/DialogueBox" method="ManualSetup"]
+[connection signal="hidden" from="CanvasLayer/UI/DialogueBox" to="." method="NextStep"]
 [connection signal="timeout" from="Timer" to="." method="TimerTimeout"]
 
 [editable path="CanvasLayer/UI"]

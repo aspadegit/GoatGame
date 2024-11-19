@@ -17,15 +17,15 @@
         },
         {
             "Type": "Dialogue",
-            "Name": ["MC"],
-            "Text": ["This is an introductory cutscene."]
+            "Name": ["MC", "-"],
+            "Text": ["This is an introductory cutscene.", "That's kinda crazy!"]
         },
         {
             "Type": "Action",
             "Actor": 1,
             "Function": "Flip",
             "Parameters": [],
-            "Length": 0
+            "Length": 0.1
         },
         {
             "Type": "Action",

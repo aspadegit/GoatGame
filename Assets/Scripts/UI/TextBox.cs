@@ -42,6 +42,8 @@ public partial class TextBox : MarginContainer
 		this.name = name;
 		this.text = text;
 		ResetPageVars();
+		keyPress = 2;	// keyPress continues to be kinda bad. months later. lol
+		Show();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
