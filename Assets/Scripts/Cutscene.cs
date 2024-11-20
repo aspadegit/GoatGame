@@ -7,6 +7,8 @@ using System.Text.Json.Nodes;
 
 public partial class Cutscene : Node
 {
+	//TODO: "SimultaneousAction" Step that allows for multiple actions across different actors
+	
 	[Export]
 	public string cutsceneJsonPath;
 

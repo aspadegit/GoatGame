@@ -34,8 +34,13 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="CutsceneActor" type="Node2D"]
+[node name="CutsceneActor" type="Node2D" node_paths=PackedStringArray("timer")]
 script = ExtResource("1_lxb2c")
+timer = NodePath("Timer")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ta6ka")
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="TimerTimeout"]

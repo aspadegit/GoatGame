@@ -12,13 +12,20 @@
             "Type": "Action",
             "Actor": 0,
             "Function": "Move",
-            "Parameters": [0, 5],
+            "Parameters": [100, 100],
             "Length": 2.5
         },
         {
             "Type": "Dialogue",
             "Name": ["MC", "-"],
             "Text": ["This is an introductory cutscene.", "That's kinda crazy!"]
+        },
+        {
+            "Type": "Action",
+            "Actor": 1,
+            "Function": "Move",
+            "Parameters": [200, 100],
+            "Length": 1.5
         },
         {
             "Type": "Action",
