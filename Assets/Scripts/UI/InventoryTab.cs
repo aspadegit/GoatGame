@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 
 public partial class InventoryTab : MarginContainer
@@ -16,6 +17,13 @@ public partial class InventoryTab : MarginContainer
 
 	[Export]
 	Label infoLabel;
+
+	[Export]
+	OptionButton dropdown;
+
+	// USED FOR SORTING
+	Dictionary<int, ISortable> sortableRows = new Dictionary<int, ISortable>(); // tab-assigned ID (separate from GlobalVars ID), the object it is
+	List<int> currentIDOrder = new List<int>(); // current ID order (what gets sorted)
 
 	//TODO: sort button
 
@@ -57,6 +65,20 @@ public partial class InventoryTab : MarginContainer
 
 	}
 
+	public void OnSortOption(int index)
+	{
+		Godot.Collections.Array<Node> children = scrollVBox.GetChildren();
+
+		currentIDOrder.Sort((a,b) => sortableRows[a].Compare(sortableRows[b], index));
+
+		for(int i = 0; i < children.Count; i++)
+		{
+			scrollVBox.MoveChild(scrollVBox.FindChild(currentIDOrder[i].ToString(), false, false), i);
+		}
+		
+	}
+
+
 	//a failure of my architecture... <int,Goat>, <string,int>, <int,int>...they all have to be separate
 	private void InstantiateGoats()
 	{
@@ -73,26 +95,48 @@ public partial class InventoryTab : MarginContainer
 
 	private void InstantiateMaterials()
 	{
-			//spawn in new entries
+		bool sortableRowsFillable = sortableRows.Count > 0? false : true;
+		//spawn in new entries
+		int i = 0;
 		foreach(KeyValuePair<string, int> entry in GlobalVars.materialsObtained)
 		{
 			//instantiate
 			InventoryRow row = inventoryRow.Instantiate<InventoryRow>();
 			row.Setup(entry.Key, "material", GlobalVars.materials[entry.Key].ID);
-			row.Name = entry.Key.ToString();
+			row.Name = i.ToString();//entry.Key.ToString();
 			scrollVBox.AddChild(row);
+			
+			//avoids adding twice
+			if(sortableRowsFillable)
+			{
+				sortableRows.Add(i, GlobalVars.materials[entry.Key]);
+				currentIDOrder.Add(i);
+			}
+			
+			i++;
 		}
 	}
 	private void InstantiateMachines()
 	{
+		bool sortableRowsFillable = sortableRows.Count > 0? false : true;
+		int i = 0;
+
 		//spawn in new entries
 		foreach(KeyValuePair<int, int> entry in GlobalVars.machineInventory)
 		{
 			//instantiate
 			InventoryRow row = inventoryRow.Instantiate<InventoryRow>();
 			row.Setup(GlobalVars.machines[entry.Key].Name, "machine", entry.Key);
-			row.Name = entry.Key.ToString();
+			row.Name = i.ToString();//entry.Key.ToString();
 			scrollVBox.AddChild(row);
+
+			//avoids adding twice
+			if(sortableRowsFillable)
+			{
+				sortableRows.Add(i, GlobalVars.machines[entry.Key]);
+				currentIDOrder.Add(i);
+			}
+			i++;
 		}
 	}
 	private void InstantiateItems()

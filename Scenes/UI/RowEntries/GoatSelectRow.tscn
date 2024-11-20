@@ -1,11 +1,10 @@
-[gd_scene load_steps=31 format=3 uid="uid://cerkm83bthnsv"]
+[gd_scene load_steps=32 format=3 uid="uid://cerkm83bthnsv"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/UI/GoatSelectRow.cs" id="1_dy7u8"]
 [ext_resource type="FontFile" uid="uid://b40px0i27n7ll" path="res://Assets/Fonts/NicoClean-Regular.ttf" id="2_hk8tq"]
 [ext_resource type="Texture2D" uid="uid://dsk2ybhhw5dwp" path="res://Assets/Sprites/UI/RPG_Pixel_EDSlashEm.png" id="2_smjqq"]
-[ext_resource type="Texture2D" uid="uid://l1ex8w8b85ps" path="res://Assets/Sprites/Items/Materials/Logs.png" id="3_a8chl"]
+[ext_resource type="Texture2D" uid="uid://bis4k7ji2e2r0" path="res://Assets/Sprites/Items/Materials/materialSheet.png" id="3_fhcg8"]
 [ext_resource type="Texture2D" uid="uid://dpmsr41t5737i" path="res://Assets/Sprites/UIpackSheet_transparent.png" id="3_j4cng"]
-[ext_resource type="Texture2D" uid="uid://dl24vshki5mps" path="res://Assets/Sprites/Items/Materials/Rocks.png" id="4_qu3ev"]
 [ext_resource type="StyleBox" uid="uid://blxajgwymsus5" path="res://Assets/Themes/StyleBoxes/dark_panel_stylebox.tres" id="5_yexv1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_873qf"]
@@ -22,6 +21,14 @@ Panel/styles/panel = SubResource("StyleBoxTexture_8a004")
 [sub_resource type="AtlasTexture" id="AtlasTexture_1gyn6"]
 atlas = ExtResource("2_smjqq")
 region = Rect2(2420, 536, 39, 40)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7mrej"]
+atlas = ExtResource("3_fhcg8")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5je60"]
+atlas = ExtResource("3_fhcg8")
+region = Rect2(16, 0, 16, 16)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fcqta"]
 bg_color = Color(1, 1, 1, 1)
@@ -160,22 +167,22 @@ texture = SubResource("AtlasTexture_1gyn6")
 expand_mode = 1
 stretch_mode = 5
 
-[node name="Logs" type="TextureRect" parent="VBoxContainer/PopUpMargin/PopUpHBox/PopUpPanel/MaterialMargin/MaterialHBox"]
+[node name="Material0" type="TextureRect" parent="VBoxContainer/PopUpMargin/PopUpHBox/PopUpPanel/MaterialMargin/MaterialHBox"]
 visible = false
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
-texture = ExtResource("3_a8chl")
+texture = SubResource("AtlasTexture_7mrej")
 stretch_mode = 5
 
-[node name="Rocks" type="TextureRect" parent="VBoxContainer/PopUpMargin/PopUpHBox/PopUpPanel/MaterialMargin/MaterialHBox"]
+[node name="Material1" type="TextureRect" parent="VBoxContainer/PopUpMargin/PopUpHBox/PopUpPanel/MaterialMargin/MaterialHBox"]
 visible = false
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 mouse_filter = 2
-texture = ExtResource("4_qu3ev")
+texture = SubResource("AtlasTexture_5je60")
 stretch_mode = 5
 
 [node name="spacer2" type="Panel" parent="VBoxContainer/PopUpMargin/PopUpHBox"]

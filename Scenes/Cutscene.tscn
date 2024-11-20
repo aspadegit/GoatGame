@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://b6ml52c0atpf8"]
+
+[ext_resource type="Script" path="res://Assets/Scripts/Cutscene.cs" id="1_cy1ej"]
+[ext_resource type="PackedScene" uid="uid://6aur3si7m3go" path="res://Scenes/Location.tscn" id="2_iqye2"]
+[ext_resource type="PackedScene" uid="uid://dkjdb462etlux" path="res://Scenes/CutsceneActor.tscn" id="3_j30i8"]
+[ext_resource type="PackedScene" uid="uid://hfsc17wxuyoa" path="res://Scenes/UI/UI.tscn" id="4_mbi7o"]
+
+[node name="Cutscene" type="Node" node_paths=PackedStringArray("actorParent", "timer")]
+script = ExtResource("1_cy1ej")
+cutsceneJsonPath = "test_scene.json"
+actorParent = NodePath("Actors")
+cutsceneActorScene = ExtResource("3_j30i8")
+timer = NodePath("Timer")
+
+[node name="Location" parent="." instance=ExtResource("2_iqye2")]
+
+[node name="Actors" type="Node2D" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="UI" parent="CanvasLayer" instance=ExtResource("4_mbi7o")]
+offset_left = 2.0
+offset_top = -10.0
+offset_right = 2.0
+offset_bottom = -10.0
+
+[node name="NameBox" parent="CanvasLayer/UI/DialogueBox/VBox" index="0"]
+visible = true
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="NextStepDialogue" from="." to="CanvasLayer/UI/DialogueBox" method="ManualSetup"]
+[connection signal="hidden" from="CanvasLayer/UI/DialogueBox" to="." method="NextStep"]
+[connection signal="timeout" from="Timer" to="." method="TimerTimeout"]
+
+[editable path="CanvasLayer/UI"]

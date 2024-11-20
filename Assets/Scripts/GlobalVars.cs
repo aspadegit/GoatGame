@@ -14,7 +14,7 @@ public partial class GlobalVars : Node
 	// ========================= DATA DICTIONARIES ================================
 	public static Dictionary<int, Goat> goats; // ID, Goat
 	public static Dictionary<string, Material> materials;
-	public static Dictionary<int, Job> jobs = new Dictionary<int, Job>(); //ID, Job
+	public static Dictionary<int, Job> jobs; //ID, Job
 	public static Dictionary<int, Machine> machines; //ID, Machine
 	public static Dictionary<string, Recipe> recipes; //name, Recipe
 	public static Dictionary<string, Item> items; //name, item
@@ -31,6 +31,7 @@ public partial class GlobalVars : Node
 	public static readonly int restingJobID = 0;
 
 	private static readonly string jsonStartingPath = "res://Assets/Data/";
+	public static readonly string cutscenePath = jsonStartingPath + "Cutscenes/";
 
 	public static int currentDay = 0;
 	public static int timeLimit = 5;
@@ -42,33 +43,20 @@ public partial class GlobalVars : Node
 		loadJSON("shots.json", "shots", parseShots);
 		loadJSON("machines.json", "machines", parseMachines);
 	    loadJSON("items.json", "items", parseItems);
+		loadJSON("jobs.json", "jobs", parseJobs);
 
-		machineInventory.Add(0, 5); //TODO: DELETE ME
 		machineInventory.Add(1, 5); //TODO: DELETE ME
+		machineInventory.Add(0, 10); //TODO: DELETE ME
 
-		itemInventory.Add("Magic Scroll", 5);
+		materialsObtained.Add("Logs", 5); //TODO: DELETE ME
+		materialsObtained.Add("Wheat", 10); //TODO: DELETE ME
+		materialsObtained.Add("Rocks", 15); //TODO: DELETE ME
+
+		itemInventory.Add("Magic Scroll", 5); //TODO: DELETE ME
 		//TODO: UPDATE THIS
 		goats = new Dictionary<int, Goat>();
 		goats.Add(0, new Goat("Chell", 0, "Test Class", 100, 1, 0));
 		goats.Add(1, new Goat("Wheat", 1, "Test Class", 100, 1, 0));
-
-		//TODO: EDIT ME
-		Dictionary<Material,int> d = new Dictionary<Material, int>();
-
-		//TODO: jobs must read from JSON
-
-		jobs.Add(0, new Job("Rest", 0, d, -1, 0));
-		d = new Dictionary<Material, int>();
-		d.Add(materials["Logs"], 5);
-		jobs.Add(1, new Job("Mining", 1, d, 10, 10));
-		jobs.Add(2, new Job("Logging", 2, d, 10, 10));
-		d = new Dictionary<Material, int>();
-		d.Add(materials["Logs"], 1);
-		d.Add(materials["Rocks"], 1);
-		jobs.Add(3, new Job("Research", 3, d, 20, 15));
-		jobs.Add(4, new Job("Farming", 4, d, 15, 15));
-
-	
 
 	}
 	private void loadJSON(string path, string type, Action<JsonArray> subFunction)
@@ -193,8 +181,37 @@ public partial class GlobalVars : Node
 			JsonArray coords = machine["texture"].AsArray();
 			int[] textureCoords = new int[] {(int)coords[0], (int)coords[1],(int)coords[2],(int)coords[3]};
 
-			Machine newMach = new Machine(name, id, type, level, range, fireRate, shot, desc, recipe, textureCoords);
+			JsonArray sizeArr = machine["size"].AsArray();
+			int[] size = new int[] {(int)sizeArr[0], (int)sizeArr[1]};
+
+			Machine newMach = new Machine(name, id, type, level, range, fireRate, shot, desc, recipe, textureCoords, size);
 			machines.Add(id, newMach);
+		}
+
+	}
+
+	private void parseJobs(JsonArray array)
+	{
+		jobs = new Dictionary<int, Job>();
+		foreach(JsonNode job in array)
+		{
+			int id = (int)job["id"];
+			string name = (string)job["name"];
+			
+			int strain = (int)job["strain"];
+			int expReward = (int)job["expReward"];
+
+			JsonArray jsonResults = job["result"].AsArray();
+			Dictionary<Material, int> results = new Dictionary<Material, int>();
+			foreach(JsonNode result in jsonResults)
+			{
+				Material mat = materials[(string)result["name"]];
+				int amt = (int)result["amount"];
+				results.Add(mat, amt);
+			}
+
+			Job newJob = new Job(name, id, results, strain, expReward);
+			jobs.Add(id, newJob);
 		}
 
 	}

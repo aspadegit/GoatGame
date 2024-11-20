@@ -70,8 +70,10 @@ theme_override_constants/margin_bottom = 40
 
 [node name="Tabs" type="TabContainer" parent="MainMargin"]
 layout_mode = 2
+current_tab = 1
 
 [node name="Goats" type="MarginContainer" parent="MainMargin/Tabs" node_paths=PackedStringArray("scrollVBox", "infoLabel")]
+visible = false
 layout_mode = 2
 script = ExtResource("1_dkimr")
 scrollVBox = NodePath("VBoxContainer/MainHBox/ListMargin/ScrollList/ScrollVBox")
@@ -101,10 +103,14 @@ text = "Sort By:"
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-item_count = 1
+item_count = 3
 selected = 0
 popup/item_0/text = "Name"
 popup/item_0/id = 0
+popup/item_1/text = "Job"
+popup/item_1/id = 2
+popup/item_2/text = "Level"
+popup/item_2/id = 2
 
 [node name="MainHBox" type="HBoxContainer" parent="MainMargin/Tabs/Goats/VBoxContainer"]
 layout_mode = 2
@@ -144,14 +150,14 @@ text = "Name
 Stats
 Etc."
 
-[node name="Materials" type="MarginContainer" parent="MainMargin/Tabs" node_paths=PackedStringArray("scrollVBox", "infoLabel")]
-visible = false
+[node name="Materials" type="MarginContainer" parent="MainMargin/Tabs" node_paths=PackedStringArray("scrollVBox", "infoLabel", "dropdown")]
 layout_mode = 2
 script = ExtResource("1_dkimr")
 scrollVBox = NodePath("VBoxContainer/MainHBox/ListMargin/ScrollList/ScrollVBox")
 inventoryRow = ExtResource("3_rpwry")
 type = "material"
 infoLabel = NodePath("VBoxContainer/MainHBox/InfoMargin/InfoVBox/Label")
+dropdown = NodePath("VBoxContainer/TopMargin/TopSortHBox/SortDropdown")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MainMargin/Tabs/Materials"]
 layout_mode = 2
@@ -175,10 +181,14 @@ text = "Sort By:"
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-item_count = 1
+item_count = 3
 selected = 0
 popup/item_0/text = "Name"
 popup/item_0/id = 0
+popup/item_1/text = "Amount"
+popup/item_1/id = 1
+popup/item_2/text = "Type"
+popup/item_2/id = 2
 
 [node name="MainHBox" type="HBoxContainer" parent="MainMargin/Tabs/Materials/VBoxContainer"]
 layout_mode = 2
@@ -249,10 +259,16 @@ text = "Sort By:"
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-item_count = 1
+item_count = 4
 selected = 0
 popup/item_0/text = "Name"
 popup/item_0/id = 0
+popup/item_1/text = "Amount"
+popup/item_1/id = 1
+popup/item_2/text = "Type"
+popup/item_2/id = 2
+popup/item_3/text = "Level"
+popup/item_3/id = 3
 
 [node name="MainHBox" type="HBoxContainer" parent="MainMargin/Tabs/Machines/VBoxContainer"]
 layout_mode = 2
@@ -323,10 +339,12 @@ text = "Sort By:"
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-item_count = 1
+item_count = 2
 selected = 0
 popup/item_0/text = "Name"
 popup/item_0/id = 0
+popup/item_1/text = "Amount"
+popup/item_1/id = 1
 
 [node name="MainHBox" type="HBoxContainer" parent="MainMargin/Tabs/Items/VBoxContainer"]
 layout_mode = 2
@@ -365,3 +383,7 @@ layout_mode = 2
 text = "Name
 Stats
 Etc."
+
+[connection signal="item_selected" from="MainMargin/Tabs/Materials/VBoxContainer/TopMargin/TopSortHBox/SortDropdown" to="MainMargin/Tabs/Materials" method="OnSortOption"]
+[connection signal="item_selected" from="MainMargin/Tabs/Machines/VBoxContainer/TopMargin/TopSortHBox/SortDropdown" to="MainMargin/Tabs/Machines" method="OnSortOption"]
+[connection signal="item_selected" from="MainMargin/Tabs/Items/VBoxContainer/TopMargin/TopSortHBox/SortDropdown" to="MainMargin/Tabs/Items" method="OnSortOption"]

@@ -19,7 +19,7 @@
             "name": "Wheat",
             "description": "Grains harvested from the fields.",
             "type": "Food",
-            "texture": "Logs.png"
+            "texture": "Wheat.png"
         }
     ]
 
