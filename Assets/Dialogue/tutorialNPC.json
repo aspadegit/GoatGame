@@ -1,0 +1,10 @@
+{
+    "Name": ["Tutorial NPC", "-", "-"],
+    "Text": ["Hello there! I'm the tutorial NPC!",
+            "Would you like to view the tutorial?",
+            "<choice>"
+    ],
+    "SignalName": "ShowYesNo",
+    "SignalParam": ["<emit>RunCutscene</emit>", "Alright, then.", "beginning_tutorial.json"]
+
+}

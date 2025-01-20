@@ -1,0 +1,108 @@
+{
+    "Header": {
+        "Name": "Introduction",
+        "Location": "location",
+        "Actors": [
+            "MC",
+            "NPC"
+        ],
+        "StartingPos":[
+            [240, 180],
+            [300, 210]
+        ],
+        "Camera": {
+            "Zoom": 2,
+            "Focus": -1,
+            "Offset": [],
+            "Position": [300, 200]
+        }
+    },
+    "Scene": [
+        {
+            "Type": "Action",
+            "Actor": 0,
+            "Function": "Walk",
+            "Parameters": [100, 0],
+            "Length": 0.2
+        },
+    
+        {
+            "Type": "Action",
+            "Actor": 0,
+            "Function": "Walk",
+            "Parameters": [-100, 0],
+            "Length": 0.2
+        },
+        {
+            "Type": "Action",
+            "Actor": 0,
+            "Function": "Walk",
+            "Parameters": [100, 0],
+            "Length": 0.2
+        },
+    
+        {
+            "Type": "Action",
+            "Actor": 0,
+            "Function": "Walk",
+            "Parameters": [-100, 0],
+            "Length": 0.2
+        },
+        {
+            "Type": "Action",
+            "Actor": 0,
+            "Function": "Walk",
+            "Parameters": [100, 0],
+            "Length": 0.2
+        },
+    
+        {
+            "Type": "Action",
+            "Actor": 0,
+            "Function": "Walk",
+            "Parameters": [-100, 0],
+            "Length": 0.2
+        },
+        {
+            "Type": "Action",
+            "Actor": 0,
+            "Function": "Walk",
+            "Parameters": [100, 0],
+            "Length": 0.2
+        },
+    
+        {
+            "Type": "Action",
+            "Actor": 0,
+            "Function": "Walk",
+            "Parameters": [-100, 0],
+            "Length": 0.2
+        },
+        {
+            "Type": "Dialogue",
+            "Name": ["MC"],
+            "Text": ["Gloopy woopy."]
+        },
+        {
+            "Type": "Action",
+            "Actor": 1,
+            "Function": "Walk",
+            "Parameters": [200, 100],
+            "Length": 1.5
+        },
+        {
+            "Type": "Action",
+            "Actor": 1,
+            "Function": "Flip",
+            "Parameters": [],
+            "Length": 0.1
+        },
+       
+        {
+            "Type": "Dialogue",
+            "Name": ["Taft William"],
+            "Text": ["GLOOPUS WOOPUS"]
+        }
+    ]
+    
+}

@@ -12,6 +12,7 @@ public partial class CutsceneActor : Node2D
 	[Export]
 	Timer timer;
 	bool continuousAction;
+	bool shouldStopAnim = true;
 
 	float actionLength;
 
@@ -109,7 +110,6 @@ public partial class CutsceneActor : Node2D
 				throw new NotSupportedException("Type of type " + curParamType + " not supported");
 			}
 
-			GD.Print(" type of parameter " + i + " is " + parameters[i].GetType());
 		}
 	}
 
@@ -119,7 +119,20 @@ public partial class CutsceneActor : Node2D
 		continuousAction = false;
 		sprite.FlipH = !sprite.FlipH;
 	}
+	public void Walk(float x, float y)
+	{
+		sprite.Animation = "walking";
+		sprite.Play();
+		shouldStopAnim = true;	// stops walking at the end of the step length
 
+		// calculate anim speed based on step length
+		if(actionLength > 0)
+			sprite.SpeedScale = 1/actionLength + 0.6f;
+		else
+			sprite.SpeedScale = 5;
+
+		Move(x,y);	
+	}
 	public void Move(float x, float y)
 	{
 		//NOTE: will need a second timer for 2 actions on the same actor
@@ -129,6 +142,8 @@ public partial class CutsceneActor : Node2D
 		currentMethodParams = new object[] {x, y, Position.X, Position.Y};
 		m = ContinuousMove;
 	}
+
+	
 
 	// parameters: { amount X total, amount Y total, starting X, Starting Y}
 	private void ContinuousMove(object[] parameters)
@@ -150,6 +165,11 @@ public partial class CutsceneActor : Node2D
 
 	public void TimerTimeout()
 	{
+		if(shouldStopAnim)
+		{
+			sprite.Animation = "default";
+			sprite.Stop();
+		}
 		continuousAction = false;
 	}
 

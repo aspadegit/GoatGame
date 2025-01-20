@@ -79,7 +79,7 @@ public partial class TextBox : MarginContainer
 
 	private void HideAndReset()
 	{
-		//TODO: emit allow player mvmt
+		//TODO: emit allow player mvmt (consider how this will affect cutscenes)
 		parent.MouseFilter = MouseFilterEnum.Pass;	//allow clicks anywhere else
 		Hide();
 		keyPress = 0;

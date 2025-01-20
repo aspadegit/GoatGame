@@ -21,6 +21,12 @@ public partial class Cutscene : Node
 	[Export]
 	public Timer timer;
 
+	[Export]
+	public Timer dialogueBuffer;
+
+	[Export]
+	public Camera2D camera;
+
 	[Signal]
 	public delegate void NextStepDialogueEventHandler(string[] name, string[] text);
 
@@ -33,6 +39,8 @@ public partial class Cutscene : Node
 	private bool playingCutscene = false;
 	private int currentStep = 0;
 
+	private string[] curDialogueName;
+	private string[] curDialogueText;
 
 	//CONSIDER: PackedScenes are stored in the json data...
 		// for "flashbacks" and scene changes
@@ -72,14 +80,22 @@ public partial class Cutscene : Node
 	
 	private void RunDialogue(string[] name, string[] text)
 	{
+		dialogueBuffer.Start();
+		curDialogueName = name;
+		curDialogueText = text;
+		
+	}
+	// to avoid race conditions when showing the dialogue box
+		//TODO: add a "box opening" animation to hide this wait (and avoid flashing)
+	public void DialogueBufferTimeout()
+	{
 		// hacking existing textbox script
-		EmitSignal(SignalName.NextStepDialogue, name, text);
-
+		EmitSignal(SignalName.NextStepDialogue, curDialogueName, curDialogueText);
 		// NextStep() is called via signal when the "hidden" signal is emitted by the textbox
 			// in the node menu
 			// ...i just know future me is gonna forget that
+				// hi it's future me. i did forget that
 	}
-
 
 	private void DecodeJson()
 	{
@@ -95,19 +111,57 @@ public partial class Cutscene : Node
 		DecodeHeader(jsonNode["Header"]);
 		DecodeScene(jsonNode["Scene"].AsArray());
 
-		
 	}
-
+	
 	private void DecodeHeader(JsonNode header)
 	{
 		string sceneName = (string)header["Name"];
 		string location = (string)header["Location"];
 
 		JsonArray actors = header["Actors"].AsArray();
+		JsonArray startingPos = header["StartingPos"].AsArray();
 
-		foreach(JsonNode actor in actors)
+		if(actors.Count != startingPos.Count)
+			throw new IndexOutOfRangeException("Length of actors in " + cutsceneJsonPath + " does not equal the length of starting positions.");
+
+		for(int i = 0; i < actors.Count; i++)
 		{
-			DecodeActor(actor);
+			DecodeActor(actors[i], startingPos[i].AsArray());
+		}
+
+
+
+		JsonNode cameraNode = header["Camera"];
+		DecodeCamera(cameraNode);
+	}
+
+
+	private void DecodeCamera(JsonNode cameraNode)
+	{
+		// set the zoom of the camera
+		int zoom = (int)cameraNode["Zoom"];
+		camera.Zoom = new Vector2(zoom, zoom);
+
+		// focus is the index of the Actor to focus on
+		int focus = (int)cameraNode["Focus"];
+
+		if(focus >= 0 && focus < actorParent.GetChildren().Count)
+		{
+			Node focusActor = actorParent.GetChild(focus);
+			camera.Reparent(focusActor, false);
+		}
+
+		JsonArray offset = cameraNode["Offset"].AsArray();
+		if(offset.Count > 0)
+		{
+			camera.Offset = new Vector2((float)offset[0], (float)offset[1]);
+		}
+
+		// set the position of the camera
+		JsonArray position = cameraNode["Position"].AsArray();
+		if(position.Count > 0)
+		{
+			camera.Position = new Vector2((float)position[0], (float)position[1]);
 		}
 	}
 
@@ -117,13 +171,15 @@ public partial class Cutscene : Node
 			// make scenes for actors
 			// put actors into their starting positions ahead of time
 			// each cutscene has its own scene, in this case
-	private void DecodeActor(JsonNode actor)
+	private void DecodeActor(JsonNode actor, JsonArray position)
 	{
 		//create
 		CutsceneActor currentActor = cutsceneActorScene.Instantiate<CutsceneActor>();
 
 		//set details
 		currentActor.actorName = (string)actor;
+		if(position.Count == 2)
+			currentActor.Position = new Vector2((float)position[0], (float)position[1]);
 
 		//add
 		actors.Add(currentActor);
@@ -178,6 +234,8 @@ public partial class Cutscene : Node
 		cutsceneSteps[0].Play();
 
 	}
+
+
 	
 	// when the timer runs out
 	public void TimerTimeout()
