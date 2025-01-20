@@ -7,7 +7,7 @@
 
 [node name="Cutscene" type="Node" node_paths=PackedStringArray("actorParent", "timer", "dialogueBuffer", "camera")]
 script = ExtResource("1_cy1ej")
-cutsceneJsonPath = "beginning_tutorial.json"
+cutsceneJsonPath = "test_scene.json"
 actorParent = NodePath("Actors")
 cutsceneActorScene = ExtResource("3_j30i8")
 timer = NodePath("Timer")
