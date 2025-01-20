@@ -39,13 +39,11 @@ public partial class TextBox : MarginContainer
 
 	public void ManualSetup(string[] name, string[] text)
 	{
-		GD.Print("Manually setting up:  " + text[0]);
 		this.name = name;
 		this.text = text;
 		ResetPageVars();
 		keyPress = 2;	// keyPress continues to be kinda bad. months later. lol
 		Show();
-		GD.Print("I'm visible? " + IsVisibleInTree());
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -81,13 +79,11 @@ public partial class TextBox : MarginContainer
 
 	private void HideAndReset()
 	{
-		GD.Print("I'm hiding!");
 		//TODO: emit allow player mvmt (consider how this will affect cutscenes)
 		parent.MouseFilter = MouseFilterEnum.Pass;	//allow clicks anywhere else
 		Hide();
 		keyPress = 0;
 		pagePosition = 0;
-		GD.Print("I've hidden!");
 	}
 
 	private void NextPage()
