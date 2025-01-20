@@ -5,12 +5,13 @@
 [ext_resource type="PackedScene" uid="uid://dkjdb462etlux" path="res://Scenes/Cutscenes/CutsceneActor.tscn" id="3_j30i8"]
 [ext_resource type="PackedScene" uid="uid://hfsc17wxuyoa" path="res://Scenes/UI/UI.tscn" id="4_mbi7o"]
 
-[node name="Cutscene" type="Node" node_paths=PackedStringArray("actorParent", "timer", "camera")]
+[node name="Cutscene" type="Node" node_paths=PackedStringArray("actorParent", "timer", "dialogueBuffer", "camera")]
 script = ExtResource("1_cy1ej")
-cutsceneJsonPath = "test_scene.json"
+cutsceneJsonPath = "beginning_tutorial.json"
 actorParent = NodePath("Actors")
 cutsceneActorScene = ExtResource("3_j30i8")
 timer = NodePath("Timer")
+dialogueBuffer = NodePath("DialogueBuffer")
 camera = NodePath("Camera")
 
 [node name="Location" parent="." instance=ExtResource("2_iqye2")]
@@ -33,8 +34,13 @@ visible = true
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
 
+[node name="DialogueBuffer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
 [connection signal="NextStepDialogue" from="." to="CanvasLayer/UI/DialogueBox" method="ManualSetup"]
 [connection signal="hidden" from="CanvasLayer/UI/DialogueBox" to="." method="NextStep"]
 [connection signal="timeout" from="Timer" to="." method="TimerTimeout"]
+[connection signal="timeout" from="DialogueBuffer" to="." method="DialogueBufferTimeout"]
 
 [editable path="CanvasLayer/UI"]

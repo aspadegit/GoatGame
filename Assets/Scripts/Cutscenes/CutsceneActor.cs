@@ -110,7 +110,6 @@ public partial class CutsceneActor : Node2D
 				throw new NotSupportedException("Type of type " + curParamType + " not supported");
 			}
 
-			GD.Print(" type of parameter " + i + " is " + parameters[i].GetType());
 		}
 	}
 

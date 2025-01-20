@@ -6,11 +6,15 @@
             "MC",
             "NPC"
         ],
+        "StartingPos":[
+            [240, 180],
+            [300, 210]
+        ],
         "Camera": {
             "Zoom": 2,
             "Focus": -1,
             "Offset": [],
-            "Position": [0,0]
+            "Position": [300, 200]
         }
     },
     "Scene": [

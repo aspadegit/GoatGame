@@ -6,6 +6,10 @@
             "MC",
             "NPC"
         ],
+        "StartingPos":[
+            [240, 180],
+            [300, 200]
+        ],
         "Camera": {
             "Zoom": 2,
             "Focus": 0,
@@ -16,22 +20,15 @@
     "Scene": [
         {
             "Type": "Action",
-            "Actor": 0,
-            "Function": "Move",
-            "Parameters": [100, 100],
+            "Actor": 1,
+            "Function": "Walk",
+            "Parameters": [100, 0],
             "Length": 2.5
         },
         {
             "Type": "Dialogue",
-            "Name": ["MC", "-"],
-            "Text": ["This is an introductory cutscene.", "That's kinda crazy!"]
-        },
-        {
-            "Type": "Action",
-            "Actor": 1,
-            "Function": "Move",
-            "Parameters": [200, 100],
-            "Length": 1.5
+            "Name": ["NPC"],
+            "Text": ["Well, here we are."]
         },
         {
             "Type": "Action",
@@ -41,16 +38,45 @@
             "Length": 0.1
         },
         {
+            "Type": "Dialogue",
+            "Name": ["NPC"],
+            "Text": ["Not sure if what you're saying is true, but if it is..."]
+        },
+        {
             "Type": "Action",
             "Actor": 1,
-            "Function": "Jump",
+            "Function": "Flip",
             "Parameters": [],
-            "Length": 0.5
+            "Length": 1
+        },
+        {
+            "Type": "Action",
+            "Actor": 1,
+            "Function": "Flip",
+            "Parameters": [],
+            "Length": 0.1
         },
         {
             "Type": "Dialogue",
             "Name": ["NPC"],
-            "Text": ["It is!?"]
+            "Text": ["I got no choice but to trust you."]
+        },
+        {
+            "Type": "Action",
+            "Actor": 0,
+            "Function": "Walk",
+            "Parameters": [50, 0],
+            "Length": 2.5
+        },
+        {
+            "Type": "Dialogue",
+            "Name": ["Cabrallero", "-", "-"],
+            "Text": ["I know this is a big risk for all y'all.", "I 'ppreciate it.", "This is a mighty fine town here. No goat should have to face what might be coming..."]
+        },
+        {
+            "Type": "Dialogue",
+            "Name": ["NPC", "-", "-"],
+            "Text": ["While I'm here, I should introduce 'ya to the town.", "Goats here trust me, but my word only goes so far.", "If the threat is as big as 'ya say it is, then you're gonna need to gain the trust of the town."]
         }
     ]
     
