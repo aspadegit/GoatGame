@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://dkjdb462etlux"]
 
 [ext_resource type="Texture2D" uid="uid://do8gai8837u5d" path="res://Assets/Sprites/Goats/Player/goat1.png" id="1_drcpm"]
-[ext_resource type="Script" path="res://Assets/Scripts/CutsceneActor.cs" id="1_lxb2c"]
+[ext_resource type="Script" path="res://Assets/Scripts/Cutscenes/CutsceneActor.cs" id="1_lxb2c"]
 [ext_resource type="Texture2D" uid="uid://byn66bjyitnsi" path="res://Assets/Sprites/Goats/Player/goat2.png" id="3_36ihq"]
 [ext_resource type="Texture2D" uid="uid://jfrgx85hfh3h" path="res://Assets/Sprites/Goats/Player/goat3.png" id="4_0nl66"]
 [ext_resource type="Texture2D" uid="uid://bsy43ltc12bfm" path="res://Assets/Sprites/Goats/Player/goat4.png" id="5_uoda8"]

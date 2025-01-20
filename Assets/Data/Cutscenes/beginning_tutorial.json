@@ -1,23 +1,23 @@
 {
     "Header": {
-        "Name": "Introduction",
-        "Location": "location",
+        "Name": "Beginning Tutorial",
+        "Location": "-",
         "Actors": [
             "MC",
             "NPC"
         ],
         "Camera": {
             "Zoom": 2,
-            "Focus": -1,
-            "Offset": [],
-            "Position": [0,0]
+            "Focus": 0,
+            "Offset": [20, 0],
+            "Position": []
         }
     },
     "Scene": [
         {
             "Type": "Action",
             "Actor": 0,
-            "Function": "Walk",
+            "Function": "Move",
             "Parameters": [100, 100],
             "Length": 2.5
         },
@@ -29,7 +29,7 @@
         {
             "Type": "Action",
             "Actor": 1,
-            "Function": "Walk",
+            "Function": "Move",
             "Parameters": [200, 100],
             "Length": 1.5
         },

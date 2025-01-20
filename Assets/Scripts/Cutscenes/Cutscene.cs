@@ -21,6 +21,9 @@ public partial class Cutscene : Node
 	[Export]
 	public Timer timer;
 
+	[Export]
+	public Camera2D camera;
+
 	[Signal]
 	public delegate void NextStepDialogueEventHandler(string[] name, string[] text);
 
@@ -78,6 +81,7 @@ public partial class Cutscene : Node
 		// NextStep() is called via signal when the "hidden" signal is emitted by the textbox
 			// in the node menu
 			// ...i just know future me is gonna forget that
+				// hi it's future me. i did forget that
 	}
 
 
@@ -95,9 +99,8 @@ public partial class Cutscene : Node
 		DecodeHeader(jsonNode["Header"]);
 		DecodeScene(jsonNode["Scene"].AsArray());
 
-		
 	}
-
+	
 	private void DecodeHeader(JsonNode header)
 	{
 		string sceneName = (string)header["Name"];
@@ -108,6 +111,38 @@ public partial class Cutscene : Node
 		foreach(JsonNode actor in actors)
 		{
 			DecodeActor(actor);
+		}
+
+		JsonNode cameraNode = header["Camera"];
+		DecodeCamera(cameraNode);
+	}
+
+	private void DecodeCamera(JsonNode cameraNode)
+	{
+		// set the zoom of the camera
+		int zoom = (int)cameraNode["Zoom"];
+		camera.Zoom = new Vector2(zoom, zoom);
+
+		// focus is the index of the Actor to focus on
+		int focus = (int)cameraNode["Focus"];
+
+		if(focus >= 0 && focus < actorParent.GetChildren().Count)
+		{
+			Node focusActor = actorParent.GetChild(focus);
+			camera.Reparent(focusActor);
+		}
+
+		JsonArray offset = cameraNode["Offset"].AsArray();
+		if(offset.Count > 0)
+		{
+			camera.Offset = new Vector2((float)offset[0], (float)offset[1]);
+		}
+
+		// set the position of the camera
+		JsonArray position = cameraNode["Position"].AsArray();
+		if(position.Count > 0)
+		{
+			camera.Position = new Vector2((float)position[0], (float)position[1]);
 		}
 	}
 
