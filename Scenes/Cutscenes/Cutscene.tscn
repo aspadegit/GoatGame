@@ -1,13 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://b6ml52c0atpf8"]
+[gd_scene load_steps=6 format=3 uid="uid://b6ml52c0atpf8"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/Cutscenes/Cutscene.cs" id="1_cy1ej"]
-[ext_resource type="PackedScene" uid="uid://6aur3si7m3go" path="res://Scenes/Location.tscn" id="2_iqye2"]
+[ext_resource type="PackedScene" uid="uid://6aur3si7m3go" path="res://Scenes/Cutscenes/Location.tscn" id="2_iqye2"]
 [ext_resource type="PackedScene" uid="uid://dkjdb462etlux" path="res://Scenes/Cutscenes/CutsceneActor.tscn" id="3_j30i8"]
+[ext_resource type="Script" path="res://Assets/Scripts/Cutscenes/CutsceneCamera.cs" id="4_33hoa"]
 [ext_resource type="PackedScene" uid="uid://hfsc17wxuyoa" path="res://Scenes/UI/UI.tscn" id="4_mbi7o"]
 
 [node name="Cutscene" type="Node" node_paths=PackedStringArray("actorParent", "timer", "dialogueBuffer", "camera")]
 script = ExtResource("1_cy1ej")
-cutsceneJsonPath = "test_scene.json"
+cutsceneJsonPath = "beginning_tutorial.json"
 actorParent = NodePath("Actors")
 cutsceneActorScene = ExtResource("3_j30i8")
 timer = NodePath("Timer")
@@ -19,6 +20,7 @@ camera = NodePath("Camera")
 [node name="Actors" type="Node2D" parent="."]
 
 [node name="Camera" type="Camera2D" parent="."]
+script = ExtResource("4_33hoa")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

@@ -4,11 +4,13 @@
         "Location": "-",
         "Actors": [
             "MC",
-            "NPC"
+            "NPC",
+            "NPC2"
         ],
         "StartingPos":[
             [240, 180],
-            [300, 200]
+            [300, 200],
+            [500, 130]
         ],
         "Camera": {
             "Zoom": 2,
@@ -77,6 +79,22 @@
             "Type": "Dialogue",
             "Name": ["NPC", "-", "-"],
             "Text": ["While I'm here, I should introduce 'ya to the town.", "Goats here trust me, but my word only goes so far.", "If the threat is as big as 'ya say it is, then you're gonna need to gain the trust of the town."]
+        },
+        {
+            "Type": "Dialogue",
+            "Name": ["Cabrallero"],
+            "Text": ["I thought as much. Where should I start?"]
+        },
+        {
+            "Type": "Camera",
+            "Action": "Pan",
+            "Focus": -1,
+            "Position": [500, 130]
+        },
+        {
+            "Type": "Dialogue",
+            "Name": ["NPC"],
+            "Text": ["That goat over there is NPC 2. I've told him about the situation."]
         }
     ]
     
