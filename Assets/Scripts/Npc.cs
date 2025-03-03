@@ -11,6 +11,8 @@ public partial class Npc : Area2D
 	[Export]
 	public string dialoguePath {get; set;} = "";
 
+	private bool hasClicked = false;
+
 	public override void _Ready() {
 
 		ThisCollider.InputEvent += Clicked;
@@ -18,10 +20,14 @@ public partial class Npc : Area2D
 
 	void Clicked(Node viewport, InputEvent @event, long shapeIdx){
 
-		if(Input.IsActionJustPressed("left_click")){
-
+		if(!hasClicked && Input.IsActionJustPressed("left_click")){
 			EmitInteract();
-			
+			hasClicked = true;
+		}
+
+		if(Input.IsActionJustReleased("left_click"))
+		{
+			hasClicked = false;
 		}
 
 	}

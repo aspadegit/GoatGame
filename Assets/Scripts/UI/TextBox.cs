@@ -137,6 +137,7 @@ public partial class TextBox : MarginContainer
 		//only show if it's not already shown
 		if(!IsVisibleInTree())
 		{
+			
 			//TODO: emit pause player
 			loadDialogue(dialoguePath);
 			parent.MouseFilter = MouseFilterEnum.Stop;	//prevent clicks anywhere else
