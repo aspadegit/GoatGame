@@ -125,6 +125,7 @@ public partial class PerformJobs : Control
 	private void OnShowPerformJobs()
 	{
 		Show();
+		SignalHandler.Instance.EmitSignal(SignalHandler.SignalName.TogglePlayerMovement, false);
 
 		InstantiateChildren();
 		timer.Start();
@@ -135,6 +136,8 @@ public partial class PerformJobs : Control
 	private void HideAndReset()
 	{
 		Hide();
+		SignalHandler.Instance.EmitSignal(SignalHandler.SignalName.TogglePlayerMovement, true);
+
 		closeButton.Hide();
 		currentSessionResults.Clear();
 		rows.Clear();

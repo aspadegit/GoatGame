@@ -6,11 +6,24 @@ public partial class InventoryMenu : Control
 	[Export]
 	TabContainer tabParent;
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
+	// disables when player movement is disabled
+	private bool canShowMenu = true;
+
+    public override void _Ready()
+    {
+		SignalHandler.Instance.Connect(SignalHandler.SignalName.TogglePlayerMovement, Callable.From((bool toggle)=> OnToggleMovement(toggle)), (uint)ConnectFlags.Deferred);
+
+    }
+
+	void OnToggleMovement(bool toggle)
+	{
+		canShowMenu = toggle;
+	}
+
+    public override void _Process(double delta)
 	{
 		//TODO: pause & unpause
-		if(Input.IsActionJustPressed("escape"))
+		if(canShowMenu && Input.IsActionJustPressed("escape"))
 		{
 			if(!IsVisibleInTree())
 			{

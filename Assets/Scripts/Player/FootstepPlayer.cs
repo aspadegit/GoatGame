@@ -84,6 +84,9 @@ public partial class FootstepPlayer : AudioStreamPlayer2D
 
 		Stream = activeStream[index];
 		PitchScale = randPitch * additionalPitchModulator;
+
+		//volume adjustments
+		VolumeDb = VolumeDb * GlobalVars.settings.effectsVolume * GlobalVars.settings.masterVolume;
 		Play();
 		
 	}

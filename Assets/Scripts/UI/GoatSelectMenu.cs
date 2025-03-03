@@ -34,6 +34,7 @@ public partial class GoatSelectMenu : Control
 	private void OnShowGoatMenu()
 	{
 		Show();
+		SignalHandler.Instance.EmitSignal(SignalHandler.SignalName.TogglePlayerMovement, false);
 
 		//TODO: hasChanged always true
 		if(hasChanged)
@@ -44,6 +45,8 @@ public partial class GoatSelectMenu : Control
 	private void HideAndReset()
 	{
 		Hide();
+		SignalHandler.Instance.EmitSignal(SignalHandler.SignalName.TogglePlayerMovement, true);
+
 		//TODO: track changes. revert the changes on cancel
 		//TODO: add "save and close" but not confirm button
 	}

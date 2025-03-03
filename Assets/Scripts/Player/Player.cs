@@ -25,6 +25,7 @@ public partial class Player : Area2D
 		ScreenSize = GetViewportRect().Size;
 		raycast = GetNode<RayCast2D>("RayCast2D");
 		SignalHandler.Instance.Connect(SignalHandler.SignalName.ChangeScene, Callable.From((string[] scenePath)=> OnChangeScene(scenePath[0])), (uint)ConnectFlags.Deferred);
+		SignalHandler.Instance.Connect(SignalHandler.SignalName.TogglePlayerMovement, Callable.From((bool toggle)=> OnToggleMovement(toggle)), (uint)ConnectFlags.Deferred);
 
 	}
 
@@ -125,6 +126,11 @@ public partial class Player : Area2D
 		string fullPath = "res://Scenes/" + scenePath;
 		GetTree().ChangeSceneToFile(fullPath);
 		
+	}
+
+	private void OnToggleMovement(bool toggle)
+	{
+		canMove = toggle;
 	}
 
 	private void OnBodyEntered(Node2D body)

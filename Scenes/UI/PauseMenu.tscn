@@ -28,6 +28,7 @@ layout_mode = 2
 theme = ExtResource("1_uis1y")
 
 [node name="MainScreenVBox" type="VBoxContainer" parent="MainMargin/Background"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -101,7 +102,6 @@ layout_mode = 2
 text = "Return to Title"
 
 [node name="SettingsVBox" type="VBoxContainer" parent="MainMargin/Background"]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -111,12 +111,12 @@ grow_vertical = 2
 theme = ExtResource("2_vo6ul")
 theme_override_constants/separation = 20
 
-[node name="PausedLabelMargin" type="MarginContainer" parent="MainMargin/Background/SettingsVBox"]
+[node name="SettingsLabelMargin" type="MarginContainer" parent="MainMargin/Background/SettingsVBox"]
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 theme_override_constants/margin_top = 30
 
-[node name="Label" type="Label" parent="MainMargin/Background/SettingsVBox/PausedLabelMargin"]
+[node name="Label" type="Label" parent="MainMargin/Background/SettingsVBox/SettingsLabelMargin"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 48
@@ -152,8 +152,26 @@ layout_mode = 2
 text = "MASTER VOLUME"
 
 [node name="MasterVolumeSlider" type="HSlider" parent="MainMargin/Background/SettingsVBox/ScrollMargin/ScrollContainer/ScrollVBox/MasterVolumeMargin/HBoxContainer"]
+custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 10
+value = 100.0
+
+[node name="SoundFXVolumeMargin" type="MarginContainer" parent="MainMargin/Background/SettingsVBox/ScrollMargin/ScrollContainer/ScrollVBox"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MainMargin/Background/SettingsVBox/ScrollMargin/ScrollContainer/ScrollVBox/SoundFXVolumeMargin"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MainMargin/Background/SettingsVBox/ScrollMargin/ScrollContainer/ScrollVBox/SoundFXVolumeMargin/HBoxContainer"]
+layout_mode = 2
+text = "SOUND EFFECTS"
+
+[node name="SoundFXVolumeSlider" type="HSlider" parent="MainMargin/Background/SettingsVBox/ScrollMargin/ScrollContainer/ScrollVBox/SoundFXVolumeMargin/HBoxContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+value = 100.0
 
 [node name="ConfirmationMargin" type="MarginContainer" parent="."]
 visible = false

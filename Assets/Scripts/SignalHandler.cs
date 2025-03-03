@@ -36,6 +36,11 @@ public partial class SignalHandler : Node
 	[Signal]
 	public delegate void ChangeSceneEventHandler(string[] scenePath);
 
+	// true = let player move, false = stop player
+	[Signal]
+	public delegate void TogglePlayerMovementEventHandler(bool canMove);
+
+	// a tilemap can announce its existence by passing itself in the parameter
 	[Signal]
 	public delegate void AnnounceTilemapEventHandler(TileMap tileMap);
 
