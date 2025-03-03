@@ -9,6 +9,7 @@ public partial class InventoryMenu : Control
 	// disables when player movement is disabled
 	private bool canShowMenu = true;
 
+
     public override void _Ready()
     {
 		SignalHandler.Instance.Connect(SignalHandler.SignalName.TogglePlayerMovement, Callable.From((bool toggle)=> OnToggleMovement(toggle)), (uint)ConnectFlags.Deferred);
@@ -17,22 +18,26 @@ public partial class InventoryMenu : Control
 
 	void OnToggleMovement(bool toggle)
 	{
-		canShowMenu = toggle;
+		if(!IsVisibleInTree())
+			canShowMenu = toggle;
 	}
 
     public override void _Process(double delta)
 	{
 		//TODO: pause & unpause
-		if(canShowMenu && Input.IsActionJustPressed("escape"))
+		if(Input.IsActionJustPressed("escape"))
 		{
-			if(!IsVisibleInTree())
+			if(canShowMenu && !IsVisibleInTree())
 			{
 				InstantiateAllChildren();
 				Show();
+				SignalHandler.Instance.EmitSignal(SignalHandler.SignalName.TogglePlayerMovement, false);
 			}
-			else
+			else if(IsVisibleInTree())
 			{
 				Hide();
+				SignalHandler.Instance.EmitSignal(SignalHandler.SignalName.TogglePlayerMovement, true);
+
 			}
 		}
 	}
