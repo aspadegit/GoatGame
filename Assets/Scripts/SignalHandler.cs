@@ -36,6 +36,9 @@ public partial class SignalHandler : Node
 	[Signal]
 	public delegate void ChangeSceneEventHandler(string[] scenePath);
 
+	[Signal]
+	public delegate void AnnounceTilemapEventHandler(TileMap tileMap);
+
 	public override void _Ready() {
 		Instance = this;
 	}

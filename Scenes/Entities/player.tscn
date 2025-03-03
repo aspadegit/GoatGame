@@ -1,11 +1,28 @@
-[gd_scene load_steps=9 format=3 uid="uid://brdp0nqi6pf4v"]
+[gd_scene load_steps=27 format=3 uid="uid://brdp0nqi6pf4v"]
 
-[ext_resource type="Script" path="res://Assets/Scripts/Player.cs" id="1_gel8y"]
+[ext_resource type="Script" path="res://Assets/Scripts/Player/Player.cs" id="1_1fbgh"]
 [ext_resource type="Material" uid="uid://drw4sbap8erve" path="res://Assets/Shaders/pixel_shader.tres" id="2_p3c3q"]
 [ext_resource type="Texture2D" uid="uid://do8gai8837u5d" path="res://Assets/Sprites/Goats/Player/goat1.png" id="3_djicp"]
 [ext_resource type="Texture2D" uid="uid://byn66bjyitnsi" path="res://Assets/Sprites/Goats/Player/goat2.png" id="4_av606"]
 [ext_resource type="Texture2D" uid="uid://jfrgx85hfh3h" path="res://Assets/Sprites/Goats/Player/goat3.png" id="5_lb715"]
 [ext_resource type="Texture2D" uid="uid://bsy43ltc12bfm" path="res://Assets/Sprites/Goats/Player/goat4.png" id="6_mfxsx"]
+[ext_resource type="Script" path="res://Assets/Scripts/Player/PlayerAnimation.cs" id="7_1640g"]
+[ext_resource type="Script" path="res://Assets/Scripts/Player/FootstepPlayer.cs" id="8_2w7fk"]
+[ext_resource type="AudioStream" uid="uid://ct1f7ksqtmmgd" path="res://Assets/Sound/Effects/Footsteps/footstep_grass_000.ogg" id="8_y25cf"]
+[ext_resource type="AudioStream" uid="uid://ba1g21jddtwb2" path="res://Assets/Sound/Effects/Footsteps/footstep_grass_001.ogg" id="9_s0w6f"]
+[ext_resource type="AudioStream" uid="uid://bfmlx1bd8rtml" path="res://Assets/Sound/Effects/Footsteps/footstep_grass_002.ogg" id="11_wo1vn"]
+[ext_resource type="AudioStream" uid="uid://c0370dxbpsy53" path="res://Assets/Sound/Effects/Footsteps/footstep_grass_003.ogg" id="12_4lk14"]
+[ext_resource type="AudioStream" uid="uid://cn1b8pkgl4khl" path="res://Assets/Sound/Effects/Footsteps/footstep_grass_004.ogg" id="13_b7rvb"]
+[ext_resource type="AudioStream" uid="uid://dek8op0qkjmc8" path="res://Assets/Sound/Effects/Footsteps/footstep_snow_000.ogg" id="14_gxv8t"]
+[ext_resource type="AudioStream" uid="uid://b1pmd08b1a8y" path="res://Assets/Sound/Effects/Footsteps/footstep_snow_001.ogg" id="15_0q6qe"]
+[ext_resource type="AudioStream" uid="uid://wenwswrvt6jd" path="res://Assets/Sound/Effects/Footsteps/footstep_snow_002.ogg" id="16_v1opl"]
+[ext_resource type="AudioStream" uid="uid://ba8t5gbls1t7r" path="res://Assets/Sound/Effects/Footsteps/footstep_snow_003.ogg" id="17_4wwr8"]
+[ext_resource type="AudioStream" uid="uid://c5m5w6vp1wpvy" path="res://Assets/Sound/Effects/Footsteps/footstep_snow_004.ogg" id="18_fr7oq"]
+[ext_resource type="AudioStream" uid="uid://q2pan8i88mhb" path="res://Assets/Sound/Effects/Footsteps/footstep_carpet_000.ogg" id="19_kuo7m"]
+[ext_resource type="AudioStream" uid="uid://b0eberva31621" path="res://Assets/Sound/Effects/Footsteps/footstep_carpet_001.ogg" id="20_scept"]
+[ext_resource type="AudioStream" uid="uid://dsqe7qac3aaaa" path="res://Assets/Sound/Effects/Footsteps/footstep_carpet_002.ogg" id="21_56iet"]
+[ext_resource type="AudioStream" uid="uid://3qsdvkssu7y2" path="res://Assets/Sound/Effects/Footsteps/footstep_carpet_003.ogg" id="22_q6myw"]
+[ext_resource type="AudioStream" uid="uid://yxsfapt5gntt" path="res://Assets/Sound/Effects/Footsteps/footstep_carpet_004.ogg" id="23_v0di5"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_4drxh"]
 animations = [{
@@ -31,9 +48,11 @@ animations = [{
 radius = 8.0
 height = 20.0
 
+[sub_resource type="AudioStream" id="AudioStream_poacb"]
+
 [node name="Player" type="Area2D"]
 scale = Vector2(2, 2)
-script = ExtResource("1_gel8y")
+script = ExtResource("1_1fbgh")
 metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -41,6 +60,8 @@ texture_filter = 1
 material = ExtResource("2_p3c3q")
 sprite_frames = SubResource("SpriteFrames_4drxh")
 animation = &"walk"
+script = ExtResource("7_1640g")
+downFrames = PackedInt32Array(1, 3)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_l5l6e")
@@ -51,3 +72,13 @@ collide_with_areas = true
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(3, 3)
+
+[node name="FootstepPlayer" type="AudioStreamPlayer2D" parent="."]
+stream = SubResource("AudioStream_poacb")
+volume_db = -6.411
+script = ExtResource("8_2w7fk")
+grass = Array[AudioStreamOggVorbis]([ExtResource("8_y25cf"), ExtResource("9_s0w6f"), ExtResource("11_wo1vn"), ExtResource("12_4lk14"), ExtResource("13_b7rvb")])
+snow = Array[AudioStreamOggVorbis]([ExtResource("14_gxv8t"), ExtResource("15_0q6qe"), ExtResource("16_v1opl"), ExtResource("17_4wwr8"), ExtResource("18_fr7oq")])
+carpet = Array[AudioStreamOggVorbis]([ExtResource("19_kuo7m"), ExtResource("20_scept"), ExtResource("21_56iet"), ExtResource("22_q6myw"), ExtResource("23_v0di5")])
+
+[connection signal="animationStep" from="AnimatedSprite2D" to="FootstepPlayer" method="OnAnimationStep"]
