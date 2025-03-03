@@ -26,6 +26,7 @@ public partial class Cutscene : Node
 
 	[Export]
 	public Camera2D camera;
+	private CutsceneCamera cameraScript;
 
 	[Signal]
 	public delegate void NextStepDialogueEventHandler(string[] name, string[] text);
@@ -51,6 +52,8 @@ public partial class Cutscene : Node
 
 	public override void _Ready()
 	{
+		cameraScript = GetNode<CutsceneCamera>("Camera");
+
 		//TODO: set location
 		try
 		{
@@ -60,6 +63,7 @@ public partial class Cutscene : Node
 		}
 		catch(Exception e)
 		{
+			GD.PrintErr(e.Message);
 			GD.PrintErr(e.StackTrace);
 			EndCutscene();
 		}
@@ -138,31 +142,40 @@ public partial class Cutscene : Node
 
 	private void DecodeCamera(JsonNode cameraNode)
 	{
-		// set the zoom of the camera
-		int zoom = (int)cameraNode["Zoom"];
-		camera.Zoom = new Vector2(zoom, zoom);
-
-		// focus is the index of the Actor to focus on
-		int focus = (int)cameraNode["Focus"];
-
-		if(focus >= 0 && focus < actorParent.GetChildren().Count)
-		{
-			Node focusActor = actorParent.GetChild(focus);
-			camera.Reparent(focusActor, false);
-		}
+		// set the zoom & offset of the camera
+		float zoom = (float)cameraNode["Zoom"];
 
 		JsonArray offset = cameraNode["Offset"].AsArray();
-		if(offset.Count > 0)
-		{
-			camera.Offset = new Vector2((float)offset[0], (float)offset[1]);
-		}
+		Vector2 cameraOffset = new Vector2((float)offset[0], (float)offset[1]);
 
-		// set the position of the camera
+
+		// get the position of the camera
 		JsonArray position = cameraNode["Position"].AsArray();
-		if(position.Count > 0)
+		Vector2 cameraPosition = new Vector2(0,0);
+		if(position.Count == 2)
 		{
 			camera.Position = new Vector2((float)position[0], (float)position[1]);
 		}
+
+		// focus is the index of the Actor to focus on
+		int focus = (int)cameraNode["Focus"];
+		Node focusActor = null;
+		if(focus >= 0 && focus < actorParent.GetChildren().Count)
+		{
+			focusActor = actorParent.GetChild(focus);
+		}
+
+		// set these values in CutsceneCamera.cs
+		if(focusActor != null)
+		{
+			cameraScript.SetUp(zoom, cameraOffset, cameraPosition, new KeyValuePair<int,Node>(focus, focusActor));
+		}
+		else
+		{
+			cameraScript.SetUp(zoom, cameraOffset, cameraPosition);
+		}
+
+
 	}
 
 	// create an individual actor and add it to the list & tree
@@ -197,6 +210,12 @@ public partial class Cutscene : Node
 			if(type == "Action")
 			{
 				DecodeAction(step);
+			}
+			// camera
+			else if(type == "Camera")
+			{
+				throw new NotImplementedException("Write a function to DecodeCamera, and place it into Step.");
+
 			}
 			// dialogue
 			else
@@ -311,13 +330,55 @@ public partial class Cutscene : Node
 
 		}
     }
+
+	public class CameraStep : Step {
+		CutsceneCamera Camera { get; set;}
+		Timer timer {get; set;}
+
+		String CameraAction {get; set;}
+		public CameraStep(CutsceneCamera camera, float length, Timer timer) 
+		{
+			Camera = camera;
+			Length = length;
+			this.timer = timer;
+		}
+		private void DecodeAction()
+		{
+			if(CameraAction == "Pan")
+			{
+				// call CutsceneCamera function
+				Camera.Pan();
+			}
+			else if(CameraAction == "Zoom")
+			{
+				Camera.ChangeZoom();
+
+			}
+			else if(CameraAction == "ChangeFocus")
+			{
+				throw new NotImplementedException();
+
+			}
+			else
+			{
+				throw new NotSupportedException("Camera Action " + CameraAction + " is not supported. Is it a typo?");
+			}
+			
+		}
+
+        public override void Play()
+        {
+			DecodeAction();
+			timer.Start((double)Length);
+        }
+    }
 	public class Action : Step {
 
 		CutsceneActor Actor { get; set; }
-		string Function {get; set;}
-		JsonArray Parameters {get; set;}
+		protected string Function {get; set;}
+		protected JsonArray Parameters {get; set;}
 
-		Timer timer { get; }
+		protected Timer timer { get; set; }
 
 		public Action(CutsceneActor actor, string func, JsonArray param, float length, Timer timer)
 		{

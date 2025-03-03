@@ -1,11 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://6aur3si7m3go"]
+[gd_scene load_steps=9 format=3 uid="uid://6aur3si7m3go"]
 
-[ext_resource type="Texture2D" uid="uid://dl73ubl60xdsv" path="res://Assets/Sprites/Tiles/desert_tiles.png" id="1_s54x3"]
-[ext_resource type="Texture2D" uid="uid://cu1vx1xuuqnc5" path="res://Assets/Sprites/Tiles/Empty.png" id="2_jcnns"]
-[ext_resource type="Texture2D" uid="uid://brh80auhux7xw" path="res://Assets/Sprites/ts_constructions.png" id="3_mxd07"]
+[ext_resource type="Texture2D" uid="uid://dl73ubl60xdsv" path="res://Assets/Sprites/Tiles/desert_tiles.png" id="1_nius6"]
+[ext_resource type="Texture2D" uid="uid://cu1vx1xuuqnc5" path="res://Assets/Sprites/Tiles/Empty.png" id="2_dsr3m"]
+[ext_resource type="Texture2D" uid="uid://brh80auhux7xw" path="res://Assets/Sprites/ts_constructions.png" id="3_nbr5n"]
+[ext_resource type="Script" path="res://Assets/Scripts/TileMapScript.cs" id="4_i4to2"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_m8v4r"]
-texture = ExtResource("1_s54x3")
+texture = ExtResource("1_nius6")
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 1
@@ -536,11 +537,11 @@ texture = ExtResource("1_s54x3")
 11:3/0/terrains_peering_bit/top_right_corner = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_x54x6"]
-texture = ExtResource("2_jcnns")
+texture = ExtResource("2_dsr3m")
 0:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1jphe"]
-texture = ExtResource("3_mxd07")
+texture = ExtResource("3_nbr5n")
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
@@ -854,6 +855,7 @@ layer_2/name = "Walkable"
 layer_2/enabled = false
 layer_2/z_index = 1
 layer_2/tile_data = PackedInt32Array(655383, 2, 0, 655382, 2, 0, 655381, 2, 0, 655380, 2, 0, 655379, 2, 0, 589842, 2, 0, 589841, 2, 0, 589840, 2, 0, 524304, 2, 0, 524303, 2, 0, 524302, 2, 0, 524301, 2, 0, 524300, 2, 0, 524298, 2, 0, 524299, 2, 0, 655378, 2, 0, 655384, 2, 0, 655385, 2, 0, 655386, 2, 0, 655387, 2, 0, 655388, 2, 0, 655389, 2, 0, 655390, 2, 0, 655391, 2, 0, 720926, 2, 0, 720927, 2, 0, 720928, 2, 0, 720929, 2, 0, 720925, 2, 0, 786466, 2, 0, 524297, 2, 0, 655377, 2, 0, 589853, 2, 0, 524317, 2, 0, 524318, 2, 0, 524319, 2, 0, 589855, 2, 0, 589854, 2, 0, 589852, 2, 0, 589851, 2, 0, 524315, 2, 0, 524316, 2, 0, 524314, 2, 0, 524313, 2, 0, 589850, 2, 0, 589849, 2, 0, 589848, 2, 0, 589847, 2, 0, 589846, 2, 0, 589845, 2, 0, 589844, 2, 0, 589843, 2, 0, 524307, 2, 0, 524306, 2, 0, 524305, 2, 0, 524308, 2, 0, 524309, 2, 0, 524310, 2, 0, 524311, 2, 0, 524312, 2, 0, 458770, 2, 0, 458769, 2, 0, 458768, 2, 0, 458767, 2, 0, 458766, 2, 0, 458765, 2, 0, 458764, 2, 0, 458763, 2, 0, 458762, 2, 0, 458761, 2, 0, 393226, 2, 0, 393227, 2, 0, 393228, 2, 0, 393229, 2, 0, 393230, 2, 0, 393231, 2, 0, 393232, 2, 0, 458780, 2, 0, 458779, 2, 0, 458778, 2, 0, 458777, 2, 0, 458776, 2, 0, 458775, 2, 0, 458774, 2, 0, 458773, 2, 0, 655392, 2, 0, 655393, 2, 0, 655394, 2, 0, 720930, 2, 0, 720931, 2, 0, 786467, 2, 0, 917534, 2, 0, 917533, 2, 0, 917532, 2, 0, 917531, 2, 0, 917530, 2, 0, 917529, 2, 0, 917528, 2, 0, 917527, 2, 0, 917526, 2, 0, 917525, 2, 0, 917524, 2, 0, 917523, 2, 0, 917522, 2, 0, 917521, 2, 0, 983057, 2, 0, 983058, 2, 0, 983059, 2, 0, 983060, 2, 0, 983061, 2, 0, 983062, 2, 0, 983063, 2, 0, 983064, 2, 0, 983065, 2, 0, 983066, 2, 0, 983067, 2, 0, 917519, 2, 0, 917518, 2, 0, 917520, 2, 0, 851983, 2, 0, 851982, 2, 0, 851981, 2, 0, 786445, 2, 0, 786444, 2, 0, 786443, 2, 0, 786442, 2, 0, 786441, 2, 0, 786440, 2, 0, 851976, 2, 0, 851977, 2, 0, 851978, 2, 0, 851979, 2, 0, 851980, 2, 0, 983070, 2, 0, 983071, 2, 0)
+script = ExtResource("4_i4to2")
 
 [node name="StartPos" type="Node2D" parent="."]
-position = Vector2(241, 188)
+position = Vector2(499, 131)

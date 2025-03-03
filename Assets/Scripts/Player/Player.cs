@@ -17,6 +17,8 @@ public partial class Player : Area2D
 	private Vector2 velocity;
 	private Vector2 facing = new Vector2(0,0);
 	private RayCast2D raycast = null;
+
+	private AudioStreamPlayer2D audioPlayer;
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
@@ -29,6 +31,7 @@ public partial class Player : Area2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+		
 		velocity = Vector2.Zero; // The player's movement vector.
 		if(canMove)
 		{
