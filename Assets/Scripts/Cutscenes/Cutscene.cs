@@ -168,11 +168,11 @@ public partial class Cutscene : Node
 		// set these values in CutsceneCamera.cs
 		if(focusActor != null)
 		{
-			cameraScript.SetUp(zoom, cameraOffset, cameraPosition, new KeyValuePair<int,Node>(focus, focusActor));
+			cameraScript.SetUp(zoom, cameraOffset, cameraPosition, actors, new KeyValuePair<int,Node>(focus, focusActor));
 		}
 		else
 		{
-			cameraScript.SetUp(zoom, cameraOffset, cameraPosition);
+			cameraScript.SetUp(zoom, cameraOffset, cameraPosition, actors);
 		}
 
 

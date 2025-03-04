@@ -9,6 +9,8 @@ public partial class CutsceneCamera : Camera2D
 	private KeyValuePair<int, Node> currentFocus = new KeyValuePair<int, Node>(); // <ActorID, Node>
 	private KeyValuePair<int, Node> prevFocus = new KeyValuePair<int, Node>();
 
+	private List<CutsceneActor> actors;
+
 	bool continuous = false;
 
 	[Export]
@@ -22,10 +24,11 @@ public partial class CutsceneCamera : Camera2D
 	{
 	}
 
-	public void SetUp(float zoom, Vector2 offset, Vector2 position, KeyValuePair<int, Node> focus = default(KeyValuePair<int,Node>))
+	public void SetUp(float zoom, Vector2 offset, Vector2 position, List<CutsceneActor> actors, KeyValuePair<int, Node> focus = default(KeyValuePair<int,Node>))
 	{
 		Zoom = new Vector2(zoom, zoom);
 		Offset = offset;
+		this.actors = actors;
 
 		// set position, if it was specified
 		if(position.Length() > 0)
@@ -47,7 +50,7 @@ public partial class CutsceneCamera : Camera2D
 			// parent/actors/actor (so we need the grandparent)
 			Reparent(currentFocus.Value.GetParent().GetParent(), true);
 		}
-		//TODO: make sure this works
+		//reparent to someone else
 		else if(newFocus.Key != -1)
 		{
 			prevFocus = currentFocus;
@@ -59,20 +62,31 @@ public partial class CutsceneCamera : Camera2D
 
 	public void Pan(float length, float[] newPosition, int focus)
 	{
-		parameters = new object[]{ newPosition[0], newPosition[1], GlobalPosition.X, GlobalPosition.Y};
 		if(focus == -1)
-		{
+		{	
+			//when we have no parent we want to use globalposition (since it should be the same as position)	
+			parameters = new object[]{ newPosition[0], newPosition[1], GlobalPosition.X, GlobalPosition.Y};
+
 			ChangeFocus(new KeyValuePair<int, Node>(-1, null));
 		}	
 		else
 		{
-			throw new NotImplementedException("Moving the camera and changing focus is not yet implemented (CutsceneCamera.cs)");
+
+			if(focus < actors.Count)
+				ChangeFocus(new KeyValuePair<int, Node>(focus, actors[focus]));		
+			else
+				throw new IndexOutOfRangeException("CutsceneCamera.cs: Actors List does not contain index " + focus);
+
+			// we want to use the starting position as the one after the change
+			parameters = new object[]{ newPosition[0], newPosition[1], Position.X, Position.Y};
+
 		}
 
-		timer.Start(length);
 		m = Pan;
 		continuous = true;
-		
+		timer.Start(length);
+		timer.OneShot = true;
+
 	}
 
 	// { new pos[0], new pos [1], starting pos [0], starting pos [1]}
@@ -89,7 +103,7 @@ public partial class CutsceneCamera : Camera2D
 
 			float progressX = progress*amount[0];
 			float progressY = progress*amount[1];
-			GlobalPosition = new Vector2(oldPos[0]+ progressX, oldPos[1] + progressY);
+			Position = new Vector2(oldPos[0]+ progressX, oldPos[1] + progressY);
 
 		}
 		else
