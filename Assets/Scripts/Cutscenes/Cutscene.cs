@@ -214,8 +214,7 @@ public partial class Cutscene : Node
 			// camera
 			else if(type == "Camera")
 			{
-				throw new NotImplementedException("Write a function to DecodeCamera, and place it into Step.");
-
+				DecodeCameraStep(step);
 			}
 			// dialogue
 			else
@@ -237,7 +236,15 @@ public partial class Cutscene : Node
 		Action newAction = new Action(actors[actorIndex], func, jsonParams, length, timer);
 		cutsceneSteps.Add(newAction);
 	}
+	private void DecodeCameraStep(JsonNode camera)
+	{
+		string action = (string)camera["Action"];
+		float length = (float)camera["Length"];
+		JsonNode param = camera["Parameters"];
 
+		CameraStep cameraStep = new CameraStep(cameraScript, action, length, timer, param);
+		cutsceneSteps.Add(cameraStep);
+	}
 	private void DecodeDialogue(JsonNode dialogue)
 	{
 		JsonArray name = dialogue["Name"].AsArray();
@@ -335,19 +342,25 @@ public partial class Cutscene : Node
 		CutsceneCamera Camera { get; set;}
 		Timer timer {get; set;}
 
-		String CameraAction {get; set;}
-		public CameraStep(CutsceneCamera camera, float length, Timer timer) 
+		string CameraAction {get; set;}
+
+		JsonNode Parameters {get; set;}
+		public CameraStep(CutsceneCamera camera, string action, float length, Timer timer, JsonNode param) 
 		{
 			Camera = camera;
+			CameraAction = action;
 			Length = length;
 			this.timer = timer;
+			Parameters = param;
 		}
 		private void DecodeAction()
 		{
 			if(CameraAction == "Pan")
 			{
 				// call CutsceneCamera function
-				Camera.Pan();
+				int focus = (int)Parameters["Focus"];
+				float[] coords = new float[]{(float)Parameters["Coords"].AsArray()[0],(float)Parameters["Coords"].AsArray()[1]};
+				Camera.Pan(Length, coords, focus);
 			}
 			else if(CameraAction == "Zoom")
 			{
@@ -356,7 +369,7 @@ public partial class Cutscene : Node
 			}
 			else if(CameraAction == "ChangeFocus")
 			{
-				throw new NotImplementedException();
+				throw new NotImplementedException("Camera Action ChangeFocus is not yet implemented.");
 
 			}
 			else

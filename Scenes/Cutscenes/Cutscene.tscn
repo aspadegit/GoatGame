@@ -19,8 +19,9 @@ camera = NodePath("Camera")
 
 [node name="Actors" type="Node2D" parent="."]
 
-[node name="Camera" type="Camera2D" parent="."]
+[node name="Camera" type="Camera2D" parent="." node_paths=PackedStringArray("timer")]
 script = ExtResource("4_33hoa")
+timer = NodePath("../Timer")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -43,6 +44,7 @@ one_shot = true
 [connection signal="NextStepDialogue" from="." to="CanvasLayer/UI/DialogueBox" method="ManualSetup"]
 [connection signal="hidden" from="CanvasLayer/UI/DialogueBox" to="." method="NextStep"]
 [connection signal="timeout" from="Timer" to="." method="TimerTimeout"]
+[connection signal="timeout" from="Timer" to="Camera" method="OnTimeout"]
 [connection signal="timeout" from="DialogueBuffer" to="." method="DialogueBufferTimeout"]
 
 [editable path="CanvasLayer/UI"]

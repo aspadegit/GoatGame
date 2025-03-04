@@ -88,8 +88,11 @@
         {
             "Type": "Camera",
             "Action": "Pan",
-            "Focus": -1,
-            "Position": [500, 130]
+            "Parameters": {
+                "Focus": -1,
+                "Coords": [500, 130]
+            },
+            "Length": 2.5
         },
         {
             "Type": "Dialogue",

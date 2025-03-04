@@ -9,6 +9,15 @@ public partial class CutsceneCamera : Camera2D
 	private KeyValuePair<int, Node> currentFocus = new KeyValuePair<int, Node>(); // <ActorID, Node>
 	private KeyValuePair<int, Node> prevFocus = new KeyValuePair<int, Node>();
 
+	bool continuous = false;
+
+	[Export]
+	 Timer timer;
+
+	delegate void CurrentMethod(object[] parameters);
+	CurrentMethod m;
+	object[] parameters;
+
 	public override void _Ready()
 	{
 	}
@@ -32,19 +41,71 @@ public partial class CutsceneCamera : Camera2D
 
 	private void ChangeFocus(KeyValuePair<int, Node> newFocus)
 	{
-		prevFocus = currentFocus;
-		currentFocus = newFocus;
+		//focus on nothing
+		if(newFocus.Key == -1 && currentFocus.Key != -1)
+		{
+			// parent/actors/actor (so we need the grandparent)
+			Reparent(currentFocus.Value.GetParent().GetParent(), true);
+		}
+		//TODO: make sure this works
+		else if(newFocus.Key != -1)
+		{
+			prevFocus = currentFocus;
+			currentFocus = newFocus;
+			Reparent(newFocus.Value, true);
+		}
+		
 	}
 
-	public void Pan()
+	public void Pan(float length, float[] newPosition, int focus)
 	{
-		throw new NotImplementedException();
+		parameters = new object[]{ newPosition[0], newPosition[1], GlobalPosition.X, GlobalPosition.Y};
+		if(focus == -1)
+		{
+			ChangeFocus(new KeyValuePair<int, Node>(-1, null));
+		}	
+		else
+		{
+			throw new NotImplementedException("Moving the camera and changing focus is not yet implemented (CutsceneCamera.cs)");
+		}
 
+		timer.Start(length);
+		m = Pan;
+		continuous = true;
+		
+	}
+
+	// { new pos[0], new pos [1], starting pos [0], starting pos [1]}
+	private void Pan(object[] parameters)
+	{
+		if(timer.TimeLeft > 0)
+		{
+			float progress = (float)(1.0 - (timer.TimeLeft / timer.WaitTime));
+
+			float[] newPos = new float[]{(float)parameters[0], (float)parameters[1]};
+			float[] oldPos = new float[]{(float)parameters[2], (float)parameters[3]};
+
+			float[] amount = new float[]{newPos[0]-oldPos[0], newPos[1]-oldPos[1]};
+
+			float progressX = progress*amount[0];
+			float progressY = progress*amount[1];
+			GlobalPosition = new Vector2(oldPos[0]+ progressX, oldPos[1] + progressY);
+
+		}
+		else
+		{
+			continuous = false;
+		}
+	}
+
+	public void OnTimeout()
+	{
+		continuous = false;
 	}
 
 	public void ChangeZoom()
 	{
-		throw new NotImplementedException();
+		throw new NotImplementedException("Function ChangeZoom in CutsceneCamera.cs is not yet implemented.");
 
 	}
 
@@ -52,5 +113,9 @@ public partial class CutsceneCamera : Camera2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+		if(continuous)
+		{
+			m.Invoke(parameters);
+		}
 	}
 }
