@@ -109,6 +109,11 @@
                 "Coords": [0, 0]
             },
             "Length": 1.5
+        },
+        {
+            "Type": "Dialogue",
+            "Name": ["Cabrallero"],
+            "Text": ["Got it. I'll mosey on over there."]
         }
 
     ]

@@ -26,6 +26,10 @@ public partial class Cutscene : Node
 
 	[Export]
 	public Camera2D camera;
+
+	[Export]
+	public FadePanel fadePanel;
+
 	private CutsceneCamera cameraScript;
 
 	[Signal]
@@ -53,7 +57,6 @@ public partial class Cutscene : Node
 	public override void _Ready()
 	{
 		cameraScript = GetNode<CutsceneCamera>("Camera");
-
 		//TODO: set location
 		try
 		{
@@ -69,6 +72,7 @@ public partial class Cutscene : Node
 		}
 
 	}
+
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
@@ -260,8 +264,6 @@ public partial class Cutscene : Node
 		cutsceneSteps[0].Play();
 
 	}
-
-
 	
 	// when the timer runs out
 	public void TimerTimeout()
@@ -285,8 +287,7 @@ public partial class Cutscene : Node
 
 	private void EndCutscene()
 	{
-		CleanUpActors();
-
+		fadePanel.Fade(FadePanel.FadeType.FADE_OUT);
 		currentStep = 0;
 		//TODO: other stuff
 	}
@@ -301,7 +302,13 @@ public partial class Cutscene : Node
 		
 		actors.Clear();
 	}
+	void EndFade()
+	{
 
+		CleanUpActors();
+		// transition back to original scene
+		
+	}
 
 	public abstract class Step {
 		public float Length {get; set;}

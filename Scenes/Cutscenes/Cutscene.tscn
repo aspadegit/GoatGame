@@ -1,12 +1,15 @@
-[gd_scene load_steps=6 format=3 uid="uid://b6ml52c0atpf8"]
+[gd_scene load_steps=8 format=3 uid="uid://b6ml52c0atpf8"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/Cutscenes/Cutscene.cs" id="1_cy1ej"]
 [ext_resource type="PackedScene" uid="uid://6aur3si7m3go" path="res://Scenes/Cutscenes/Location.tscn" id="2_iqye2"]
 [ext_resource type="PackedScene" uid="uid://dkjdb462etlux" path="res://Scenes/Cutscenes/CutsceneActor.tscn" id="3_j30i8"]
 [ext_resource type="Script" path="res://Assets/Scripts/Cutscenes/CutsceneCamera.cs" id="4_33hoa"]
 [ext_resource type="PackedScene" uid="uid://hfsc17wxuyoa" path="res://Scenes/UI/UI.tscn" id="4_mbi7o"]
+[ext_resource type="Script" path="res://Assets/Scripts/UI/FadePanel.cs" id="5_yelfo"]
 
-[node name="Cutscene" type="Node" node_paths=PackedStringArray("actorParent", "timer", "dialogueBuffer", "camera")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k2ntr"]
+
+[node name="Cutscene" type="Node" node_paths=PackedStringArray("actorParent", "timer", "dialogueBuffer", "camera", "fadePanel")]
 script = ExtResource("1_cy1ej")
 cutsceneJsonPath = "beginning_tutorial.json"
 actorParent = NodePath("Actors")
@@ -14,6 +17,7 @@ cutsceneActorScene = ExtResource("3_j30i8")
 timer = NodePath("Timer")
 dialogueBuffer = NodePath("DialogueBuffer")
 camera = NodePath("Camera")
+fadePanel = NodePath("CanvasLayer/FadePanel")
 
 [node name="Location" parent="." instance=ExtResource("2_iqye2")]
 
@@ -27,6 +31,18 @@ timer = NodePath("CameraTimer")
 one_shot = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="FadePanel" type="Panel" parent="CanvasLayer"]
+modulate = Color(0, 0, 0, 0)
+self_modulate = Color(0, 0, 0, 1)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_k2ntr")
+script = ExtResource("5_yelfo")
 
 [node name="UI" parent="CanvasLayer" instance=ExtResource("4_mbi7o")]
 offset_left = 2.0
@@ -46,6 +62,7 @@ one_shot = true
 
 [connection signal="NextStepDialogue" from="." to="CanvasLayer/UI/DialogueBox" method="ManualSetup"]
 [connection signal="timeout" from="Camera/CameraTimer" to="Camera" method="OnTimeout"]
+[connection signal="FinishFade" from="CanvasLayer/FadePanel" to="." method="EndFade"]
 [connection signal="hidden" from="CanvasLayer/UI/DialogueBox" to="." method="NextStep"]
 [connection signal="timeout" from="Timer" to="." method="TimerTimeout"]
 [connection signal="timeout" from="DialogueBuffer" to="." method="DialogueBufferTimeout"]
