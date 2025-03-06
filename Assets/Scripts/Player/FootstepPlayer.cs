@@ -22,13 +22,16 @@ public partial class FootstepPlayer : AudioStreamPlayer2D
 	private float additionalPitchModulator = 1.0f;
 
 	const int GROUND_LAYER = 0;
+	const float DEFAULT_DB = -6;
 
 	public override void _Ready()
 	{
 		activeStream = grass;
 		SignalHandler.Instance.Connect(SignalHandler.SignalName.AnnounceTilemap, Callable.From((TileMap t)=> SetTileMap(t)), (uint)ConnectFlags.Deferred);
-
+		SetVolume();
 	}
+
+
 
 	private void SetTileMap(TileMap t)
 	{
@@ -85,9 +88,16 @@ public partial class FootstepPlayer : AudioStreamPlayer2D
 		Stream = activeStream[index];
 		PitchScale = randPitch * additionalPitchModulator;
 
-		//volume adjustments
-		VolumeDb = VolumeDb * GlobalVars.settings.effectsVolume * GlobalVars.settings.masterVolume;
+		SetVolume();
 		Play();
+		
+	}
+
+	private void SetVolume()
+	{
+		
+		float percentToDecibel = 10 * (float)Math.Log10(GlobalVars.settings.effectsVolume * GlobalVars.settings.masterVolume);
+		VolumeDb = DEFAULT_DB + percentToDecibel;	//percentToDecibel is the CHANGE from the default
 		
 	}
 	

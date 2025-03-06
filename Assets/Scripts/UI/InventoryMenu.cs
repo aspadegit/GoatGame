@@ -25,7 +25,7 @@ public partial class InventoryMenu : Control
     public override void _Process(double delta)
 	{
 		//TODO: pause & unpause
-		if(Input.IsActionJustPressed("escape"))
+		if(Input.IsActionJustPressed("inventory"))
 		{
 			if(canShowMenu && !IsVisibleInTree())
 			{
