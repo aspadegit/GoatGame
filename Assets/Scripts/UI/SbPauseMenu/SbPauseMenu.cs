@@ -19,7 +19,9 @@ public partial class SbPauseMenu : Control
 	public override void _Ready()
 	{
 		pageStack = new Stack<Control>();
+		pageStack.Push(mainPage);
 		SignalHandler.Instance.Connect(SignalHandler.SignalName.TogglePlayerMovement, Callable.From((bool toggle)=> OnToggleMovement(toggle)), (uint)ConnectFlags.Deferred);
+		SetupButtons();
 	}
 	
 	void OnToggleMovement(bool toggle)
@@ -68,12 +70,14 @@ public partial class SbPauseMenu : Control
 		}
 		else
 		{
+			
 			// remove the current page from top of stack
 			Control current = pageStack.Pop();
 
 			//show the previous page
 			pageStack.Peek().Show();
 			current.Hide();
+
 		}
 		
 	}
@@ -81,8 +85,6 @@ public partial class SbPauseMenu : Control
 	private void ShowMenu()
 	{
 		Show();
-		SetupButtons();
-		pageStack.Push(mainPage);
 	}
 
 	private void SetupButtons()
@@ -114,6 +116,7 @@ public partial class SbPauseMenu : Control
 
 		//show the main page
 		mainPage.Show();
+		pageStack.Push(mainPage);
 
 		// let player move again
 		SignalHandler.Instance.EmitSignal(SignalHandler.SignalName.TogglePlayerMovement, true);
