@@ -27,6 +27,7 @@
             "Parameters": [100, 0],
             "Length": 2.5
         },
+    
         {
             "Type": "Dialogue",
             "Name": ["NPC"],
@@ -88,14 +89,33 @@
         {
             "Type": "Camera",
             "Action": "Pan",
-            "Focus": -1,
-            "Position": [500, 130]
+            "Parameters": {
+                "Focus": -1,
+                "Coords": [500, 130]
+            },
+            "Length": 1.5
         },
         {
             "Type": "Dialogue",
             "Name": ["NPC"],
             "Text": ["That goat over there is NPC 2. I've told him about the situation."]
+        },
+        
+        {
+            "Type": "Camera",
+            "Action": "Pan",
+            "Parameters": {
+                "Focus": 0,
+                "Coords": [0, 0]
+            },
+            "Length": 1.5
+        },
+        {
+            "Type": "Dialogue",
+            "Name": ["Cabrallero"],
+            "Text": ["Got it. I'll mosey on over there."]
         }
+
     ]
     
 }

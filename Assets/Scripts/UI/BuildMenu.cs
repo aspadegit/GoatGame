@@ -37,6 +37,7 @@ public partial class BuildMenu : Control
 	private void OnShowBuildMenu()
 	{
 		Show();
+		SignalHandler.Instance.EmitSignal(SignalHandler.SignalName.TogglePlayerMovement, false);
 
 		//TODO: hasChanged always true
 		if(hasChanged)
@@ -50,6 +51,8 @@ public partial class BuildMenu : Control
 
 	private void HideAndReset()
 	{
+		SignalHandler.Instance.EmitSignal(SignalHandler.SignalName.TogglePlayerMovement, true);
+
 		Hide();
 		//TODO: track changes. revert the changes on cancel
 		//TODO: add "save and close" but not confirm button

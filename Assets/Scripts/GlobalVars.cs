@@ -11,6 +11,9 @@ public partial class GlobalVars : Node
 	//should probably only be loaded on scenes where the goat menu could show up
 	//TODO: thoughts: json stores the goat ideas, THIS stores which ones you have
 
+	// ========================= SETTINGS ===========================================
+	public static Settings settings = new Settings();
+
 	// ========================= DATA DICTIONARIES ================================
 	public static Dictionary<int, Goat> goats; // ID, Goat
 	public static Dictionary<string, Material> materials;

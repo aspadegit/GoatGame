@@ -137,6 +137,7 @@ public partial class CutsceneActor : Node2D
 	{
 		//NOTE: will need a second timer for 2 actions on the same actor
 		timer.Start(actionLength);
+		timer.OneShot = true;
 		continuousAction = true;
 
 		currentMethodParams = new object[] {x, y, Position.X, Position.Y};
@@ -165,6 +166,7 @@ public partial class CutsceneActor : Node2D
 
 	public void TimerTimeout()
 	{
+		timer.Stop();
 		if(shouldStopAnim)
 		{
 			sprite.Animation = "default";

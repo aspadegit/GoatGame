@@ -26,6 +26,10 @@ public partial class Cutscene : Node
 
 	[Export]
 	public Camera2D camera;
+
+	[Export]
+	public FadePanel fadePanel;
+
 	private CutsceneCamera cameraScript;
 
 	[Signal]
@@ -53,7 +57,6 @@ public partial class Cutscene : Node
 	public override void _Ready()
 	{
 		cameraScript = GetNode<CutsceneCamera>("Camera");
-
 		//TODO: set location
 		try
 		{
@@ -69,6 +72,7 @@ public partial class Cutscene : Node
 		}
 
 	}
+
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
@@ -168,11 +172,11 @@ public partial class Cutscene : Node
 		// set these values in CutsceneCamera.cs
 		if(focusActor != null)
 		{
-			cameraScript.SetUp(zoom, cameraOffset, cameraPosition, new KeyValuePair<int,Node>(focus, focusActor));
+			cameraScript.SetUp(zoom, cameraOffset, cameraPosition, actors, new KeyValuePair<int,Node>(focus, focusActor));
 		}
 		else
 		{
-			cameraScript.SetUp(zoom, cameraOffset, cameraPosition);
+			cameraScript.SetUp(zoom, cameraOffset, cameraPosition, actors);
 		}
 
 
@@ -214,8 +218,7 @@ public partial class Cutscene : Node
 			// camera
 			else if(type == "Camera")
 			{
-				throw new NotImplementedException("Write a function to DecodeCamera, and place it into Step.");
-
+				DecodeCameraStep(step);
 			}
 			// dialogue
 			else
@@ -237,7 +240,15 @@ public partial class Cutscene : Node
 		Action newAction = new Action(actors[actorIndex], func, jsonParams, length, timer);
 		cutsceneSteps.Add(newAction);
 	}
+	private void DecodeCameraStep(JsonNode camera)
+	{
+		string action = (string)camera["Action"];
+		float length = (float)camera["Length"];
+		JsonNode param = camera["Parameters"];
 
+		CameraStep cameraStep = new CameraStep(cameraScript, action, length, timer, param);
+		cutsceneSteps.Add(cameraStep);
+	}
 	private void DecodeDialogue(JsonNode dialogue)
 	{
 		JsonArray name = dialogue["Name"].AsArray();
@@ -253,8 +264,6 @@ public partial class Cutscene : Node
 		cutsceneSteps[0].Play();
 
 	}
-
-
 	
 	// when the timer runs out
 	public void TimerTimeout()
@@ -278,8 +287,7 @@ public partial class Cutscene : Node
 
 	private void EndCutscene()
 	{
-		CleanUpActors();
-
+		fadePanel.Fade(FadePanel.FadeType.FADE_OUT);
 		currentStep = 0;
 		//TODO: other stuff
 	}
@@ -294,7 +302,13 @@ public partial class Cutscene : Node
 		
 		actors.Clear();
 	}
+	void EndFade()
+	{
 
+		CleanUpActors();
+		// transition back to original scene
+		
+	}
 
 	public abstract class Step {
 		public float Length {get; set;}
@@ -335,19 +349,25 @@ public partial class Cutscene : Node
 		CutsceneCamera Camera { get; set;}
 		Timer timer {get; set;}
 
-		String CameraAction {get; set;}
-		public CameraStep(CutsceneCamera camera, float length, Timer timer) 
+		string CameraAction {get; set;}
+
+		JsonNode Parameters {get; set;}
+		public CameraStep(CutsceneCamera camera, string action, float length, Timer timer, JsonNode param) 
 		{
 			Camera = camera;
+			CameraAction = action;
 			Length = length;
 			this.timer = timer;
+			Parameters = param;
 		}
 		private void DecodeAction()
 		{
 			if(CameraAction == "Pan")
 			{
 				// call CutsceneCamera function
-				Camera.Pan();
+				int focus = (int)Parameters["Focus"];
+				float[] coords = new float[]{(float)Parameters["Coords"].AsArray()[0],(float)Parameters["Coords"].AsArray()[1]};
+				Camera.Pan(Length, coords, focus);
 			}
 			else if(CameraAction == "Zoom")
 			{
@@ -356,7 +376,7 @@ public partial class Cutscene : Node
 			}
 			else if(CameraAction == "ChangeFocus")
 			{
-				throw new NotImplementedException();
+				throw new NotImplementedException("Camera Action ChangeFocus is not yet implemented.");
 
 			}
 			else

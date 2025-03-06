@@ -27,13 +27,15 @@ public partial class TextBox : MarginContainer
 	string[] name;
 	bool canProgress = true;
 
+	bool shouldLetPlayerMove = false;
+
 	public override void _Ready()
 	{
 		SignalHandler.Instance.Connect(SignalHandler.SignalName.ShowTextbox, Callable.From((string text)=> OnTextboxShow(text)), (uint)ConnectFlags.Deferred);
 		SignalHandler.Instance.Connect(SignalHandler.SignalName.ContinueTextbox, Callable.From((string[] text)=> OnTextboxContinue(text)), (uint)ConnectFlags.Deferred);
 		
 		parent = GetParent<Control>();
-		
+		shouldLetPlayerMove = false;
 		
 	}
 
@@ -43,6 +45,8 @@ public partial class TextBox : MarginContainer
 		this.text = text;
 		ResetPageVars();
 		keyPress = 2;	// keyPress continues to be kinda bad. months later. lol
+		SignalHandler.Instance.EmitSignal(SignalHandler.SignalName.TogglePlayerMovement, false);
+		shouldLetPlayerMove = false;
 		Show();
 	}
 
@@ -80,6 +84,8 @@ public partial class TextBox : MarginContainer
 	private void HideAndReset()
 	{
 		//TODO: emit allow player mvmt (consider how this will affect cutscenes)
+		if(shouldLetPlayerMove)
+			SignalHandler.Instance.EmitSignal(SignalHandler.SignalName.TogglePlayerMovement, true);
 		parent.MouseFilter = MouseFilterEnum.Pass;	//allow clicks anywhere else
 		Hide();
 		keyPress = 0;
@@ -137,7 +143,8 @@ public partial class TextBox : MarginContainer
 		//only show if it's not already shown
 		if(!IsVisibleInTree())
 		{
-			//TODO: emit pause player
+			SignalHandler.Instance.EmitSignal(SignalHandler.SignalName.TogglePlayerMovement, false);
+			shouldLetPlayerMove = false;
 			loadDialogue(dialoguePath);
 			parent.MouseFilter = MouseFilterEnum.Stop;	//prevent clicks anywhere else
 			Show();
@@ -155,6 +162,8 @@ public partial class TextBox : MarginContainer
 
 	private bool OnTextboxContinue(string[] newText)
 	{
+		shouldLetPlayerMove = true;
+
 		if(newText == null || newText.Length < 1)
 		{
 			GD.PrintErr("Emitted text via ContinueTextbox that was was empty or null!");

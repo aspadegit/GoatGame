@@ -42,5 +42,6 @@ timer = NodePath("Timer")
 sprite_frames = SubResource("SpriteFrames_ta6ka")
 
 [node name="Timer" type="Timer" parent="."]
+one_shot = true
 
 [connection signal="timeout" from="Timer" to="." method="TimerTimeout"]

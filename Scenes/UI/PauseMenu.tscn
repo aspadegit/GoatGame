@@ -1,15 +1,23 @@
-[gd_scene load_steps=3 format=3 uid="uid://dro2kfiaevrms"]
+[gd_scene load_steps=7 format=3 uid="uid://dro2kfiaevrms"]
 
+[ext_resource type="Script" path="res://Assets/Scripts/UI/SbPauseMenu/SbPauseMenu.cs" id="1_iixxk"]
 [ext_resource type="Theme" uid="uid://cvjlrwyqj6u1w" path="res://Assets/Themes/PanelTheme.tres" id="1_uis1y"]
 [ext_resource type="Theme" uid="uid://cjxixwomxbsma" path="res://Assets/Themes/RowButtonTheme.tres" id="2_vo6ul"]
+[ext_resource type="Script" path="res://Assets/Scripts/UI/SbPauseMenu/SbPauseMenuMain.cs" id="4_gj45h"]
+[ext_resource type="PackedScene" uid="uid://cdbckjx8vwrju" path="res://Scenes/UI/FocusGrabber.tscn" id="5_2c5rv"]
+[ext_resource type="Script" path="res://Assets/Scripts/UI/SbPauseMenu/SbPauseMenuSettings.cs" id="6_ieka5"]
 
-[node name="PauseMenu" type="Control"]
+[node name="PauseMenu" type="Control" node_paths=PackedStringArray("pageParent", "mainPage", "buttonParent")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_iixxk")
+pageParent = NodePath("MainMargin/Background")
+mainPage = NodePath("MainMargin/Background/MainScreenVBox")
+buttonParent = NodePath("MainMargin/Background/MainScreenVBox/ButtonParent")
 
 [node name="MainMargin" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -36,6 +44,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_vo6ul")
 theme_override_constants/separation = 20
+script = ExtResource("4_gj45h")
 
 [node name="PausedLabelMargin" type="MarginContainer" parent="MainMargin/Background/MainScreenVBox"]
 custom_minimum_size = Vector2(0, 80)
@@ -50,57 +59,77 @@ text = "PAUSED"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ResumeMargin" type="MarginContainer" parent="MainMargin/Background/MainScreenVBox"]
+[node name="ButtonParent" type="VBoxContainer" parent="MainMargin/Background/MainScreenVBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 20
+
+[node name="ResumeMargin" type="MarginContainer" parent="MainMargin/Background/MainScreenVBox/ButtonParent"]
 layout_mode = 2
 theme_override_constants/margin_left = 200
 theme_override_constants/margin_right = 200
+metadata/opensMenu = false
 
-[node name="Button" type="Button" parent="MainMargin/Background/MainScreenVBox/ResumeMargin"]
+[node name="Button" type="Button" parent="MainMargin/Background/MainScreenVBox/ButtonParent/ResumeMargin"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 text = "Resume"
 
-[node name="SaveMargin" type="MarginContainer" parent="MainMargin/Background/MainScreenVBox"]
+[node name="FocusGrabber" parent="MainMargin/Background/MainScreenVBox/ButtonParent/ResumeMargin/Button" node_paths=PackedStringArray("visibilityWatch") instance=ExtResource("5_2c5rv")]
+layout_mode = 2
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_right = 280.0
+offset_bottom = 50.0
+visibilityWatch = NodePath("../../../..")
+
+[node name="SaveMargin" type="MarginContainer" parent="MainMargin/Background/MainScreenVBox/ButtonParent"]
 layout_mode = 2
 theme_override_constants/margin_left = 200
 theme_override_constants/margin_right = 200
+metadata/opensMenu = true
 
-[node name="Button" type="Button" parent="MainMargin/Background/MainScreenVBox/SaveMargin"]
+[node name="Button" type="Button" parent="MainMargin/Background/MainScreenVBox/ButtonParent/SaveMargin"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 text = "Save"
 
-[node name="LoadMargin" type="MarginContainer" parent="MainMargin/Background/MainScreenVBox"]
+[node name="LoadMargin" type="MarginContainer" parent="MainMargin/Background/MainScreenVBox/ButtonParent"]
 layout_mode = 2
 theme_override_constants/margin_left = 200
 theme_override_constants/margin_right = 200
+metadata/opensMenu = true
 
-[node name="Button" type="Button" parent="MainMargin/Background/MainScreenVBox/LoadMargin"]
+[node name="Button" type="Button" parent="MainMargin/Background/MainScreenVBox/ButtonParent/LoadMargin"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 text = "Load"
 
-[node name="SettingsMargin" type="MarginContainer" parent="MainMargin/Background/MainScreenVBox"]
+[node name="SettingsMargin" type="MarginContainer" parent="MainMargin/Background/MainScreenVBox/ButtonParent"]
 layout_mode = 2
 theme_override_constants/margin_left = 200
 theme_override_constants/margin_right = 200
+metadata/opensMenu = true
 
-[node name="Button" type="Button" parent="MainMargin/Background/MainScreenVBox/SettingsMargin"]
+[node name="Button" type="Button" parent="MainMargin/Background/MainScreenVBox/ButtonParent/SettingsMargin"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 text = "Settings"
+metadata/newMenu = NodePath("../../../../SettingsMargin")
 
-[node name="TitleMargin" type="MarginContainer" parent="MainMargin/Background/MainScreenVBox"]
+[node name="TitleMargin" type="MarginContainer" parent="MainMargin/Background/MainScreenVBox/ButtonParent"]
 layout_mode = 2
 theme_override_constants/margin_left = 200
 theme_override_constants/margin_right = 200
+metadata/opensMenu = false
 
-[node name="Button" type="Button" parent="MainMargin/Background/MainScreenVBox/TitleMargin"]
+[node name="Button" type="Button" parent="MainMargin/Background/MainScreenVBox/ButtonParent/TitleMargin"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 text = "Return to Title"
 
-[node name="SettingsVBox" type="VBoxContainer" parent="MainMargin/Background"]
+[node name="SettingsMargin" type="MarginContainer" parent="MainMargin/Background" node_paths=PackedStringArray("masterSlider", "effectsSlider")]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -108,15 +137,22 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_bottom = 50
+script = ExtResource("6_ieka5")
+masterSlider = NodePath("SettingsVBox/ScrollMargin/ScrollContainer/ScrollVBox/MasterVolumeMargin/HBoxContainer/MasterVolumeSlider")
+effectsSlider = NodePath("SettingsVBox/ScrollMargin/ScrollContainer/ScrollVBox/SoundFXVolumeMargin/HBoxContainer/SoundFXVolumeSlider")
+
+[node name="SettingsVBox" type="VBoxContainer" parent="MainMargin/Background/SettingsMargin"]
+layout_mode = 2
 theme = ExtResource("2_vo6ul")
 theme_override_constants/separation = 20
 
-[node name="PausedLabelMargin" type="MarginContainer" parent="MainMargin/Background/SettingsVBox"]
+[node name="SettingsLabelMargin" type="MarginContainer" parent="MainMargin/Background/SettingsMargin/SettingsVBox"]
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 theme_override_constants/margin_top = 30
 
-[node name="Label" type="Label" parent="MainMargin/Background/SettingsVBox/PausedLabelMargin"]
+[node name="Label" type="Label" parent="MainMargin/Background/SettingsMargin/SettingsVBox/SettingsLabelMargin"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 48
@@ -124,7 +160,7 @@ text = "SETTINGS"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ScrollMargin" type="MarginContainer" parent="MainMargin/Background/SettingsVBox"]
+[node name="ScrollMargin" type="MarginContainer" parent="MainMargin/Background/SettingsMargin/SettingsVBox"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/margin_left = 20
@@ -132,28 +168,58 @@ theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 
-[node name="ScrollContainer" type="ScrollContainer" parent="MainMargin/Background/SettingsVBox/ScrollMargin"]
+[node name="ScrollContainer" type="ScrollContainer" parent="MainMargin/Background/SettingsMargin/SettingsVBox/ScrollMargin"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="ScrollVBox" type="VBoxContainer" parent="MainMargin/Background/SettingsVBox/ScrollMargin/ScrollContainer"]
+[node name="ScrollVBox" type="VBoxContainer" parent="MainMargin/Background/SettingsMargin/SettingsVBox/ScrollMargin/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="MasterVolumeMargin" type="MarginContainer" parent="MainMargin/Background/SettingsVBox/ScrollMargin/ScrollContainer/ScrollVBox"]
+[node name="MasterVolumeMargin" type="MarginContainer" parent="MainMargin/Background/SettingsMargin/SettingsVBox/ScrollMargin/ScrollContainer/ScrollVBox"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MainMargin/Background/SettingsVBox/ScrollMargin/ScrollContainer/ScrollVBox/MasterVolumeMargin"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MainMargin/Background/SettingsMargin/SettingsVBox/ScrollMargin/ScrollContainer/ScrollVBox/MasterVolumeMargin"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MainMargin/Background/SettingsVBox/ScrollMargin/ScrollContainer/ScrollVBox/MasterVolumeMargin/HBoxContainer"]
+[node name="Label" type="Label" parent="MainMargin/Background/SettingsMargin/SettingsVBox/ScrollMargin/ScrollContainer/ScrollVBox/MasterVolumeMargin/HBoxContainer"]
 layout_mode = 2
 text = "MASTER VOLUME"
 
-[node name="MasterVolumeSlider" type="HSlider" parent="MainMargin/Background/SettingsVBox/ScrollMargin/ScrollContainer/ScrollVBox/MasterVolumeMargin/HBoxContainer"]
+[node name="MasterVolumeSlider" type="HSlider" parent="MainMargin/Background/SettingsMargin/SettingsVBox/ScrollMargin/ScrollContainer/ScrollVBox/MasterVolumeMargin/HBoxContainer"]
+custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 10
+value = 100.0
+
+[node name="SoundFXVolumeMargin" type="MarginContainer" parent="MainMargin/Background/SettingsMargin/SettingsVBox/ScrollMargin/ScrollContainer/ScrollVBox"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MainMargin/Background/SettingsMargin/SettingsVBox/ScrollMargin/ScrollContainer/ScrollVBox/SoundFXVolumeMargin"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MainMargin/Background/SettingsMargin/SettingsVBox/ScrollMargin/ScrollContainer/ScrollVBox/SoundFXVolumeMargin/HBoxContainer"]
+layout_mode = 2
+text = "SOUND EFFECTS"
+
+[node name="SoundFXVolumeSlider" type="HSlider" parent="MainMargin/Background/SettingsMargin/SettingsVBox/ScrollMargin/ScrollContainer/ScrollVBox/SoundFXVolumeMargin/HBoxContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+value = 100.0
+
+[node name="BackBtnMargin" type="MarginContainer" parent="MainMargin/Background/SettingsMargin/SettingsVBox"]
+layout_mode = 2
+theme_override_constants/margin_left = 200
+theme_override_constants/margin_right = 200
+
+[node name="Button" type="Button" parent="MainMargin/Background/SettingsMargin/SettingsVBox/BackBtnMargin"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "Back"
 
 [node name="ConfirmationMargin" type="MarginContainer" parent="."]
 visible = false
@@ -200,3 +266,8 @@ text = "YES"
 custom_minimum_size = Vector2(120, 60)
 layout_mode = 2
 text = "NO"
+
+[connection signal="pressed" from="MainMargin/Background/MainScreenVBox/ButtonParent/ResumeMargin/Button" to="." method="OnResume"]
+[connection signal="value_changed" from="MainMargin/Background/SettingsMargin/SettingsVBox/ScrollMargin/ScrollContainer/ScrollVBox/MasterVolumeMargin/HBoxContainer/MasterVolumeSlider" to="MainMargin/Background/SettingsMargin" method="OnMasterSlider"]
+[connection signal="value_changed" from="MainMargin/Background/SettingsMargin/SettingsVBox/ScrollMargin/ScrollContainer/ScrollVBox/SoundFXVolumeMargin/HBoxContainer/SoundFXVolumeSlider" to="MainMargin/Background/SettingsMargin" method="OnFxSlider"]
+[connection signal="pressed" from="MainMargin/Background/SettingsMargin/SettingsVBox/BackBtnMargin/Button" to="." method="BackPage"]

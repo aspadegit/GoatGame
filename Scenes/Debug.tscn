@@ -8,17 +8,16 @@
 
 [node name="Location" parent="." instance=ExtResource("1_us1kn")]
 
-[node name="NPC" parent="." instance=ExtResource("2_6lhj0")]
-position = Vector2(538, 139)
-dialoguePath = "test.json"
-
-[node name="TutorialNPC" parent="." node_paths=PackedStringArray("ThisCollider") instance=ExtResource("2_6lhj0")]
+[node name="TutorialNPC" parent="." instance=ExtResource("2_6lhj0")]
 position = Vector2(344, 132)
-ThisCollider = NodePath("../NPC")
 
 [node name="Player" parent="." instance=ExtResource("1_a6xr6")]
 position = Vector2(233, 193)
 scale = Vector2(1, 1)
+
+[node name="NPC" parent="." instance=ExtResource("2_6lhj0")]
+position = Vector2(538, 138)
+dialoguePath = "test.json"
 
 [node name="BuildNPC" parent="." instance=ExtResource("2_6lhj0")]
 position = Vector2(713, 138)
