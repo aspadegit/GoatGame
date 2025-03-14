@@ -14,16 +14,12 @@
 position = Vector2(344, 132)
 dialoguePath = "StartingTown/tutorial.json"
 
-[node name="Player" parent="." instance=ExtResource("3_b1gk7")]
-position = Vector2(233, 193)
-scale = Vector2(1, 1)
-
 [node name="Farmer" parent="." instance=ExtResource("2_u4s06")]
 position = Vector2(962, 168)
 scale = Vector2(-1, 1)
 dialoguePath = "StartingTown/farmer.json"
 
-[node name="NPC2" parent="." instance=ExtResource("2_u4s06")]
+[node name="GoatNPC" parent="." instance=ExtResource("2_u4s06")]
 z_index = 2
 position = Vector2(569, 116)
 scale = Vector2(-1, 1)
@@ -33,9 +29,13 @@ dialoguePath = "test.json"
 position = Vector2(713, 138)
 dialoguePath = "buildNPC.json"
 
-[node name="SwitchRoomNPC" parent="." instance=ExtResource("2_u4s06")]
+[node name="RunTDNpc" parent="." instance=ExtResource("2_u4s06")]
 position = Vector2(623, 279)
-dialoguePath = "transitionTD.json"
+dialoguePath = "StartingTown/td.json"
+
+[node name="Player" parent="." instance=ExtResource("3_b1gk7")]
+position = Vector2(233, 193)
+scale = Vector2(1, 1)
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_ntrsb")

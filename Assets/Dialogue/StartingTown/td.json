@@ -1,0 +1,11 @@
+{
+    "Name": ["Helpful NPC 3", "-", "-", "-"],
+    "Text": ["So, you think we're all prepared? We've still got time before they arrive.",
+            "I'd recommend checking up on our stock of towers...I'm sure enemies will arrive the moment we start building defenses.",
+            "Are you sure you want to start the fight early?",
+            "<choice>"
+    ],
+    "SignalName": "ShowYesNo",
+    "SignalParam": ["<emit>ChangeScene</emit>", "Alright. Let me know when you're prepared.", "TowerDefense/TowerScene.tscn"]
+
+}

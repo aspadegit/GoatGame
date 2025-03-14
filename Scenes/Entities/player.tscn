@@ -51,6 +51,7 @@ height = 20.0
 [sub_resource type="AudioStream" id="AudioStream_poacb"]
 
 [node name="Player" type="Area2D"]
+z_index = 2
 scale = Vector2(2, 2)
 script = ExtResource("1_1fbgh")
 metadata/_edit_group_ = true

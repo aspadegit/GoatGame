@@ -28,6 +28,7 @@ public partial class TextBox : MarginContainer
 	bool canProgress = true;
 
 	bool shouldLetPlayerMove = false;
+	bool noChoiceOrEmit = true; // hacking the fact that not having a choice means player can't move when textbox is done
 
 	public override void _Ready()
 	{
@@ -35,7 +36,7 @@ public partial class TextBox : MarginContainer
 		SignalHandler.Instance.Connect(SignalHandler.SignalName.ContinueTextbox, Callable.From((string[] text)=> OnTextboxContinue(text)), (uint)ConnectFlags.Deferred);
 		
 		parent = GetParent<Control>();
-		shouldLetPlayerMove = false;
+
 		
 	}
 
@@ -46,7 +47,7 @@ public partial class TextBox : MarginContainer
 		ResetPageVars();
 		keyPress = 2;	// keyPress continues to be kinda bad. months later. lol
 		SignalHandler.Instance.EmitSignal(SignalHandler.SignalName.TogglePlayerMovement, false);
-		shouldLetPlayerMove = false;
+	
 		Show();
 	}
 
@@ -84,7 +85,7 @@ public partial class TextBox : MarginContainer
 	private void HideAndReset()
 	{
 		//TODO: emit allow player mvmt (consider how this will affect cutscenes)
-		if(shouldLetPlayerMove)
+		if(shouldLetPlayerMove || noChoiceOrEmit)
 			SignalHandler.Instance.EmitSignal(SignalHandler.SignalName.TogglePlayerMovement, true);
 		parent.MouseFilter = MouseFilterEnum.Pass;	//allow clicks anywhere else
 		Hide();
@@ -103,6 +104,8 @@ public partial class TextBox : MarginContainer
 			//EMIT YES NO
 			SignalHandler.Instance.EmitSignal(SignalHandler.SignalName.ShowYesNo, jsonDictionary["SignalParam"]);
 			canProgress = false;
+			noChoiceOrEmit = false;
+
 		}
 		else
 		{
@@ -221,6 +224,8 @@ public partial class TextBox : MarginContainer
 		pagePosition = 0;
 		pageTotal = text.Length;
 		textLabel.Text = text[0];
+		noChoiceOrEmit = true;
+		shouldLetPlayerMove = false;
 
 		//update name
 		if(name.Length > 0)

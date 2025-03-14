@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://dro2kfiaevrms"]
+[gd_scene load_steps=8 format=3 uid="uid://dro2kfiaevrms"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/UI/SbPauseMenu/SbPauseMenu.cs" id="1_iixxk"]
 [ext_resource type="Theme" uid="uid://cvjlrwyqj6u1w" path="res://Assets/Themes/PanelTheme.tres" id="1_uis1y"]
 [ext_resource type="Theme" uid="uid://cjxixwomxbsma" path="res://Assets/Themes/RowButtonTheme.tres" id="2_vo6ul"]
 [ext_resource type="Script" path="res://Assets/Scripts/UI/SbPauseMenu/SbPauseMenuMain.cs" id="4_gj45h"]
 [ext_resource type="PackedScene" uid="uid://cdbckjx8vwrju" path="res://Scenes/UI/FocusGrabber.tscn" id="5_2c5rv"]
+[ext_resource type="PackedScene" uid="uid://bpoh5us2d7gcs" path="res://Scenes/UI/UiSfxPlayer.tscn" id="5_a1mvn"]
 [ext_resource type="Script" path="res://Assets/Scripts/UI/SbPauseMenu/SbPauseMenuSettings.cs" id="6_ieka5"]
 
 [node name="PauseMenu" type="Control" node_paths=PackedStringArray("pageParent", "mainPage", "buttonParent")]
@@ -75,6 +76,9 @@ custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 text = "Resume"
 
+[node name="UiSfxPlayer" parent="MainMargin/Background/MainScreenVBox/ButtonParent/ResumeMargin/Button" instance=ExtResource("5_a1mvn")]
+layout_mode = 1
+
 [node name="FocusGrabber" parent="MainMargin/Background/MainScreenVBox/ButtonParent/ResumeMargin/Button" node_paths=PackedStringArray("visibilityWatch") instance=ExtResource("5_2c5rv")]
 layout_mode = 2
 anchors_preset = 0
@@ -95,6 +99,14 @@ custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 text = "Save"
 
+[node name="UiSfxPlayer" parent="MainMargin/Background/MainScreenVBox/ButtonParent/SaveMargin/Button" instance=ExtResource("5_a1mvn")]
+layout_mode = 2
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_right = 280.0
+offset_bottom = 50.0
+
 [node name="LoadMargin" type="MarginContainer" parent="MainMargin/Background/MainScreenVBox/ButtonParent"]
 layout_mode = 2
 theme_override_constants/margin_left = 200
@@ -105,6 +117,14 @@ metadata/opensMenu = true
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 text = "Load"
+
+[node name="UiSfxPlayer" parent="MainMargin/Background/MainScreenVBox/ButtonParent/LoadMargin/Button" node_paths=PackedStringArray("stream") instance=ExtResource("5_a1mvn")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_right = 280.0
+offset_bottom = 50.0
+stream = NodePath("../../../SaveMargin/Button/UiSfxPlayer/AudioStreamPlayer2D")
 
 [node name="SettingsMargin" type="MarginContainer" parent="MainMargin/Background/MainScreenVBox/ButtonParent"]
 layout_mode = 2
@@ -118,6 +138,14 @@ layout_mode = 2
 text = "Settings"
 metadata/newMenu = NodePath("../../../../SettingsMargin")
 
+[node name="UiSfxPlayer" parent="MainMargin/Background/MainScreenVBox/ButtonParent/SettingsMargin/Button" node_paths=PackedStringArray("stream") instance=ExtResource("5_a1mvn")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_right = 280.0
+offset_bottom = 50.0
+stream = NodePath("../../../SaveMargin/Button/UiSfxPlayer/AudioStreamPlayer2D")
+
 [node name="TitleMargin" type="MarginContainer" parent="MainMargin/Background/MainScreenVBox/ButtonParent"]
 layout_mode = 2
 theme_override_constants/margin_left = 200
@@ -128,6 +156,14 @@ metadata/opensMenu = false
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 text = "Return to Title"
+
+[node name="UiSfxPlayer" parent="MainMargin/Background/MainScreenVBox/ButtonParent/TitleMargin/Button" node_paths=PackedStringArray("stream") instance=ExtResource("5_a1mvn")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_right = 280.0
+offset_bottom = 50.0
+stream = NodePath("../../../SaveMargin/Button/UiSfxPlayer/AudioStreamPlayer2D")
 
 [node name="SettingsMargin" type="MarginContainer" parent="MainMargin/Background" node_paths=PackedStringArray("masterSlider", "effectsSlider", "musicSlider")]
 visible = false
@@ -194,6 +230,19 @@ layout_mode = 2
 size_flags_horizontal = 10
 value = 100.0
 
+[node name="FocusGrabber" parent="MainMargin/Background/SettingsMargin/SettingsVBox/ScrollMargin/ScrollContainer/ScrollVBox/MasterVolumeMargin/HBoxContainer/MasterVolumeSlider" node_paths=PackedStringArray("visibilityWatch") instance=ExtResource("5_2c5rv")]
+layout_mode = 2
+anchors_preset = 0
+visibilityWatch = NodePath("../../../../../../../..")
+
+[node name="UiSfxPlayer" parent="MainMargin/Background/SettingsMargin/SettingsVBox/ScrollMargin/ScrollContainer/ScrollVBox/MasterVolumeMargin/HBoxContainer/MasterVolumeSlider" node_paths=PackedStringArray("stream") instance=ExtResource("5_a1mvn")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_right = 280.0
+offset_bottom = 50.0
+stream = NodePath("../../../../../../../../../MainScreenVBox/ButtonParent/SaveMargin/Button/UiSfxPlayer/AudioStreamPlayer2D")
+
 [node name="SoundFXVolumeMargin" type="MarginContainer" parent="MainMargin/Background/SettingsMargin/SettingsVBox/ScrollMargin/ScrollContainer/ScrollVBox"]
 layout_mode = 2
 
@@ -209,6 +258,14 @@ custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 size_flags_horizontal = 10
 value = 100.0
+
+[node name="UiSfxPlayer" parent="MainMargin/Background/SettingsMargin/SettingsVBox/ScrollMargin/ScrollContainer/ScrollVBox/SoundFXVolumeMargin/HBoxContainer/SoundFXVolumeSlider" node_paths=PackedStringArray("stream") instance=ExtResource("5_a1mvn")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_right = 280.0
+offset_bottom = 50.0
+stream = NodePath("../../../../../../../../../MainScreenVBox/ButtonParent/SaveMargin/Button/UiSfxPlayer/AudioStreamPlayer2D")
 
 [node name="MusicVolumeMargin" type="MarginContainer" parent="MainMargin/Background/SettingsMargin/SettingsVBox/ScrollMargin/ScrollContainer/ScrollVBox"]
 layout_mode = 2
@@ -226,6 +283,14 @@ layout_mode = 2
 size_flags_horizontal = 10
 value = 100.0
 
+[node name="UiSfxPlayer" parent="MainMargin/Background/SettingsMargin/SettingsVBox/ScrollMargin/ScrollContainer/ScrollVBox/MusicVolumeMargin/HBoxContainer/MusicVolumeSlider" node_paths=PackedStringArray("stream") instance=ExtResource("5_a1mvn")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_right = 280.0
+offset_bottom = 50.0
+stream = NodePath("../../../../../../../../../MainScreenVBox/ButtonParent/SaveMargin/Button/UiSfxPlayer/AudioStreamPlayer2D")
+
 [node name="BackBtnMargin" type="MarginContainer" parent="MainMargin/Background/SettingsMargin/SettingsVBox"]
 layout_mode = 2
 theme_override_constants/margin_left = 200
@@ -237,6 +302,14 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 text = "Back"
+
+[node name="UiSfxPlayer" parent="MainMargin/Background/SettingsMargin/SettingsVBox/BackBtnMargin/Button" node_paths=PackedStringArray("stream") instance=ExtResource("5_a1mvn")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_right = 280.0
+offset_bottom = 50.0
+stream = NodePath("../../../../../MainScreenVBox/ButtonParent/SaveMargin/Button/UiSfxPlayer/AudioStreamPlayer2D")
 
 [node name="ConfirmationMargin" type="MarginContainer" parent="."]
 visible = false

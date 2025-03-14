@@ -7,11 +7,11 @@ public partial class FocusGrabber : Control
 	[Export]
 	public Control visibilityWatch; //the control node whose visibility dictates this button grabbing focus
 
-	private Button parentButton;
+	private Control parentButton;
 
 	public override void _Ready()
 	{
-		parentButton = GetParent<Button>();
+		parentButton = GetParent<Control>();
 		visibilityWatch.VisibilityChanged += OnVisChange;
 	}
 

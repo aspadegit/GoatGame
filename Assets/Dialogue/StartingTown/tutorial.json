@@ -5,6 +5,6 @@
             "<choice>"
     ],
     "SignalName": "ShowYesNo",
-    "SignalParam": ["ok", "Talk to me again if you need another run through."]
+    "SignalParam": ["//TODO: finish this", "Talk to me again if you need another run through."]
 
 }

@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://bpoh5us2d7gcs"]
+
+[ext_resource type="Script" path="res://Assets/Scripts/UI/UiSfxPlayer.cs" id="1_ylqm6"]
+[ext_resource type="AudioStream" uid="uid://bgbdy20qb5rnu" path="res://Assets/Sound/Effects/UI/Hover_7.wav" id="2_supmf"]
+[ext_resource type="AudioStream" uid="uid://cmd6u33b7qjiq" path="res://Assets/Sound/Effects/UI/Button_9.wav" id="3_j30a5"]
+[ext_resource type="AudioStream" uid="uid://i61kqcwv7e8r" path="res://Assets/Sound/Effects/UI/Hover_9.wav" id="4_kulbe"]
+
+[node name="UiSfxPlayer" type="Control" node_paths=PackedStringArray("stream")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ylqm6")
+stream = NodePath("AudioStreamPlayer2D")
+hover = ExtResource("2_supmf")
+click = ExtResource("3_j30a5")
+slide = ExtResource("4_kulbe")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+volume_db = 2.137
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.05
+
+[connection signal="timeout" from="Timer" to="." method="TimerTimeout"]
