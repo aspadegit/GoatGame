@@ -11,6 +11,8 @@ public partial class SbPauseMenuSettings : MarginContainer
 
 	[Export]
 	HSlider effectsSlider;
+	[Export]
+	HSlider musicSlider;
 
     public override void _Ready()
     {
@@ -31,11 +33,21 @@ public partial class SbPauseMenuSettings : MarginContainer
     public void OnMasterSlider(float value)
 	{
 		GlobalVars.settings.masterVolume = ConvertValue(value);
+		SignalHandler.Instance.EmitSignal(SignalHandler.SignalName.SettingsChanged);
 	}
 
 	public void OnFxSlider(float value)
 	{
 		GlobalVars.settings.effectsVolume = ConvertValue(value);
+		SignalHandler.Instance.EmitSignal(SignalHandler.SignalName.SettingsChanged);
+
+	}
+	
+	public void OnMusicSlider(float value)
+	{
+		GlobalVars.settings.musicVolume = ConvertValue(value);
+		SignalHandler.Instance.EmitSignal(SignalHandler.SignalName.SettingsChanged);
+
 	}
 
 	private float ConvertValue(float value)
@@ -48,6 +60,7 @@ public partial class SbPauseMenuSettings : MarginContainer
 	{
         masterSlider.Value = GlobalVars.settings.masterVolume * 100;
         effectsSlider.Value = GlobalVars.settings.effectsVolume * 100;
+        musicSlider.Value = GlobalVars.settings.musicVolume * 100;
 
 	}
 }

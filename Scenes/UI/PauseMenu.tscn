@@ -129,7 +129,7 @@ custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 text = "Return to Title"
 
-[node name="SettingsMargin" type="MarginContainer" parent="MainMargin/Background" node_paths=PackedStringArray("masterSlider", "effectsSlider")]
+[node name="SettingsMargin" type="MarginContainer" parent="MainMargin/Background" node_paths=PackedStringArray("masterSlider", "effectsSlider", "musicSlider")]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -141,6 +141,7 @@ theme_override_constants/margin_bottom = 50
 script = ExtResource("6_ieka5")
 masterSlider = NodePath("SettingsVBox/ScrollMargin/ScrollContainer/ScrollVBox/MasterVolumeMargin/HBoxContainer/MasterVolumeSlider")
 effectsSlider = NodePath("SettingsVBox/ScrollMargin/ScrollContainer/ScrollVBox/SoundFXVolumeMargin/HBoxContainer/SoundFXVolumeSlider")
+musicSlider = NodePath("SettingsVBox/ScrollMargin/ScrollContainer/ScrollVBox/MusicVolumeMargin/HBoxContainer/MusicVolumeSlider")
 
 [node name="SettingsVBox" type="VBoxContainer" parent="MainMargin/Background/SettingsMargin"]
 layout_mode = 2
@@ -209,6 +210,22 @@ layout_mode = 2
 size_flags_horizontal = 10
 value = 100.0
 
+[node name="MusicVolumeMargin" type="MarginContainer" parent="MainMargin/Background/SettingsMargin/SettingsVBox/ScrollMargin/ScrollContainer/ScrollVBox"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MainMargin/Background/SettingsMargin/SettingsVBox/ScrollMargin/ScrollContainer/ScrollVBox/MusicVolumeMargin"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MainMargin/Background/SettingsMargin/SettingsVBox/ScrollMargin/ScrollContainer/ScrollVBox/MusicVolumeMargin/HBoxContainer"]
+layout_mode = 2
+text = "MUSIC VOLUME"
+
+[node name="MusicVolumeSlider" type="HSlider" parent="MainMargin/Background/SettingsMargin/SettingsVBox/ScrollMargin/ScrollContainer/ScrollVBox/MusicVolumeMargin/HBoxContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+value = 100.0
+
 [node name="BackBtnMargin" type="MarginContainer" parent="MainMargin/Background/SettingsMargin/SettingsVBox"]
 layout_mode = 2
 theme_override_constants/margin_left = 200
@@ -270,4 +287,5 @@ text = "NO"
 [connection signal="pressed" from="MainMargin/Background/MainScreenVBox/ButtonParent/ResumeMargin/Button" to="." method="OnResume"]
 [connection signal="value_changed" from="MainMargin/Background/SettingsMargin/SettingsVBox/ScrollMargin/ScrollContainer/ScrollVBox/MasterVolumeMargin/HBoxContainer/MasterVolumeSlider" to="MainMargin/Background/SettingsMargin" method="OnMasterSlider"]
 [connection signal="value_changed" from="MainMargin/Background/SettingsMargin/SettingsVBox/ScrollMargin/ScrollContainer/ScrollVBox/SoundFXVolumeMargin/HBoxContainer/SoundFXVolumeSlider" to="MainMargin/Background/SettingsMargin" method="OnFxSlider"]
+[connection signal="value_changed" from="MainMargin/Background/SettingsMargin/SettingsVBox/ScrollMargin/ScrollContainer/ScrollVBox/MusicVolumeMargin/HBoxContainer/MusicVolumeSlider" to="MainMargin/Background/SettingsMargin" method="OnMusicSlider"]
 [connection signal="pressed" from="MainMargin/Background/SettingsMargin/SettingsVBox/BackBtnMargin/Button" to="." method="BackPage"]

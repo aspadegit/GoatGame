@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=3 uid="uid://n2mw0ei4w3jb"]
+
+[ext_resource type="PackedScene" uid="uid://6aur3si7m3go" path="res://Scenes/Cutscenes/Location.tscn" id="1_g4hhn"]
+[ext_resource type="PackedScene" uid="uid://dy3p45kla1ji2" path="res://Scenes/Entities/Npc.tscn" id="2_u4s06"]
+[ext_resource type="PackedScene" uid="uid://brdp0nqi6pf4v" path="res://Scenes/Entities/player.tscn" id="3_b1gk7"]
+[ext_resource type="AudioStream" uid="uid://bkv6e5y2ed4td" path="res://Assets/Sound/Music/6_Town_2_Master.mp3" id="4_ntrsb"]
+[ext_resource type="Script" path="res://Assets/Scripts/MusicPlayer.cs" id="5_vm18l"]
+
+[node name="StartingTown" type="Node2D"]
+
+[node name="Location" parent="." instance=ExtResource("1_g4hhn")]
+
+[node name="TutorialNPC" parent="." instance=ExtResource("2_u4s06")]
+position = Vector2(344, 132)
+dialoguePath = "StartingTown/tutorial.json"
+
+[node name="Player" parent="." instance=ExtResource("3_b1gk7")]
+position = Vector2(233, 193)
+scale = Vector2(1, 1)
+
+[node name="Farmer" parent="." instance=ExtResource("2_u4s06")]
+position = Vector2(962, 168)
+scale = Vector2(-1, 1)
+dialoguePath = "StartingTown/farmer.json"
+
+[node name="NPC2" parent="." instance=ExtResource("2_u4s06")]
+z_index = 2
+position = Vector2(569, 116)
+scale = Vector2(-1, 1)
+dialoguePath = "test.json"
+
+[node name="BuildNPC" parent="." instance=ExtResource("2_u4s06")]
+position = Vector2(713, 138)
+dialoguePath = "buildNPC.json"
+
+[node name="SwitchRoomNPC" parent="." instance=ExtResource("2_u4s06")]
+position = Vector2(623, 279)
+dialoguePath = "transitionTD.json"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_ntrsb")
+autoplay = true
+area_mask = 2
+script = ExtResource("5_vm18l")

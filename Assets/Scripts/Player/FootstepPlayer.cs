@@ -22,16 +22,24 @@ public partial class FootstepPlayer : AudioStreamPlayer2D
 	private float additionalPitchModulator = 1.0f;
 
 	const int GROUND_LAYER = 0;
-	const float DEFAULT_DB = -6;
+	const float DEFAULT_DB = -3;
+
+	bool canPlay = true;
 
 	public override void _Ready()
 	{
 		activeStream = grass;
 		SignalHandler.Instance.Connect(SignalHandler.SignalName.AnnounceTilemap, Callable.From((TileMap t)=> SetTileMap(t)), (uint)ConnectFlags.Deferred);
 		SetVolume();
+		SignalHandler.Instance.Connect(SignalHandler.SignalName.TogglePlayerMovement, Callable.From((bool toggle)=> OnToggleMovement(toggle)), (uint)ConnectFlags.Deferred);
+
 	}
 
-
+	public void OnToggleMovement(bool toggle)
+	{
+		//stops footsteps playing when paused
+		canPlay = toggle;
+	}
 
 	private void SetTileMap(TileMap t)
 	{
@@ -41,8 +49,11 @@ public partial class FootstepPlayer : AudioStreamPlayer2D
 	// connected to AnimatedSprite2D's "animationStep" signal via the UI
 	public void OnAnimationStep()
 	{
-		DetermineStream();
-		PlayStep();
+		if(canPlay)
+		{
+			DetermineStream();
+			PlayStep();
+		}
 	}
 
 

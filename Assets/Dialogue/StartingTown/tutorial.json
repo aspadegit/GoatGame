@@ -1,0 +1,10 @@
+{
+    "Name": ["Tutorial NPC", "-", "-"],
+    "Text": ["So, [NAME] trusts you. If you're good enough for him, you're good enough for me.",
+            "Want an explanation of the town?",
+            "<choice>"
+    ],
+    "SignalName": "ShowYesNo",
+    "SignalParam": ["ok", "Talk to me again if you need another run through."]
+
+}

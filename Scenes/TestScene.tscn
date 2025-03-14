@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://bhw8ro0hbihnv"]
 
+[ext_resource type="PackedScene" uid="uid://n2mw0ei4w3jb" path="res://Scenes/StartingTown.tscn" id="1_mcrxg"]
 [ext_resource type="PackedScene" uid="uid://hfsc17wxuyoa" path="res://Scenes/UI/UI.tscn" id="1_xrs2k"]
 [ext_resource type="PackedScene" uid="uid://dt63vw62ebwc6" path="res://Scenes/UI/GoatSelectMenu.tscn" id="2_ru6af"]
-[ext_resource type="PackedScene" uid="uid://b53c8cu27kawi" path="res://Scenes/Debug.tscn" id="2_x716l"]
 [ext_resource type="PackedScene" uid="uid://41i1kwtsnj4x" path="res://Scenes/UI/PerformJobs.tscn" id="3_kaqqc"]
 [ext_resource type="PackedScene" uid="uid://bjjqhdqqi3en8" path="res://Scenes/UI/BuildMenu.tscn" id="5_yodis"]
 [ext_resource type="PackedScene" uid="uid://boocd06xur3ak" path="res://Scenes/UI/InventoryMenu.tscn" id="6_pxgtx"]
@@ -10,7 +10,7 @@
 
 [node name="root" type="Node"]
 
-[node name="Debug" parent="." instance=ExtResource("2_x716l")]
+[node name="StartingTown" parent="." instance=ExtResource("1_mcrxg")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

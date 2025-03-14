@@ -44,6 +44,10 @@ public partial class SignalHandler : Node
 	[Signal]
 	public delegate void AnnounceTilemapEventHandler(TileMap tileMap);
 
+	// sends a signal when settings in the settings menu have changed
+	[Signal]
+	public delegate void SettingsChangedEventHandler();
+
 	public override void _Ready() {
 		Instance = this;
 	}
