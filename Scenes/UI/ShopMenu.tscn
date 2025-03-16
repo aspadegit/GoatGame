@@ -1,0 +1,259 @@
+[gd_scene load_steps=16 format=3 uid="uid://bx41023v4owlw"]
+
+[ext_resource type="FontFile" uid="uid://b40px0i27n7ll" path="res://Assets/Fonts/NicoClean-Regular.ttf" id="1_0qlma"]
+[ext_resource type="StyleBox" uid="uid://blxajgwymsus5" path="res://Assets/Themes/StyleBoxes/dark_panel_stylebox.tres" id="2_j8rx7"]
+[ext_resource type="Texture2D" uid="uid://byaj6myfiburq" path="res://Assets/Sprites/UI/box.png" id="3_oevea"]
+[ext_resource type="Texture2D" uid="uid://nfbab4anoyel" path="res://Assets/Sprites/UI/box_sheet.png" id="4_i5q4g"]
+[ext_resource type="Theme" uid="uid://cvjlrwyqj6u1w" path="res://Assets/Themes/PanelTheme.tres" id="5_0u5ao"]
+[ext_resource type="Texture2D" uid="uid://budxrvmespxp7" path="res://Assets/Sprites/Items/Shop/Misc_85.png" id="6_ky0ki"]
+[ext_resource type="Texture2D" uid="uid://dpmsr41t5737i" path="res://Assets/Sprites/UIpackSheet_transparent.png" id="6_tgjdx"]
+[ext_resource type="Theme" uid="uid://cjxixwomxbsma" path="res://Assets/Themes/RowButtonTheme.tres" id="7_gofq4"]
+
+[sub_resource type="FontVariation" id="FontVariation_e6gsx"]
+base_font = ExtResource("1_0qlma")
+spacing_top = 3
+spacing_bottom = 3
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_d2wos"]
+texture = ExtResource("3_oevea")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wfkp1"]
+atlas = ExtResource("4_i5q4g")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ptv22"]
+content_margin_left = 10.0
+content_margin_right = 10.0
+texture = SubResource("AtlasTexture_wfkp1")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 5.0
+texture_margin_bottom = 5.0
+modulate_color = Color(0.485703, 0.485704, 0.485703, 1)
+
+[sub_resource type="Theme" id="Theme_gw2sd"]
+Label/colors/font_shadow_color = Color(0, 0, 0, 0.235294)
+Label/constants/shadow_offset_y = 2
+Label/constants/shadow_outline_size = 2
+Label/fonts/font = ExtResource("1_0qlma")
+Panel/styles/panel = ExtResource("2_j8rx7")
+TabContainer/fonts/font = SubResource("FontVariation_e6gsx")
+TabContainer/styles/panel = SubResource("StyleBoxTexture_d2wos")
+TabContainer/styles/tab_selected = ExtResource("2_j8rx7")
+TabContainer/styles/tab_unselected = SubResource("StyleBoxTexture_ptv22")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mvr38"]
+atlas = ExtResource("6_tgjdx")
+region = Rect2(55, 109, 14, 14)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u50al"]
+atlas = ExtResource("6_ky0ki")
+region = Rect2(4, 4, 6, 6)
+
+[node name="ShopMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MainMargin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_gw2sd")
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 40
+theme_override_constants/margin_right = 40
+theme_override_constants/margin_bottom = 40
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MainMargin"]
+layout_mode = 2
+
+[node name="TitleMargin" type="MarginContainer" parent="MainMargin/VBoxContainer"]
+custom_minimum_size = Vector2(300, 80)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MainMargin/VBoxContainer/TitleMargin"]
+layout_mode = 2
+
+[node name="TextureButton" type="TextureButton" parent="MainMargin/VBoxContainer/TitleMargin/HBoxContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_mvr38")
+stretch_mode = 5
+
+[node name="MarginContainer" type="MarginContainer" parent="MainMargin/VBoxContainer/TitleMargin/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 350
+theme_override_constants/margin_right = 400
+
+[node name="Panel" type="Panel" parent="MainMargin/VBoxContainer/TitleMargin/HBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="MainMargin/VBoxContainer/TitleMargin/HBoxContainer/MarginContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 36
+text = "BUY ITEMS"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BuyMargin" type="MarginContainer" parent="MainMargin/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Panel" type="Panel" parent="MainMargin/VBoxContainer/BuyMargin"]
+layout_mode = 2
+theme = ExtResource("5_0u5ao")
+
+[node name="MainVbox" type="VBoxContainer" parent="MainMargin/VBoxContainer/BuyMargin"]
+layout_mode = 2
+
+[node name="TopMargin" type="MarginContainer" parent="MainMargin/VBoxContainer/BuyMargin/MainVbox"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 10
+
+[node name="TopHBox" type="HBoxContainer" parent="MainMargin/VBoxContainer/BuyMargin/MainVbox/TopMargin"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="TypeHBox" type="HBoxContainer" parent="MainMargin/VBoxContainer/BuyMargin/MainVbox/TopMargin/TopHBox"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="TypeLabel" type="Label" parent="MainMargin/VBoxContainer/BuyMargin/MainVbox/TopMargin/TopHBox/TypeHBox"]
+layout_mode = 2
+text = "Type:"
+
+[node name="TypeDropdown" type="OptionButton" parent="MainMargin/VBoxContainer/BuyMargin/MainVbox/TopMargin/TopHBox/TypeHBox"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+item_count = 3
+selected = 0
+popup/item_0/text = "Items"
+popup/item_0/id = 0
+popup/item_1/text = "Towers"
+popup/item_1/id = 2
+popup/item_2/text = "Materials"
+popup/item_2/id = 2
+
+[node name="TopSortHBox" type="HBoxContainer" parent="MainMargin/VBoxContainer/BuyMargin/MainVbox/TopMargin/TopHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SortByLabel" type="Label" parent="MainMargin/VBoxContainer/BuyMargin/MainVbox/TopMargin/TopHBox/TopSortHBox"]
+layout_mode = 2
+text = "Sort By:"
+
+[node name="SortDropdown" type="OptionButton" parent="MainMargin/VBoxContainer/BuyMargin/MainVbox/TopMargin/TopHBox/TopSortHBox"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+item_count = 3
+selected = 0
+popup/item_0/text = "Name"
+popup/item_0/id = 0
+popup/item_1/text = "Amount"
+popup/item_1/id = 2
+popup/item_2/text = "Cost"
+popup/item_2/id = 2
+
+[node name="MainHBox" type="HBoxContainer" parent="MainMargin/VBoxContainer/BuyMargin/MainVbox"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ListMargin" type="MarginContainer" parent="MainMargin/VBoxContainer/BuyMargin/MainVbox/MainHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="ScrollList" type="ScrollContainer" parent="MainMargin/VBoxContainer/BuyMargin/MainVbox/MainHBox/ListMargin"]
+layout_mode = 2
+
+[node name="ScrollVBox" type="VBoxContainer" parent="MainMargin/VBoxContainer/BuyMargin/MainVbox/MainHBox/ListMargin/ScrollList"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="InfoMargin" type="MarginContainer" parent="MainMargin/VBoxContainer/BuyMargin/MainVbox/MainHBox"]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Panel" type="Panel" parent="MainMargin/VBoxContainer/BuyMargin/MainVbox/MainHBox/InfoMargin"]
+layout_mode = 2
+
+[node name="InfoVBox" type="VBoxContainer" parent="MainMargin/VBoxContainer/BuyMargin/MainVbox/MainHBox/InfoMargin"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MainMargin/VBoxContainer/BuyMargin/MainVbox/MainHBox/InfoMargin/InfoVBox"]
+layout_mode = 2
+text = "Name
+Stats
+Etc."
+
+[node name="BottomMargin" type="MarginContainer" parent="MainMargin/VBoxContainer/BuyMargin/MainVbox"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MainMargin/VBoxContainer/BuyMargin/MainVbox/BottomMargin"]
+layout_mode = 2
+
+[node name="TypeLabel" type="Label" parent="MainMargin/VBoxContainer/BuyMargin/MainVbox/BottomMargin/HBoxContainer"]
+layout_mode = 2
+text = "Total:"
+
+[node name="Coin" type="TextureRect" parent="MainMargin/VBoxContainer/BuyMargin/MainVbox/BottomMargin/HBoxContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+texture = SubResource("AtlasTexture_u50al")
+expand_mode = 5
+stretch_mode = 5
+
+[node name="Cost" type="Label" parent="MainMargin/VBoxContainer/BuyMargin/MainVbox/BottomMargin/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+theme = ExtResource("7_gofq4")
+theme_override_fonts/font = ExtResource("1_0qlma")
+text = "000"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Gap" type="Panel" parent="MainMargin/VBoxContainer/BuyMargin/MainVbox/BottomMargin/HBoxContainer"]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+
+[node name="Button" type="Button" parent="MainMargin/VBoxContainer/BuyMargin/MainVbox/BottomMargin/HBoxContainer"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+theme = ExtResource("7_gofq4")
+text = "BUY"
