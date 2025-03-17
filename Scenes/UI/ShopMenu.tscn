@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://byaj6myfiburq" path="res://Assets/Sprites/UI/box.png" id="3_oevea"]
 [ext_resource type="Texture2D" uid="uid://nfbab4anoyel" path="res://Assets/Sprites/UI/box_sheet.png" id="4_i5q4g"]
 [ext_resource type="Theme" uid="uid://cvjlrwyqj6u1w" path="res://Assets/Themes/PanelTheme.tres" id="5_0u5ao"]
-[ext_resource type="Texture2D" uid="uid://budxrvmespxp7" path="res://Assets/Sprites/Items/Shop/Misc_85.png" id="6_ky0ki"]
+[ext_resource type="Texture2D" uid="uid://budxrvmespxp7" path="res://Assets/Sprites/Items/Shop/GoldCoin.png" id="6_ky0ki"]
 [ext_resource type="Texture2D" uid="uid://dpmsr41t5737i" path="res://Assets/Sprites/UIpackSheet_transparent.png" id="6_tgjdx"]
 [ext_resource type="Theme" uid="uid://cjxixwomxbsma" path="res://Assets/Themes/RowButtonTheme.tres" id="7_gofq4"]
 
@@ -178,6 +178,29 @@ popup/item_1/id = 2
 popup/item_2/text = "Cost"
 popup/item_2/id = 2
 
+[node name="CurrentMoneyHBox" type="HBoxContainer" parent="MainMargin/VBoxContainer/BuyMargin/MainVbox/TopMargin/TopHBox"]
+layout_mode = 2
+
+[node name="Current" type="Label" parent="MainMargin/VBoxContainer/BuyMargin/MainVbox/TopMargin/TopHBox/CurrentMoneyHBox"]
+layout_mode = 2
+text = "Current:"
+
+[node name="Coin" type="TextureRect" parent="MainMargin/VBoxContainer/BuyMargin/MainVbox/TopMargin/TopHBox/CurrentMoneyHBox"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+texture = SubResource("AtlasTexture_u50al")
+expand_mode = 5
+stretch_mode = 5
+
+[node name="Money" type="Label" parent="MainMargin/VBoxContainer/BuyMargin/MainVbox/TopMargin/TopHBox/CurrentMoneyHBox"]
+layout_mode = 2
+size_flags_vertical = 1
+theme = ExtResource("7_gofq4")
+theme_override_fonts/font = ExtResource("1_0qlma")
+text = "000"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="MainHBox" type="HBoxContainer" parent="MainMargin/VBoxContainer/BuyMargin/MainVbox"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -207,10 +230,17 @@ theme_override_constants/margin_bottom = 20
 [node name="Panel" type="Panel" parent="MainMargin/VBoxContainer/BuyMargin/MainVbox/MainHBox/InfoMargin"]
 layout_mode = 2
 
-[node name="InfoVBox" type="VBoxContainer" parent="MainMargin/VBoxContainer/BuyMargin/MainVbox/MainHBox/InfoMargin"]
+[node name="ContentMargin" type="MarginContainer" parent="MainMargin/VBoxContainer/BuyMargin/MainVbox/MainHBox/InfoMargin"]
+layout_mode = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="InfoVBox" type="VBoxContainer" parent="MainMargin/VBoxContainer/BuyMargin/MainVbox/MainHBox/InfoMargin/ContentMargin"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="MainMargin/VBoxContainer/BuyMargin/MainVbox/MainHBox/InfoMargin/InfoVBox"]
+[node name="Label" type="Label" parent="MainMargin/VBoxContainer/BuyMargin/MainVbox/MainHBox/InfoMargin/ContentMargin/InfoVBox"]
 layout_mode = 2
 text = "Name
 Stats
@@ -227,9 +257,9 @@ theme_override_constants/margin_bottom = 20
 [node name="HBoxContainer" type="HBoxContainer" parent="MainMargin/VBoxContainer/BuyMargin/MainVbox/BottomMargin"]
 layout_mode = 2
 
-[node name="TypeLabel" type="Label" parent="MainMargin/VBoxContainer/BuyMargin/MainVbox/BottomMargin/HBoxContainer"]
+[node name="Text" type="Label" parent="MainMargin/VBoxContainer/BuyMargin/MainVbox/BottomMargin/HBoxContainer"]
 layout_mode = 2
-text = "Total:"
+text = "Cost:"
 
 [node name="Coin" type="TextureRect" parent="MainMargin/VBoxContainer/BuyMargin/MainVbox/BottomMargin/HBoxContainer"]
 custom_minimum_size = Vector2(20, 0)
@@ -257,3 +287,90 @@ custom_minimum_size = Vector2(100, 50)
 layout_mode = 2
 theme = ExtResource("7_gofq4")
 text = "BUY"
+
+[node name="ConfirmationMargin" type="MarginContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GrayOut" type="Panel" parent="ConfirmationMargin"]
+self_modulate = Color(1, 1, 0.976471, 0.709804)
+layout_mode = 2
+
+[node name="BigMargin" type="MarginContainer" parent="ConfirmationMargin"]
+layout_mode = 2
+theme_override_constants/margin_left = 250
+theme_override_constants/margin_top = 250
+theme_override_constants/margin_right = 250
+theme_override_constants/margin_bottom = 250
+
+[node name="BG" type="Panel" parent="ConfirmationMargin/BigMargin"]
+layout_mode = 2
+theme = ExtResource("5_0u5ao")
+
+[node name="InnerMargin" type="MarginContainer" parent="ConfirmationMargin/BigMargin"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="MainVBox" type="VBoxContainer" parent="ConfirmationMargin/BigMargin/InnerMargin"]
+layout_mode = 2
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ConfirmationMargin/BigMargin/InnerMargin/MainVBox"]
+layout_mode = 2
+alignment = 1
+
+[node name="Text" type="Label" parent="ConfirmationMargin/BigMargin/InnerMargin/MainVBox/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("7_gofq4")
+theme_override_font_sizes/font_size = 32
+text = "BUY ITEMS FOR "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Coin" type="TextureRect" parent="ConfirmationMargin/BigMargin/InnerMargin/MainVBox/HBoxContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+texture = SubResource("AtlasTexture_u50al")
+expand_mode = 5
+stretch_mode = 5
+
+[node name="Cost" type="Label" parent="ConfirmationMargin/BigMargin/InnerMargin/MainVBox/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+theme = ExtResource("7_gofq4")
+theme_override_fonts/font = ExtResource("1_0qlma")
+theme_override_font_sizes/font_size = 32
+text = "000?"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ButtonHBox" type="HBoxContainer" parent="ConfirmationMargin/BigMargin/InnerMargin/MainVBox"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+alignment = 1
+
+[node name="Yes" type="Button" parent="ConfirmationMargin/BigMargin/InnerMargin/MainVBox/ButtonHBox"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme = ExtResource("7_gofq4")
+text = "YES"
+
+[node name="Gap" type="Panel" parent="ConfirmationMargin/BigMargin/InnerMargin/MainVBox/ButtonHBox"]
+self_modulate = Color(1, 1, 1, 0)
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+
+[node name="No" type="Button" parent="ConfirmationMargin/BigMargin/InnerMargin/MainVBox/ButtonHBox"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme = ExtResource("7_gofq4")
+text = "NO"

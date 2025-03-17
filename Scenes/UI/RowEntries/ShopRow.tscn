@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://cjsp1aaqu14ge"]
+[gd_scene load_steps=10 format=3 uid="uid://cjsp1aaqu14ge"]
 
 [ext_resource type="Theme" uid="uid://cjxixwomxbsma" path="res://Assets/Themes/RowButtonTheme.tres" id="1_vo6l2"]
+[ext_resource type="Script" path="res://Assets/Scripts/UI/ShopRow.cs" id="1_vvas0"]
 [ext_resource type="Texture2D" uid="uid://dhl4osfa8k8cw" path="res://icon.svg" id="2_ylhvm"]
 [ext_resource type="FontFile" uid="uid://b40px0i27n7ll" path="res://Assets/Fonts/NicoClean-Regular.ttf" id="3_7faow"]
-[ext_resource type="Texture2D" uid="uid://budxrvmespxp7" path="res://Assets/Sprites/Items/Shop/Misc_85.png" id="4_1stog"]
+[ext_resource type="Texture2D" uid="uid://budxrvmespxp7" path="res://Assets/Sprites/Items/Shop/GoldCoin.png" id="4_1stog"]
 [ext_resource type="Texture2D" uid="uid://dpmsr41t5737i" path="res://Assets/Sprites/UIpackSheet_transparent.png" id="4_w7e6p"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bosx1"]
@@ -18,12 +19,19 @@ region = Rect2(382, 434, 8, 12)
 atlas = ExtResource("4_1stog")
 region = Rect2(4, 4, 6, 6)
 
-[node name="ShopRow" type="Control"]
+[node name="ShopRow" type="Control" node_paths=PackedStringArray("labels", "images")]
 custom_minimum_size = Vector2(0, 70)
 layout_mode = 3
 anchors_preset = 10
 anchor_right = 1.0
 grow_horizontal = 2
+script = ExtResource("1_vvas0")
+temp = ExtResource("2_ylhvm")
+labels = [NodePath("MainMargin/Row/MarginContainer/MainHBox/Name"), NodePath("MainMargin/Row/MarginContainer/MainHBox/HBoxContainer/Amount")]
+images = [NodePath("MainMargin/Row/MarginContainer/MainHBox/Image")]
+buttons = {
+"RowButton": NodePath("MainMargin/RowButton")
+}
 
 [node name="MainMargin" type="MarginContainer" parent="."]
 layout_mode = 1
