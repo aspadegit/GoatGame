@@ -1,6 +1,8 @@
-[gd_scene load_steps=16 format=3 uid="uid://bx41023v4owlw"]
+[gd_scene load_steps=21 format=3 uid="uid://bx41023v4owlw"]
 
 [ext_resource type="FontFile" uid="uid://b40px0i27n7ll" path="res://Assets/Fonts/NicoClean-Regular.ttf" id="1_0qlma"]
+[ext_resource type="Script" path="res://Assets/Scripts/UI/ShopMenu.cs" id="1_5i0j8"]
+[ext_resource type="PackedScene" uid="uid://cjsp1aaqu14ge" path="res://Scenes/UI/RowEntries/ShopRow.tscn" id="2_3ud5c"]
 [ext_resource type="StyleBox" uid="uid://blxajgwymsus5" path="res://Assets/Themes/StyleBoxes/dark_panel_stylebox.tres" id="2_j8rx7"]
 [ext_resource type="Texture2D" uid="uid://byaj6myfiburq" path="res://Assets/Sprites/UI/box.png" id="3_oevea"]
 [ext_resource type="Texture2D" uid="uid://nfbab4anoyel" path="res://Assets/Sprites/UI/box_sheet.png" id="4_i5q4g"]
@@ -8,6 +10,9 @@
 [ext_resource type="Texture2D" uid="uid://budxrvmespxp7" path="res://Assets/Sprites/Items/Shop/GoldCoin.png" id="6_ky0ki"]
 [ext_resource type="Texture2D" uid="uid://dpmsr41t5737i" path="res://Assets/Sprites/UIpackSheet_transparent.png" id="6_tgjdx"]
 [ext_resource type="Theme" uid="uid://cjxixwomxbsma" path="res://Assets/Themes/RowButtonTheme.tres" id="7_gofq4"]
+[ext_resource type="PackedScene" uid="uid://bpoh5us2d7gcs" path="res://Scenes/UI/UiSfxPlayer.tscn" id="11_gx55r"]
+[ext_resource type="AudioStream" uid="uid://ddyniyrpom3hh" path="res://Assets/Sound/Effects/UI/Buy_1.wav" id="12_hjd1l"]
+[ext_resource type="PackedScene" uid="uid://cdbckjx8vwrju" path="res://Scenes/UI/FocusGrabber.tscn" id="13_x2ohu"]
 
 [sub_resource type="FontVariation" id="FontVariation_e6gsx"]
 base_font = ExtResource("1_0qlma")
@@ -54,13 +59,18 @@ region = Rect2(55, 109, 14, 14)
 atlas = ExtResource("6_ky0ki")
 region = Rect2(4, 4, 6, 6)
 
-[node name="ShopMenu" type="Control"]
+[node name="ShopMenu" type="Control" node_paths=PackedStringArray("rowVboxContainer")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_5i0j8")
+items = Array[String](["Magic Scroll", "XP Potion"])
+towers = Array[int]([0, 1])
+shopRow = ExtResource("2_3ud5c")
+rowVboxContainer = NodePath("MainMargin/VBoxContainer/BuyMargin/MainVbox/MainHBox/ListMargin/ScrollList/ScrollVBox")
 
 [node name="MainMargin" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -214,6 +224,7 @@ theme_override_constants/margin_bottom = 20
 
 [node name="ScrollList" type="ScrollContainer" parent="MainMargin/VBoxContainer/BuyMargin/MainVbox/MainHBox/ListMargin"]
 layout_mode = 2
+horizontal_scroll_mode = 0
 
 [node name="ScrollVBox" type="VBoxContainer" parent="MainMargin/VBoxContainer/BuyMargin/MainVbox/MainHBox/ListMargin/ScrollList"]
 layout_mode = 2
@@ -287,6 +298,9 @@ custom_minimum_size = Vector2(100, 50)
 layout_mode = 2
 theme = ExtResource("7_gofq4")
 text = "BUY"
+
+[node name="UiSfxPlayer" parent="MainMargin/VBoxContainer/BuyMargin/MainVbox/BottomMargin/HBoxContainer/Button" instance=ExtResource("11_gx55r")]
+layout_mode = 1
 
 [node name="ConfirmationMargin" type="MarginContainer" parent="."]
 visible = false
@@ -364,6 +378,13 @@ layout_mode = 2
 theme = ExtResource("7_gofq4")
 text = "YES"
 
+[node name="UiSfxPlayer" parent="ConfirmationMargin/BigMargin/InnerMargin/MainVBox/ButtonHBox/Yes" instance=ExtResource("11_gx55r")]
+layout_mode = 1
+click = ExtResource("12_hjd1l")
+
+[node name="FocusGrabber" parent="ConfirmationMargin/BigMargin/InnerMargin/MainVBox/ButtonHBox/Yes" instance=ExtResource("13_x2ohu")]
+layout_mode = 1
+
 [node name="Gap" type="Panel" parent="ConfirmationMargin/BigMargin/InnerMargin/MainVBox/ButtonHBox"]
 self_modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(60, 0)
@@ -374,3 +395,8 @@ custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme = ExtResource("7_gofq4")
 text = "NO"
+
+[node name="UiSfxPlayer" parent="ConfirmationMargin/BigMargin/InnerMargin/MainVBox/ButtonHBox/No" instance=ExtResource("11_gx55r")]
+layout_mode = 1
+
+[connection signal="pressed" from="MainMargin/VBoxContainer/TitleMargin/HBoxContainer/TextureButton" to="." method="HideAndReset"]

@@ -124,6 +124,8 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 offset_right = 280.0
 offset_bottom = 50.0
+grow_horizontal = 1
+grow_vertical = 1
 stream = NodePath("../../../SaveMargin/Button/UiSfxPlayer/AudioStreamPlayer2D")
 
 [node name="SettingsMargin" type="MarginContainer" parent="MainMargin/Background/MainScreenVBox/ButtonParent"]
@@ -144,6 +146,8 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 offset_right = 280.0
 offset_bottom = 50.0
+grow_horizontal = 1
+grow_vertical = 1
 stream = NodePath("../../../SaveMargin/Button/UiSfxPlayer/AudioStreamPlayer2D")
 
 [node name="TitleMargin" type="MarginContainer" parent="MainMargin/Background/MainScreenVBox/ButtonParent"]
@@ -163,6 +167,8 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 offset_right = 280.0
 offset_bottom = 50.0
+grow_horizontal = 1
+grow_vertical = 1
 stream = NodePath("../../../SaveMargin/Button/UiSfxPlayer/AudioStreamPlayer2D")
 
 [node name="SettingsMargin" type="MarginContainer" parent="MainMargin/Background" node_paths=PackedStringArray("masterSlider", "effectsSlider", "musicSlider")]
@@ -241,6 +247,8 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 offset_right = 280.0
 offset_bottom = 50.0
+grow_horizontal = 1
+grow_vertical = 1
 stream = NodePath("../../../../../../../../../MainScreenVBox/ButtonParent/SaveMargin/Button/UiSfxPlayer/AudioStreamPlayer2D")
 
 [node name="SoundFXVolumeMargin" type="MarginContainer" parent="MainMargin/Background/SettingsMargin/SettingsVBox/ScrollMargin/ScrollContainer/ScrollVBox"]
@@ -265,6 +273,8 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 offset_right = 280.0
 offset_bottom = 50.0
+grow_horizontal = 1
+grow_vertical = 1
 stream = NodePath("../../../../../../../../../MainScreenVBox/ButtonParent/SaveMargin/Button/UiSfxPlayer/AudioStreamPlayer2D")
 
 [node name="MusicVolumeMargin" type="MarginContainer" parent="MainMargin/Background/SettingsMargin/SettingsVBox/ScrollMargin/ScrollContainer/ScrollVBox"]
@@ -289,6 +299,8 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 offset_right = 280.0
 offset_bottom = 50.0
+grow_horizontal = 1
+grow_vertical = 1
 stream = NodePath("../../../../../../../../../MainScreenVBox/ButtonParent/SaveMargin/Button/UiSfxPlayer/AudioStreamPlayer2D")
 
 [node name="BackBtnMargin" type="MarginContainer" parent="MainMargin/Background/SettingsMargin/SettingsVBox"]
@@ -309,6 +321,8 @@ anchor_right = 0.0
 anchor_bottom = 0.0
 offset_right = 280.0
 offset_bottom = 50.0
+grow_horizontal = 1
+grow_vertical = 1
 stream = NodePath("../../../../../MainScreenVBox/ButtonParent/SaveMargin/Button/UiSfxPlayer/AudioStreamPlayer2D")
 
 [node name="ConfirmationMargin" type="MarginContainer" parent="."]

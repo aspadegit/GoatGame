@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bhw8ro0hbihnv"]
+[gd_scene load_steps=9 format=3 uid="uid://bhw8ro0hbihnv"]
 
 [ext_resource type="PackedScene" uid="uid://n2mw0ei4w3jb" path="res://Scenes/StartingTown.tscn" id="1_mcrxg"]
 [ext_resource type="PackedScene" uid="uid://hfsc17wxuyoa" path="res://Scenes/UI/UI.tscn" id="1_xrs2k"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bjjqhdqqi3en8" path="res://Scenes/UI/BuildMenu.tscn" id="5_yodis"]
 [ext_resource type="PackedScene" uid="uid://boocd06xur3ak" path="res://Scenes/UI/InventoryMenu.tscn" id="6_pxgtx"]
 [ext_resource type="PackedScene" uid="uid://dro2kfiaevrms" path="res://Scenes/UI/PauseMenu.tscn" id="7_ta7bs"]
+[ext_resource type="PackedScene" uid="uid://bx41023v4owlw" path="res://Scenes/UI/ShopMenu.tscn" id="8_8saek"]
 
 [node name="root" type="Node"]
 
@@ -30,3 +31,7 @@ visible = false
 
 [node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("7_ta7bs")]
 visible = false
+
+[node name="ShopMenu" parent="CanvasLayer" instance=ExtResource("8_8saek")]
+visible = false
+materials = Array[String](["Logs", "Wheat", "Rocks"])

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://hfsc17wxuyoa"]
+[gd_scene load_steps=14 format=3 uid="uid://hfsc17wxuyoa"]
 
 [ext_resource type="Script" path="res://Assets/Scripts/UI/TextBox.cs" id="1_a6qce"]
 [ext_resource type="StyleBox" uid="uid://blxajgwymsus5" path="res://Assets/Themes/StyleBoxes/dark_panel_stylebox.tres" id="2_hylif"]
@@ -6,6 +6,7 @@
 [ext_resource type="FontFile" uid="uid://b40px0i27n7ll" path="res://Assets/Fonts/NicoClean-Regular.ttf" id="3_410cq"]
 [ext_resource type="Script" path="res://Assets/Scripts/UI/YesNoButton.cs" id="4_yemnx"]
 [ext_resource type="Texture2D" uid="uid://dpmsr41t5737i" path="res://Assets/Sprites/UIpackSheet_transparent.png" id="5_a2aqn"]
+[ext_resource type="PackedScene" uid="uid://bpoh5us2d7gcs" path="res://Scenes/UI/UiSfxPlayer.tscn" id="7_lxv1y"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o52ok"]
 content_margin_left = 4.0
@@ -207,6 +208,9 @@ layout_mode = 2
 theme = SubResource("Theme_u6qbs")
 text = "Yes"
 
+[node name="UiSfxPlayer" parent="ButtonMargin/ButtonVBox/YesButtonMargin/YesButton" instance=ExtResource("7_lxv1y")]
+layout_mode = 1
+
 [node name="NoButtonMargin" type="MarginContainer" parent="ButtonMargin/ButtonVBox"]
 custom_minimum_size = Vector2(0, 150)
 layout_mode = 2
@@ -222,3 +226,6 @@ layout_mode = 2
 layout_mode = 2
 theme = SubResource("Theme_u6qbs")
 text = "No"
+
+[node name="UiSfxPlayer" parent="ButtonMargin/ButtonVBox/NoButtonMargin/NoButton" instance=ExtResource("7_lxv1y")]
+layout_mode = 1

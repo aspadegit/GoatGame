@@ -1,0 +1,9 @@
+{
+    "Name": ["Shopkeep", "-"],
+    "Text": ["Interested in my wares, are you?",
+            "<choice>"
+    ],
+    "SignalName": "ShowYesNo",
+    "SignalParam": ["<emit>ShowShopMenu</emit>", "Come back soon."]
+
+}

@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://cjsp1aaqu14ge"]
+[gd_scene load_steps=11 format=3 uid="uid://cjsp1aaqu14ge"]
 
 [ext_resource type="Theme" uid="uid://cjxixwomxbsma" path="res://Assets/Themes/RowButtonTheme.tres" id="1_vo6l2"]
 [ext_resource type="Script" path="res://Assets/Scripts/UI/ShopRow.cs" id="1_vvas0"]
 [ext_resource type="Texture2D" uid="uid://dhl4osfa8k8cw" path="res://icon.svg" id="2_ylhvm"]
 [ext_resource type="FontFile" uid="uid://b40px0i27n7ll" path="res://Assets/Fonts/NicoClean-Regular.ttf" id="3_7faow"]
 [ext_resource type="Texture2D" uid="uid://budxrvmespxp7" path="res://Assets/Sprites/Items/Shop/GoldCoin.png" id="4_1stog"]
+[ext_resource type="PackedScene" uid="uid://bpoh5us2d7gcs" path="res://Scenes/UI/UiSfxPlayer.tscn" id="4_nlm26"]
 [ext_resource type="Texture2D" uid="uid://dpmsr41t5737i" path="res://Assets/Sprites/UIpackSheet_transparent.png" id="4_w7e6p"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bosx1"]
@@ -40,10 +41,17 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
 
 [node name="RowButton" type="Button" parent="MainMargin"]
 layout_mode = 2
 theme = ExtResource("1_vo6l2")
+
+[node name="UiSfxPlayer" parent="MainMargin/RowButton" instance=ExtResource("4_nlm26")]
+layout_mode = 1
 
 [node name="Row" type="VBoxContainer" parent="MainMargin"]
 layout_mode = 2
@@ -81,7 +89,6 @@ autowrap_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MainMargin/Row/MarginContainer/MainHBox"]
 layout_mode = 2
-size_flags_horizontal = 3
 
 [node name="LeftArrow" type="TextureButton" parent="MainMargin/Row/MarginContainer/MainHBox/HBoxContainer"]
 modulate = Color(0, 0, 0, 0.443137)
@@ -105,6 +112,12 @@ custom_minimum_size = Vector2(15, 0)
 layout_mode = 2
 texture_normal = SubResource("AtlasTexture_5w1ct")
 stretch_mode = 5
+
+[node name="Panel" type="Panel" parent="MainMargin/Row/MarginContainer/MainHBox"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
 
 [node name="Coin" type="TextureRect" parent="MainMargin/Row/MarginContainer/MainHBox"]
 custom_minimum_size = Vector2(20, 0)

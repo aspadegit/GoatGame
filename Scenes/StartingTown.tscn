@@ -21,9 +21,15 @@ dialoguePath = "StartingTown/farmer.json"
 
 [node name="GoatNPC" parent="." instance=ExtResource("2_u4s06")]
 z_index = 2
-position = Vector2(569, 116)
+position = Vector2(427, 216)
 scale = Vector2(-1, 1)
 dialoguePath = "test.json"
+
+[node name="ShopNPC" parent="." instance=ExtResource("2_u4s06")]
+z_index = 2
+position = Vector2(534, 111)
+scale = Vector2(-1, 1)
+dialoguePath = "StartingTown/shopkeep.json"
 
 [node name="BuildNPC" parent="." instance=ExtResource("2_u4s06")]
 position = Vector2(713, 138)
