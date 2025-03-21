@@ -52,6 +52,11 @@ public partial class SignalHandler : Node
 	[Signal]
 	public delegate void SettingsChangedEventHandler();
 
+
+	// emitted when there is a change in TextEntry.cs (for example, when the amount entered in the shop menu changes)
+	[Signal]
+	public delegate void TextInputChangedEventHandler(TextEntry entry);
+
 	public override void _Ready() {
 		Instance = this;
 	}

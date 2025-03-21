@@ -7,6 +7,9 @@ public partial class ShopRow : RowScript
 	[Export]
 	Texture2D temp; //TODO: DELETE ME
 
+	[Export]
+	public TextEntry textEntry;
+
 	public string type;
 	public string name;
 	public int ID;
@@ -48,7 +51,7 @@ public partial class ShopRow : RowScript
 		{
 			//just makes sure it shows up in x00 format
 			amount = (amt < 10)? ("0" + amt) : amt.ToString();
-			
+			amount = "(owned: x" + amount + ")";
 		}
 
 		base.Setup(new string[]{name,amount}, tex);	
@@ -76,8 +79,13 @@ public partial class ShopRow : RowScript
 
 	private void ClickRow()
 	{
-		//TODO: items can be used when clicked
+		//TODO: focus on text entry / controller inputs
 		GD.Print("clicked");
+	}
+
+	private void LeftArrow()
+	{
+		
 	}
 
 	private void HoverRow()

@@ -21,7 +21,7 @@ region = Rect2(382, 434, 8, 12)
 atlas = ExtResource("4_1stog")
 region = Rect2(4, 4, 6, 6)
 
-[node name="ShopRow" type="Control" node_paths=PackedStringArray("labels", "images")]
+[node name="ShopRow" type="Control" node_paths=PackedStringArray("textEntry", "labels", "images")]
 custom_minimum_size = Vector2(0, 70)
 layout_mode = 3
 anchors_preset = 10
@@ -29,7 +29,8 @@ anchor_right = 1.0
 grow_horizontal = 2
 script = ExtResource("1_vvas0")
 temp = ExtResource("2_ylhvm")
-labels = [NodePath("MainMargin/Row/MarginContainer/MainHBox/Name"), NodePath("MainMargin/Row/MarginContainer/MainHBox/HBoxContainer/TextEntry/TextureButton/HBoxContainer2/HBoxContainer/InnerText")]
+textEntry = NodePath("MainMargin/Row/MarginContainer/MainHBox/AmountHBox/TextEntry")
+labels = [NodePath("MainMargin/Row/MarginContainer/MainHBox/Name"), NodePath("MainMargin/Row/MarginContainer/MainHBox/Owned")]
 images = [NodePath("MainMargin/Row/MarginContainer/MainHBox/Image")]
 buttons = {
 "RowButton": NodePath("MainMargin/RowButton")
@@ -80,7 +81,7 @@ expand_mode = 3
 stretch_mode = 5
 
 [node name="Name" type="Label" parent="MainMargin/Row/MarginContainer/MainHBox"]
-custom_minimum_size = Vector2(50, 0)
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("1_vo6l2")
@@ -88,39 +89,48 @@ theme_override_fonts/font = ExtResource("3_7faow")
 text = "Shop Listing Name"
 autowrap_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MainMargin/Row/MarginContainer/MainHBox"]
+[node name="Panel" type="Panel" parent="MainMargin/Row/MarginContainer/MainHBox"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="AmountHBox" type="HBoxContainer" parent="MainMargin/Row/MarginContainer/MainHBox"]
 layout_mode = 2
 
-[node name="LeftArrow" type="TextureButton" parent="MainMargin/Row/MarginContainer/MainHBox/HBoxContainer"]
+[node name="LeftArrow" type="TextureButton" parent="MainMargin/Row/MarginContainer/MainHBox/AmountHBox"]
 modulate = Color(0, 0, 0, 0.443137)
 custom_minimum_size = Vector2(15, 0)
 layout_mode = 2
 texture_normal = SubResource("AtlasTexture_bosx1")
 stretch_mode = 5
 
-[node name="TextEntry" parent="MainMargin/Row/MarginContainer/MainHBox/HBoxContainer" instance=ExtResource("7_rruy2")]
+[node name="TextEntry" parent="MainMargin/Row/MarginContainer/MainHBox/AmountHBox" instance=ExtResource("7_rruy2")]
 layout_mode = 2
 lettersAllowed = false
 lengthLimit = 2
 
-[node name="Prefix" parent="MainMargin/Row/MarginContainer/MainHBox/HBoxContainer/TextEntry/TextureButton/HBoxContainer2" index="0"]
+[node name="Prefix" parent="MainMargin/Row/MarginContainer/MainHBox/AmountHBox/TextEntry/HBoxContainer2" index="0"]
 visible = true
 
-[node name="InnerText" parent="MainMargin/Row/MarginContainer/MainHBox/HBoxContainer/TextEntry/TextureButton/HBoxContainer2/HBoxContainer" index="0"]
+[node name="InnerText" parent="MainMargin/Row/MarginContainer/MainHBox/AmountHBox/TextEntry/HBoxContainer2/HBoxContainer" index="0"]
 text = "00"
 
-[node name="RightArrow" type="TextureButton" parent="MainMargin/Row/MarginContainer/MainHBox/HBoxContainer"]
+[node name="RightArrow" type="TextureButton" parent="MainMargin/Row/MarginContainer/MainHBox/AmountHBox"]
 modulate = Color(0, 0, 0, 0.443137)
 custom_minimum_size = Vector2(15, 0)
 layout_mode = 2
 texture_normal = SubResource("AtlasTexture_5w1ct")
 stretch_mode = 5
 
-[node name="Panel" type="Panel" parent="MainMargin/Row/MarginContainer/MainHBox"]
-modulate = Color(1, 1, 1, 0)
+[node name="Owned" type="Label" parent="MainMargin/Row/MarginContainer/MainHBox"]
+self_modulate = Color(1, 1, 1, 0.466667)
+custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
-size_flags_horizontal = 3
-mouse_filter = 2
+theme = ExtResource("1_vo6l2")
+theme_override_fonts/font = ExtResource("3_7faow")
+text = "(owned: x00)"
+autowrap_mode = 2
 
 [node name="Coin" type="TextureRect" parent="MainMargin/Row/MarginContainer/MainHBox"]
 custom_minimum_size = Vector2(20, 0)
@@ -138,4 +148,7 @@ text = "000"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[editable path="MainMargin/Row/MarginContainer/MainHBox/HBoxContainer/TextEntry"]
+[connection signal="pressed" from="MainMargin/Row/MarginContainer/MainHBox/AmountHBox/LeftArrow" to="MainMargin/Row/MarginContainer/MainHBox/AmountHBox/TextEntry" method="Decrease"]
+[connection signal="pressed" from="MainMargin/Row/MarginContainer/MainHBox/AmountHBox/RightArrow" to="MainMargin/Row/MarginContainer/MainHBox/AmountHBox/TextEntry" method="Increase"]
+
+[editable path="MainMargin/Row/MarginContainer/MainHBox/AmountHBox/TextEntry"]

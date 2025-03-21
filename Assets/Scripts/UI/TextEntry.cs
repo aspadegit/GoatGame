@@ -5,6 +5,7 @@ public partial class TextEntry : Control
 {
 
 	private Timer timer;
+	private TextureButton keyboardFocus;
 	
 	[Export]
 	public Label innerText;
@@ -28,6 +29,7 @@ public partial class TextEntry : Control
 	public override void _Ready()
 	{
 		timer = GetNode<Timer>("BlinkTimer");
+		keyboardFocus = GetNode<TextureButton>("KeyboardFocus");
 	}
 
 	public override void _Process(double delta)
@@ -39,9 +41,13 @@ public partial class TextEntry : Control
 			{
 				EndFocus();
 			}
+			else
+			{
+				OnClick();
+			}
 		}
 
-		if(Input.IsActionPressed("escape"))
+		if(Input.IsActionPressed("escape") || Input.IsActionPressed("ui_text_submit"))
 		{
 			EndFocus();
 		}
@@ -61,6 +67,7 @@ public partial class TextEntry : Control
 				{
 					innerText.Text = text.Substr(0, text.Length-1);
 				}
+				SignalHandler.Instance.EmitSignal(SignalHandler.SignalName.TextInputChanged, this);
 			}
 			// not backspace, so we're adding characters
 			else if(text.Length < lengthLimit)
@@ -69,12 +76,16 @@ public partial class TextEntry : Control
 				if(lettersAllowed && keyEvent.KeyLabel.ToString() == "Space")
 				{
 					innerText.Text = text + " ";
+					
 				}
 				// normal letters & digits
 				else
 				{
 					CheckCharacter(keyEvent, text);
 				}
+
+				SignalHandler.Instance.EmitSignal(SignalHandler.SignalName.TextInputChanged, this);
+
 			}
 				
 			
@@ -86,6 +97,7 @@ public partial class TextEntry : Control
 		clickedFocus = true;
 		blinkLabel.Show();
 		timer.Start();
+		keyboardFocus.CallDeferred("grab_focus");
 		Blink();
 	}
 
@@ -111,6 +123,40 @@ public partial class TextEntry : Control
 	public void OnTimeout()
 	{
 		Blink();
+	}
+
+	// connected from a parent that has increase & decrease buttons
+	public void Increase()
+	{
+		ChangeNumberValue(1);
+	}
+
+	public void Decrease()
+	{
+		ChangeNumberValue(-1);
+	}
+
+	private void ChangeNumberValue(int multiplier)
+	{
+		if(!lettersAllowed && numbersAllowed)
+		{
+			int parsedNum;
+			if(Int32.TryParse(innerText.Text, out parsedNum))
+			{
+				parsedNum += 1 * multiplier;
+
+				parsedNum = Math.Clamp(parsedNum, 0, 99);
+
+				string amount = (parsedNum < 10)? ("0" + parsedNum) : parsedNum.ToString();
+
+				innerText.Text = amount;
+			}
+			else
+			{
+				GD.PrintErr("Integer could not be parsed in ChangeNumberValue in TextEntry.cs.");
+			}
+
+		}
 	}
 
 	private void Blink()

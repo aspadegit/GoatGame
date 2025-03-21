@@ -24,6 +24,7 @@ public partial class ShopMenu : Control
 	public override void _Ready()
 	{
 		SignalHandler.Instance.Connect(SignalHandler.SignalName.ShowShopMenu, Callable.From(()=> OnShow()), (uint)ConnectFlags.Deferred);
+		SignalHandler.Instance.Connect(SignalHandler.SignalName.TextInputChanged, Callable.From((TextEntry t)=> OnRowValueChange(t)), (uint)ConnectFlags.Deferred);
 
 		InstantiateRows();
 
@@ -32,6 +33,11 @@ public partial class ShopMenu : Control
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+	}
+
+	private void OnRowValueChange(TextEntry textEntry)
+	{
+		GD.Print(textEntry.innerText.Text);
 	}
 
 	private void OnShow()
