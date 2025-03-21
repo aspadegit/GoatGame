@@ -33,5 +33,4 @@ visible = false
 visible = false
 
 [node name="ShopMenu" parent="CanvasLayer" instance=ExtResource("8_8saek")]
-visible = false
 materials = Array[String](["Logs", "Wheat", "Rocks"])

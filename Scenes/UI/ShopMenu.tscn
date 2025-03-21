@@ -382,8 +382,9 @@ text = "YES"
 layout_mode = 1
 click = ExtResource("12_hjd1l")
 
-[node name="FocusGrabber" parent="ConfirmationMargin/BigMargin/InnerMargin/MainVBox/ButtonHBox/Yes" instance=ExtResource("13_x2ohu")]
+[node name="FocusGrabber" parent="ConfirmationMargin/BigMargin/InnerMargin/MainVBox/ButtonHBox/Yes" node_paths=PackedStringArray("visibilityWatch") instance=ExtResource("13_x2ohu")]
 layout_mode = 1
+visibilityWatch = NodePath("../../../../../..")
 
 [node name="Gap" type="Panel" parent="ConfirmationMargin/BigMargin/InnerMargin/MainVBox/ButtonHBox"]
 self_modulate = Color(1, 1, 1, 0)

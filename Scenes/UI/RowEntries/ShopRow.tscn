@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cjsp1aaqu14ge"]
+[gd_scene load_steps=12 format=3 uid="uid://cjsp1aaqu14ge"]
 
 [ext_resource type="Theme" uid="uid://cjxixwomxbsma" path="res://Assets/Themes/RowButtonTheme.tres" id="1_vo6l2"]
 [ext_resource type="Script" path="res://Assets/Scripts/UI/ShopRow.cs" id="1_vvas0"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://budxrvmespxp7" path="res://Assets/Sprites/Items/Shop/GoldCoin.png" id="4_1stog"]
 [ext_resource type="PackedScene" uid="uid://bpoh5us2d7gcs" path="res://Scenes/UI/UiSfxPlayer.tscn" id="4_nlm26"]
 [ext_resource type="Texture2D" uid="uid://dpmsr41t5737i" path="res://Assets/Sprites/UIpackSheet_transparent.png" id="4_w7e6p"]
+[ext_resource type="PackedScene" uid="uid://brckb1s2nk62f" path="res://Scenes/UI/TextEntry.tscn" id="7_rruy2"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bosx1"]
 atlas = ExtResource("4_w7e6p")
@@ -28,7 +29,7 @@ anchor_right = 1.0
 grow_horizontal = 2
 script = ExtResource("1_vvas0")
 temp = ExtResource("2_ylhvm")
-labels = [NodePath("MainMargin/Row/MarginContainer/MainHBox/Name"), NodePath("MainMargin/Row/MarginContainer/MainHBox/HBoxContainer/Amount")]
+labels = [NodePath("MainMargin/Row/MarginContainer/MainHBox/Name"), NodePath("MainMargin/Row/MarginContainer/MainHBox/HBoxContainer/TextEntry/TextureButton/HBoxContainer2/HBoxContainer/InnerText")]
 images = [NodePath("MainMargin/Row/MarginContainer/MainHBox/Image")]
 buttons = {
 "RowButton": NodePath("MainMargin/RowButton")
@@ -97,14 +98,16 @@ layout_mode = 2
 texture_normal = SubResource("AtlasTexture_bosx1")
 stretch_mode = 5
 
-[node name="Amount" type="Label" parent="MainMargin/Row/MarginContainer/MainHBox/HBoxContainer"]
+[node name="TextEntry" parent="MainMargin/Row/MarginContainer/MainHBox/HBoxContainer" instance=ExtResource("7_rruy2")]
 layout_mode = 2
-size_flags_vertical = 1
-theme = ExtResource("1_vo6l2")
-theme_override_fonts/font = ExtResource("3_7faow")
-text = "x00"
-horizontal_alignment = 1
-vertical_alignment = 1
+lettersAllowed = false
+lengthLimit = 2
+
+[node name="Prefix" parent="MainMargin/Row/MarginContainer/MainHBox/HBoxContainer/TextEntry/TextureButton/HBoxContainer2" index="0"]
+visible = true
+
+[node name="InnerText" parent="MainMargin/Row/MarginContainer/MainHBox/HBoxContainer/TextEntry/TextureButton/HBoxContainer2/HBoxContainer" index="0"]
+text = "00"
 
 [node name="RightArrow" type="TextureButton" parent="MainMargin/Row/MarginContainer/MainHBox/HBoxContainer"]
 modulate = Color(0, 0, 0, 0.443137)
@@ -134,3 +137,5 @@ theme_override_fonts/font = ExtResource("3_7faow")
 text = "000"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[editable path="MainMargin/Row/MarginContainer/MainHBox/HBoxContainer/TextEntry"]

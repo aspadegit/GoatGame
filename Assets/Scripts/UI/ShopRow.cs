@@ -48,7 +48,7 @@ public partial class ShopRow : RowScript
 		{
 			//just makes sure it shows up in x00 format
 			amount = (amt < 10)? ("0" + amt) : amt.ToString();
-			amount = "x" + amount;
+			
 		}
 
 		base.Setup(new string[]{name,amount}, tex);	
