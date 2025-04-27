@@ -88,9 +88,9 @@ public partial class GlobalVars : Node
 
 			//load with the texture only if successful
 			if(loadedTex != null)
-				m = new Material((string)material["name"], (int)material["id"], (string)material["description"], (string)material["type"], loadedTex as Texture2D);
+				m = new Material((string)material["name"], (int)material["id"], (string)material["description"], (string)material["type"], loadedTex as Texture2D, (int)material["value"]);
 			else
-				 m = new Material((string)material["name"], (int)material["id"], (string)material["description"], (string)material["type"]);
+				 m = new Material((string)material["name"], (int)material["id"], (string)material["description"], (string)material["type"], (int)material["value"]);
 			
 			materials.Add(m.Name, m);
 		}

@@ -21,6 +21,9 @@ public partial class TextEntry : Control
 	[Export]
 	public int lengthLimit;
 
+	[Export]
+	public Node rowParent; // optional, currently used for ShopRow
+
 	private bool isHover = false;
 	private bool clickedFocus = false;
 	private bool blinkState = false;
@@ -141,7 +144,11 @@ public partial class TextEntry : Control
 		if(!lettersAllowed && numbersAllowed)
 		{
 			int parsedNum;
-			if(Int32.TryParse(innerText.Text, out parsedNum))
+			if(innerText.Text.Length < 1)
+			{
+				innerText.Text = "00";
+			}
+			else if(Int32.TryParse(innerText.Text, out parsedNum))
 			{
 				parsedNum += 1 * multiplier;
 
@@ -150,6 +157,9 @@ public partial class TextEntry : Control
 				string amount = (parsedNum < 10)? ("0" + parsedNum) : parsedNum.ToString();
 
 				innerText.Text = amount;
+
+				SignalHandler.Instance.EmitSignal(SignalHandler.SignalName.TextInputChanged, this);
+
 			}
 			else
 			{
@@ -199,6 +209,9 @@ public partial class TextEntry : Control
 
 	private void EndFocus()
 	{
+		if(clickedFocus)
+			ChangeNumberValue(0); // reformat if it's only numbers allowed (already checks in the func)
+
 		timer.Stop();
 		blinkLabel.Hide();
 		// turn off the | if it's on

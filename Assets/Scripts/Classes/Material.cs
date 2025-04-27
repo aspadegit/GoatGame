@@ -7,6 +7,8 @@ public class Material : ISortable
     public string Description {get; set;}
     public string Type {get; set;}
     public Texture2D Texture {get;set;}
+
+    public int Value {get;set;}
     
     public Material()
     {
@@ -14,20 +16,22 @@ public class Material : ISortable
        ID = -1;
     }
 
-    public Material(string Name, int ID, string Description, string Type)
+    public Material(string Name, int ID, string Description, string Type, int Value)
     {
         this.Name = Name;
         this.ID = ID;
         this.Description = Description;
         this.Type = Type;
+        this.Value = Value;
     }
-    public Material(string Name, int ID, string Description, string Type, Texture2D Texture)
+    public Material(string Name, int ID, string Description, string Type, Texture2D Texture, int Value)
     {
         this.Name = Name;
         this.ID = ID;
         this.Description = Description;
         this.Type = Type;
         this.Texture = Texture;
+        this.Value = Value;
     }
 
     public override string ToString()

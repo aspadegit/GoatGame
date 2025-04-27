@@ -13,10 +13,11 @@ public partial class ShopRow : RowScript
 	public string type;
 	public string name;
 	public int ID;
-
     private int currentAmt;
+	public int cost;
 
-    //TODO: SET COST
+	public string hash;
+
 	public void Setup(string name, string type, int ID)
 	{
 		this.type = type;
@@ -24,6 +25,9 @@ public partial class ShopRow : RowScript
 		this.name = name;
 		string amount = "";
 		int amt = -1;
+		cost = -1;
+
+		hash = name+ID;
 
 		Texture2D[] tex = new Texture2D[]{temp};
 		
@@ -35,12 +39,16 @@ public partial class ShopRow : RowScript
 			case "material":
 				amt = GlobalVars.materialsObtained.ContainsKey(name) ? GlobalVars.materialsObtained[name] : 0; 
 				tex = new Texture2D[]{GlobalVars.materials[name].Texture};
+				cost = GlobalVars.materials[name].Value;
 				break;
 			case "machine":
 				amt = GlobalVars.machineInventory.ContainsKey(ID) ? GlobalVars.machineInventory[ID] : 0; 
+				cost = GlobalVars.machines[ID].Value;
 				break;
 			case "item":
 				amt = GlobalVars.itemInventory.ContainsKey(name) ? GlobalVars.itemInventory[name] : 0; 
+				cost = GlobalVars.items[name].Value;
+
 				break;
 		}
 
@@ -54,7 +62,7 @@ public partial class ShopRow : RowScript
 			amount = "(owned: x" + amount + ")";
 		}
 
-		base.Setup(new string[]{name,amount}, tex);	
+		base.Setup(new string[]{name,amount, cost.ToString()}, tex);	
 
 	}
 
@@ -94,4 +102,7 @@ public partial class ShopRow : RowScript
 		//SignalHandler.Instance.EmitSignal(SignalHandler.SignalName.OnInventoryHover, this);
 
 	}
+
+
+
 }
