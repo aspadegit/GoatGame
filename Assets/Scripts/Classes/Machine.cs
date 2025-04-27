@@ -15,6 +15,8 @@ public class Machine : ISortable
 	public Recipe CraftingRecipe {get; private set;}
 	public int[] TextureCoords {get; set;}	//x,y,w,h (check the atlas coords for what image a tower should show; currently unused)
 
+	public int Value { get; set;} // buy price
+
 	public int[] Size {get;set;} // x, y
 	public Machine()
 	{
@@ -37,6 +39,9 @@ public class Machine : ISortable
 		this.CraftingRecipe = CraftingRecipe;
 		this.TextureCoords = TextureCoords;
 		this.Size = Size;
+		
+		// calculate the buy price, TODO: adjust for scaling purposes later
+		Value = CraftingRecipe.Value * Level * 2;
 	}
 
 	public override string ToString()

@@ -30,7 +30,7 @@ grow_horizontal = 2
 script = ExtResource("1_vvas0")
 temp = ExtResource("2_ylhvm")
 textEntry = NodePath("MainMargin/Row/MarginContainer/MainHBox/AmountHBox/TextEntry")
-labels = [NodePath("MainMargin/Row/MarginContainer/MainHBox/Name"), NodePath("MainMargin/Row/MarginContainer/MainHBox/Owned")]
+labels = [NodePath("MainMargin/Row/MarginContainer/MainHBox/Name"), NodePath("MainMargin/Row/MarginContainer/MainHBox/Owned"), NodePath("MainMargin/Row/MarginContainer/MainHBox/Cost")]
 images = [NodePath("MainMargin/Row/MarginContainer/MainHBox/Image")]
 buttons = {
 "RowButton": NodePath("MainMargin/RowButton")

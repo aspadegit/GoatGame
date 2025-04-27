@@ -4,7 +4,7 @@
             "id": 0,
             "name": "Magic Scroll",
             "description": "Allows a goat to change their class.",
-            "value": 10,
+            "value": 300,
             "sellValue": 5,
             "stats": [
                 {
@@ -18,7 +18,7 @@
             "id": 1,
             "name": "XP Potion",
             "description": "A potion that increases experience gained from TD areas(?? by 50%.",
-            "value": 10,
+            "value": 400,
             "sellValue": 5,
             "stats": [
                 {
@@ -32,7 +32,7 @@
             "id": 2,
             "name": "Hearty Elixir",
             "description": "An elixir that restores 50 stamina points.",
-            "value": 10,
+            "value": 200,
             "sellValue": 5,
             "stats": [
                 {
@@ -46,7 +46,7 @@
             "id": 3,
             "name": "Hearty Crystal",
             "description": "A crystal that permanently increases maximum stamina by 10 points.",
-            "value": 10,
+            "value": 500,
             "sellValue": 5,
             "stats": [
                 {
@@ -60,7 +60,7 @@
             "id": 4,
             "name": "Skill Crystal",
             "description": "A crystal that permanently increases a random stat by 5 points.",
-            "value": 10,
+            "value": 500,
             "sellValue": 5,
             "stats": [
                 {
