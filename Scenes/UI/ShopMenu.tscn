@@ -59,7 +59,7 @@ region = Rect2(55, 109, 14, 14)
 atlas = ExtResource("6_ky0ki")
 region = Rect2(4, 4, 6, 6)
 
-[node name="ShopMenu" type="Control" node_paths=PackedStringArray("rowVboxContainer")]
+[node name="ShopMenu" type="Control" node_paths=PackedStringArray("rowVboxContainer", "runningCostLabel")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -71,6 +71,7 @@ items = Array[String](["Magic Scroll", "XP Potion"])
 towers = Array[int]([0, 1])
 shopRow = ExtResource("2_3ud5c")
 rowVboxContainer = NodePath("MainMargin/VBoxContainer/BuyMargin/MainVbox/MainHBox/ListMargin/ScrollList/ScrollVBox")
+runningCostLabel = NodePath("MainMargin/VBoxContainer/BuyMargin/MainVbox/BottomMargin/HBoxContainer/RunningCost")
 
 [node name="MainMargin" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -279,7 +280,7 @@ texture = SubResource("AtlasTexture_u50al")
 expand_mode = 5
 stretch_mode = 5
 
-[node name="Cost" type="Label" parent="MainMargin/VBoxContainer/BuyMargin/MainVbox/BottomMargin/HBoxContainer"]
+[node name="RunningCost" type="Label" parent="MainMargin/VBoxContainer/BuyMargin/MainVbox/BottomMargin/HBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 1
 theme = ExtResource("7_gofq4")

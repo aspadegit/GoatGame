@@ -105,10 +105,11 @@ layout_mode = 2
 texture_normal = SubResource("AtlasTexture_bosx1")
 stretch_mode = 5
 
-[node name="TextEntry" parent="MainMargin/Row/MarginContainer/MainHBox/AmountHBox" instance=ExtResource("7_rruy2")]
+[node name="TextEntry" parent="MainMargin/Row/MarginContainer/MainHBox/AmountHBox" node_paths=PackedStringArray("rowParent") instance=ExtResource("7_rruy2")]
 layout_mode = 2
 lettersAllowed = false
 lengthLimit = 2
+rowParent = NodePath("../../../../../..")
 
 [node name="Prefix" parent="MainMargin/Row/MarginContainer/MainHBox/AmountHBox/TextEntry/HBoxContainer2" index="0"]
 visible = true

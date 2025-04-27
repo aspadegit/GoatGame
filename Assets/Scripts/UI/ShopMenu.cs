@@ -20,9 +20,17 @@ public partial class ShopMenu : Control
 	[Export]
 	VBoxContainer rowVboxContainer;
 
+	[Export]
+	Label runningCostLabel;
+
+	Dictionary<string, int> currentAmt; // ShopRow.hash, howManyAreCurrentlySelected
+	int runningCost = 0;
+
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		currentAmt = new Dictionary<string, int>();
 		SignalHandler.Instance.Connect(SignalHandler.SignalName.ShowShopMenu, Callable.From(()=> OnShow()), (uint)ConnectFlags.Deferred);
 		SignalHandler.Instance.Connect(SignalHandler.SignalName.TextInputChanged, Callable.From((TextEntry t)=> OnRowValueChange(t)), (uint)ConnectFlags.Deferred);
 
@@ -37,8 +45,64 @@ public partial class ShopMenu : Control
 
 	private void OnRowValueChange(TextEntry textEntry)
 	{
-		GD.Print(textEntry.innerText.Text);
+		
+		ShopRow row = textEntry.rowParent as ShopRow;
+		// make sure the TextEntry's parent is specifically a ShopRow
+		if(row != null)
+		{
+			string textAmt = textEntry.innerText.Text;
+			int amt = -1;
+			
+			// ignore, no length means the user is probably typing it in
+			if(textAmt.Length < 1)
+				return;
+
+			//parse the ShopRow's text entry into a number & update running cost
+			if(Int32.TryParse(textAmt, out amt))
+			{
+				// remove what was already added to running cost
+				if(currentAmt.ContainsKey(row.hash) && currentAmt[row.hash] > 0)
+				{
+					int currentStoredCost = currentAmt[row.hash] * row.cost;
+					runningCost -= currentStoredCost;
+				}
+
+				// calc new cost
+				int totalCost = amt * row.cost;
+				runningCost += totalCost;
+
+				currentAmt[row.hash] = amt; // update dictionary
+				UpdateRunningCost();
+
+			}
+			// text entry's value isnt an integer
+			else
+			{
+				GD.PrintErr("ShopMenu.cs: Failed to parse TextEntry's value of " + textAmt + " into an Int32");
+			}
+			
+		}
+		// text entry isnt a shop row
+		else
+		{
+			GD.PrintErr("ShopMenu.cs: OnRowValueChanged: textEntry's rowParent is null");
+		}
+
 	}
+
+
+	private void UpdateRunningCost()
+	{
+		if(runningCost == 0)
+		{
+			runningCostLabel.Text = "000";
+		}
+		else
+		{
+			runningCostLabel.Text = runningCost.ToString();
+
+		}
+	}	
 
 	private void OnShow()
 	{
